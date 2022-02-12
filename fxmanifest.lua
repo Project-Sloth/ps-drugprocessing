@@ -1,6 +1,12 @@
-resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
+fx_version 'cerulean'
 
-description 'QB Drug Trafficing'
+games      { 'gta5' }
+
+lua54 'yes'
+
+description 'QB Drug Trafficing by Project Sloth'
+
+this_is_a_map 'yes'
 
 version '1.0.0'
 
@@ -14,6 +20,7 @@ server_scripts {
 	'server/heroin.lua',
 	'server/chemicals.lua',
 	'server/lisenceshop.lua',
+	'server/moneywash.lua',
 }
 
 client_scripts {
@@ -28,4 +35,7 @@ client_scripts {
 	'client/hydrochloricacid.lua',
 	'client/sodiumhydroxide.lua',
 	'client/sulfuricacid.lua',
+	'client/lisenceshop.lua',
+	'client/moneywash.lua',
+	'client/gui.lua',
 }
