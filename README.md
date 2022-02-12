@@ -48,6 +48,110 @@ QBCore.Functions.DeleteObject = function(object)
 	DeleteObject(object)
 end
 ```
+# Add to qb-target
+
+```
+Config.TargetModels = {
+    ["cokeplant"] = {
+        models = {
+            "mw_coke_plant",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:coke",
+                icon = "fas fa-leaf",
+                label = "Pickup Coke Leafs",
+            },
+        },
+        distance = 4.0
+    },
+	["heroinplant"] = {
+        models = {
+            "mw_heroin_plant",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:heorin",
+                icon = "fas fa-seedling",
+                label = "Pickup Poppy Plants",
+            },
+        },
+        distance = 4.0
+    },
+	["weedplant"] = {
+        models = {
+            "mw_weed_plant",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:weed",
+                icon = "fas fa-envira",
+                label = "Pickup Weed Leafs",
+            },
+        },
+        distance = 4.0
+    },
+	["hydrobarrel"] = {
+        models = {
+            "mw_hydro_barrel",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:hydro",
+                icon = "fas fa-biohazard",
+                label = "Pickup Hydro Barrel",
+            },
+        },
+        distance = 4.0
+    },
+	["sodiumbarrel"] = {
+        models = {
+            "mw_sodium_barrel",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:sodium",
+                icon = "fas fa-dna",
+                label = "Pickup Sodium Barrel",
+            },
+        },
+        distance = 4.0
+    },
+	["sulfuricbarrel"] = {
+        models = {
+            "mw_sulfuric_barrel",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:client:sulfuric",
+                icon = "fas fa-shield-virus",
+                label = "Pickup Sulfuric Barrel",
+            },
+        },
+        distance = 4.0
+    },
+	["chemicalbarrel"] = {
+        models = {
+            "mw_chemical_barrel",
+        },
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:chemicals",
+                icon = "fas fa-radiation",
+                label = "Pickup Chem Barrels",
+            },
+        },
+        distance = 4.0
+    },
+}
+```
 
 # Helpful Triggers:
 
@@ -58,7 +162,9 @@ end
 * "qb-drugtrafficking:lsa" - Process LSA
 
 
-# Dependecies
+# Dependencies
+* qb-target - https://github.com/BerkieBb/qb-target
+* qb-menu - https://github.com/qbcore-framework/qb-menu
 
 # Original Repo
 https://github.com/DoPeMan17/esx_drugs
