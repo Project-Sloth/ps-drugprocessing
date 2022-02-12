@@ -283,15 +283,9 @@ function process_hydrochloric_acid()
 	isProcessing = false
 end
 
-function closeMenuFull()
-    Menu.hidden = true
-    currentGarage = nil
-    ClearMenu()
-end
 
 RegisterNetEvent("qb-drugtrafficking:chemicals")
 AddEventHandler("qb-drugtrafficking:chemicals", function()
-	--while true do
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -304,12 +298,6 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 		end
 
 		if nearbyObject and IsPedOnFoot(playerPed) then
-
-			--[[ if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pickup chemicals', 0.5)
-			end ]]
-
-			--if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -332,11 +320,9 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 				end)
 
 				isPickingUp = false
-			--end
 		else
 			Citizen.Wait(500)
 		end
-	--end
 end)
 
 function SpawnChemicals()
