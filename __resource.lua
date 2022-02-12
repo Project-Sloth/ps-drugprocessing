@@ -14,7 +14,6 @@ server_scripts {
 	'server/heroin.lua',
 	'server/chemicals.lua',
 	'server/lisenceshop.lua',
-	'server/moneywash.lua',
 }
 
 client_scripts {
@@ -29,7 +28,4 @@ client_scripts {
 	'client/hydrochloricacid.lua',
 	'client/sodiumhydroxide.lua',
 	'client/sulfuricacid.lua',
-	'client/lisenceshop.lua',
-	'client/moneywash.lua',
-	'client/gui.lua',
 }
