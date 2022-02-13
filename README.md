@@ -168,7 +168,7 @@ Config.BoxZones = {
 			event = "qb-drugtrafficking:chemicalmenu",
 			icon = "fas fa-vials",
 			label = "Learn a New Chemical Compound",
-			--job = "pawnshop", -- Remove this line if you do not want a job check.
+			--job = "scientist", -- Remove this line if you do not want a job check.
 		    },
 		},
 		distance = 2.5
