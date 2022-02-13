@@ -79,8 +79,8 @@ function ProcessWeed()
 	isProcessing = false
 end
 
-Citizen.CreateThread(function()
-	while true do
+RegisterNetEvent("qb-drugtrafficking:client:weed")
+AddEventHandler("qb-drugtrafficking:client:weed", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -95,10 +95,6 @@ Citizen.CreateThread(function()
 		if nearbyObject and IsPedOnFoot(playerPed) then
 
 			if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pick up the plant', 0.5)
-			end
-
-			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -109,8 +105,7 @@ Citizen.CreateThread(function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					SetEntityAsMissionEntity(nearbyObject, false, true)
-					DeleteObject(nearbyObject)
+					QBCore.Functions.DeleteObject(nearbyObject)
 
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
@@ -126,7 +121,6 @@ Citizen.CreateThread(function()
 		else
 			Citizen.Wait(500)
 		end
-	end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
