@@ -214,25 +214,3 @@ function GetCoordZHeroin(x, y)
 
 	return 12.64
 end
-
-
-
-Citizen.CreateThread(function()
-	exports['qb-target']:AddBoxZone("heroinproc", vector3(1383.38, -2080.67, 52.0), 0.6, 0.8, {
-		name="heroinproc",
-		heading=40.0,
-		debugPoly=false,
-		minZ = 43.6,
-		maxZ = 52.8,
-	  },{
-		options = {
-				{
-				  type = "client",
-				  event = "qb-crafting:opencraftingtable",
-				  icon = "fas fa-syringe",
-				  label = "Process Heroin",
-				},
-			 },
-		distance = 2.5
-		 })
-   end)
