@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do
+RegisterNetEvent("qb-drugtrafficking:client:sodium")
+AddEventHandler("qb-drugtrafficking:client:sodium", function()
 		Citizen.Wait(0)
 		local playerPe3 = PlayerPedId()
 		local coords = GetEntityCoords(playerPe3)
@@ -32,10 +32,6 @@ Citizen.CreateThread(function()
 		if nearbyObject3 and IsPedOnFoot(playerPe3) then
 
 			if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press ~g~[E]~w~ to pickup Sodium Hydroxide', 0.5)
-			end
-
-			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
 
@@ -62,7 +58,6 @@ Citizen.CreateThread(function()
 		else
 			Citizen.Wait(500)
 		end
-	end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
