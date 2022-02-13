@@ -42,7 +42,8 @@ AddEventHandler("qb-drugtrafficking:client:sulfuric", function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(SulfuricAcidBarrels, nearbyID)
 					spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels - 1
@@ -63,7 +64,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(SulfuricAcidBarrels) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -72,14 +74,15 @@ function SpawnSulfuricAcidBarrels()
 	while spawnedSulfuricAcidBarrels < 10 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateSulfuricAcidCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_sulfuric_barrel', weedCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(SulfuricAcidBarrels, obj)
-			spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels + 1
-		end)
+		RequestModel(`mw_sulfuric_barrel`)
+		while not HasModelLoaded(`mw_sulfuric_barrel`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_sulfuric_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(SulfuricAcidBarrels, obj)
+		spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels + 1
 	end
 end
 

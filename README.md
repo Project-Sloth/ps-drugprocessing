@@ -26,28 +26,6 @@
 
 qb-inventory > html > images
 
-# Add to qb-core > client > functions.lua
-```
-QBCore.Functions.SpawnLocalObject = function(model, coords, cb)
-
-	local model = (type(model) == 'number' and model or GetHashKey(model))
-  
-	Citizen.CreateThread(function()
-		RequestModel(model)
-		local obj = CreateObject(model, coords.x, coords.y, coords.z, false, false, true)
-		SetModelAsNoLongerNeeded(model)
-
-		if cb then
-			cb(obj)
-		end
-	end)
-end
-
-QBCore.Functions.DeleteObject = function(object)
-	SetEntityAsMissionEntity(object, false, true)
-	DeleteObject(object)
-end
-```
 # Add to qb-target
 
 ```

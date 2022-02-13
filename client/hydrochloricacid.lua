@@ -42,7 +42,8 @@ AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
 					disableCombat = true,
 				}, {}, {}, {}, function()
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(HydrochloricAcidBarrels, nearbyID)
 					spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
@@ -62,7 +63,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(HydrochloricAcidBarrels) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -71,14 +73,15 @@ function SpawnHydrochloricAcidBarrels()
 	while spawnedHydrochloricAcidBarrels < 5 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateHydrochloricAcidCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_hydro_barrel', weedCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(HydrochloricAcidBarrels, obj)
-			spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels + 1
-		end)
+		RequestModel(`mw_hydro_barrel`)
+		while not HasModelLoaded(`mw_hydro_barrel`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_hydro_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(HydrochloricAcidBarrels, obj)
+		spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels + 1
 	end
 end
 

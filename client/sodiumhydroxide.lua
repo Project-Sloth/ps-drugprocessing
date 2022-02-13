@@ -42,7 +42,8 @@ AddEventHandler("qb-drugtrafficking:client:sodium", function()
 					disableCombat = true,
 				}, {}, {}, {}, function()
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject3)
+					SetEntityAsMissionEntity(nearbyObject3, false, true)
+					DeleteObject(nearbyObject3)
 
 					table.remove(SodiumHydroxideBarrels, nearbyID3)
 					spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
@@ -63,7 +64,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(SodiumHydroxideBarrels) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -72,14 +74,15 @@ function SpawnSodiumHydroxideBarrels()
 	while spawnedSodiumHydroxideBarrels < 10 do
 		Citizen.Wait(0)
 		local weedCoords2 = GenerateSodiumHydroxideCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_sodium_barrel', weedCoords2, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(SodiumHydroxideBarrels, obj)
-			spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels + 1
-		end)
+		RequestModel(`mw_sodium_barrel`)
+		while not HasModelLoaded(`mw_sodium_barrel`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_sodium_barrel`, weedCoords2.x, weedCoords2.y, weedCoords2.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(SodiumHydroxideBarrels, obj)
+		spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels + 1
 	end
 end
 

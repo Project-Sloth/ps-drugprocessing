@@ -109,7 +109,8 @@ Citizen.CreateThread(function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
@@ -131,7 +132,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(weedPlants) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -140,14 +142,15 @@ function SpawnWeedPlants()
 	while spawnedWeeds < 15 do
 		Citizen.Wait(0)
 		local weedCoords = GenerateWeedCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_weed_plant', weedCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(weedPlants, obj)
-			spawnedWeeds = spawnedWeeds + 1
-		end)
+		RequestModel(`mw_weed_plant`)
+		while not HasModelLoaded(`mw_weed_plant`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_weed_plant`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(weedPlants, obj)
+		spawnedWeeds = spawnedWeeds + 1
 	end
 end
 

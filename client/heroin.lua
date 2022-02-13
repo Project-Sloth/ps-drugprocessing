@@ -110,7 +110,8 @@ Citizen.CreateThread(function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(PoppyPlants, nearbyID)
 					spawnedPoppys = spawnedPoppys - 1
@@ -132,7 +133,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(PoppyPlants) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -141,14 +143,15 @@ function SpawnPoppyPlants()
 	while spawnedPoppys < 15 do
 		Citizen.Wait(0)
 		local heroinCoords = GenerateHeroinCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_heroin_plant', heroinCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(PoppyPlants, obj)
-			spawnedPoppys = spawnedPoppys + 1
-		end)
+		RequestModel(`mw_heroin_plant`)
+		while not HasModelLoaded(`mw_heroin_plant`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_heroin_plant`, heroinCoords.x, heroinCoords.y, heroinCoords.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(PoppyPlants, obj)
+		spawnedPoppys = spawnedPoppys + 1
 	end
 end
 

@@ -19,7 +19,8 @@ end)
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(Chemicals) do
-			QBCore.Functions.DeleteObject(v)
+			SetEntityAsMissionEntity(v, false, true)
+			DeleteObject(v)
 		end
 	end
 end)
@@ -309,7 +310,8 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(Chemicals, nearbyID)
 					SpawnedChemicals = SpawnedChemicals - 1
@@ -330,14 +332,15 @@ function SpawnChemicals()
 	while SpawnedChemicals < 10 do
 		Citizen.Wait(0)
 		local chemicalsCoords = GeneratechemicalsCoords()
-
-		QBCore.Functions.SpawnLocalObject('mw_chemical_barrel', chemicalsCoords, function(obj)
-			PlaceObjectOnGroundProperly(obj)
-			FreezeEntityPosition(obj, true)
-
-			table.insert(Chemicals, obj)
-			SpawnedChemicals = SpawnedChemicals + 1
-		end)
+		RequestModel(`mw_chemical_barrel`)
+		while not HasModelLoaded(`mw_chemical_barrel`) do
+			Wait(100)
+		end
+		local obj = CreateObject(`mw_chemical_barrel`, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, true, true, false)
+		PlaceObjectOnGroundProperly(obj)
+		FreezeEntityPosition(obj, true)
+		table.insert(Chemicals, obj)
+		SpawnedChemicals = SpawnedChemicals + 1
 	end
 end
 
