@@ -105,7 +105,8 @@ AddEventHandler("qb-drugtrafficking:client:weed", function()
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
 					ClearPedTasks(PlayerPedId())
-					QBCore.Functions.DeleteObject(nearbyObject)
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
 
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
