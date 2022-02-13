@@ -245,23 +245,3 @@ function RollJoint()
 	end)
 	isProcessing = false
 end
-
-Citizen.CreateThread(function()
-	exports['qb-target']:AddBoxZone("weedproc", vector3(2328.58, 2570.62, 46.68), 1.4, 1.4, {
-		name="weedproc",
-		heading=60.0,
-		debugPoly=false,
-		minZ = 42.88,
-		maxZ = 46.88,
-	  },{
-		options = {
-				{
-				  type = "client",
-				  event = "qb-crafting:opencraftingtable",
-				  icon = "fas fa-seedling",
-				  label = "Process Marijuana",
-				},
-			 },
-		distance = 2.5
-		 })
-   end)
