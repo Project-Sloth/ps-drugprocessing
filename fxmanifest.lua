@@ -12,7 +12,6 @@ version '1.0.0'
 
 server_scripts {
 	'config.lua',
-	'server/main.lua',
 	'server/coke.lua',
 	'server/lsd.lua',
 	'server/meth.lua',
