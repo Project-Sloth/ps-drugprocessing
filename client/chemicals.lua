@@ -1,7 +1,4 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
-local menuOpen = false
-local wasOpen = false
 local SpawnedChemicals = 0
 local Chemicals = {}
 
@@ -27,7 +24,7 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-Citizen.CreateThread(function()
+--[[Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
@@ -46,60 +43,70 @@ Citizen.CreateThread(function()
 			end
 		end
 	end
+end)]]--
+
+-- Chemical Menu Trigger & Menu Button Triggers --
+
+RegisterNetEvent('qb-drugtrafficking:chemicalmenu', function()
+	createChemicalMenu()
+	exports['qb-menu']:openMenu(chemMenu)
 end)
 
-RegisterNetEvent('qb-drugtrafficking:chemicalmenu', function(data)
-    TriggerEvent('qb-drugtrafficking:sendMenu', {
+function createChemicalMenu()
+    chemMenu = {
         {
-            id = 0,
-            header = "Chemical Menu",
-            txt = "",
+            isHeader = true,
+            header = 'Chemical Menu'
         },
         {
-            id = 1,
             header = "Hydrochloric Acid",
             txt = "x1 Chemicals",
-            params = {
-                event = "qb-drugtrafficking:hydrochloric_acid"
+			params = {
+                isServer = false,
+                event = "qb-drugtrafficking:hydrochloric_acid",
             }
         },
         {
-            id = 2,
             header = "Sodium Hydroxide",
             txt = "x1 Chemicals",
-            params = {
-                event = "qb-drugtrafficking:sodium_hydroxide"
-            }
-        },
-		{
-            id = 3,
-            header = "Sulfuric Acid",
-            txt = "x1 Chemicals",
-            params = {
-                event = "qb-drugtrafficking:sulfuric_acid"
-            }
-        },
-		{
-            id = 4,
-            header = "LSA",
-            txt = "x1 Chemicals",
-            params = {
-                event = "qb-drugtrafficking:lsa"
+			params = {
+                isServer = false,
+                event = "qb-drugtrafficking:sodium_hydroxide",
             }
         },
         {
-            id = 5,
-            header = "Close (ESC)",
-            txt = "",
+            header = "Sulfuric Acid",
+            txt = "x1 Chemicals",
+			params = {
+                isServer = false,
+                event = "qb-drugtrafficking:sulfuric_acid",
+            }
         },
-    })
-end)
+        {
+			header = "LSA",
+            txt = "x1 Chemicals",
+			params = {
+                isServer = false,
+                event = "qb-drugtrafficking:lsa",
+            }
+        },
+        {
+            header = "Close Menu",
+			txt = "Close Menu",
+			params = {
+                isServer = false,
+                event = exports['qb-menu']:closeMenu(),
+            }
+        },
+    }
+    exports['qb-menu']:openMenu(chemMenu)
+end
+
+--------------------------------------------------------------------
 
 RegisterNetEvent("qb-drugtrafficking:hydrochloric_acid")
 AddEventHandler("qb-drugtrafficking:hydrochloric_acid", function()
     ped = PlayerPedId();
-    MenuTitle = "Chemicals"
-    ClearMenu()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
 		process_hydrochloric_acid()
@@ -112,8 +119,6 @@ end)
 RegisterNetEvent("qb-drugtrafficking:lsa")
 AddEventHandler("qb-drugtrafficking:lsa", function()
     ped = PlayerPedId();
-    MenuTitle = "Chemicals"
-    ClearMenu()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
 		process_lsa()
@@ -159,8 +164,6 @@ end
 RegisterNetEvent("qb-drugtrafficking:sulfuric_acid")
 AddEventHandler("qb-drugtrafficking:sulfuric_acid", function()
     ped = PlayerPedId();
-    MenuTitle = "Chemicals"
-    ClearMenu()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
 		process_sulfuric_acid()
@@ -173,8 +176,6 @@ end)
 RegisterNetEvent("qb-drugtrafficking:sodium_hydroxide")
 AddEventHandler("qb-drugtrafficking:sodium_hydroxide", function()
     ped = PlayerPedId();
-    MenuTitle = "Chemicals"
-    ClearMenu()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
 		process_sodium_hydroxide()
@@ -283,15 +284,9 @@ function process_hydrochloric_acid()
 	isProcessing = false
 end
 
-function closeMenuFull()
-    Menu.hidden = true
-    currentGarage = nil
-    ClearMenu()
-end
 
 RegisterNetEvent("qb-drugtrafficking:chemicals")
 AddEventHandler("qb-drugtrafficking:chemicals", function()
-	--while true do
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -304,12 +299,6 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 		end
 
 		if nearbyObject and IsPedOnFoot(playerPed) then
-
-			--[[ if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pickup chemicals', 0.5)
-			end ]]
-
-			--if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -332,11 +321,9 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 				end)
 
 				isPickingUp = false
-			--end
 		else
 			Citizen.Wait(500)
 		end
-	--end
 end)
 
 function SpawnChemicals()
