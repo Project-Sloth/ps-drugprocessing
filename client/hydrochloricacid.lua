@@ -17,9 +17,9 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterNetEvent("qb-drugtrafficking:hydrochloricacid")
-AddEventHandler("qb-drugtrafficking:hydrochloricacid", function()
-	--while true do
+RegisterNetEvent("qb-drugtrafficking:client:hydrochloricacid")
+AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
+	
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -32,12 +32,6 @@ AddEventHandler("qb-drugtrafficking:hydrochloricacid", function()
 		end
 
 		if nearbyObject and IsPedOnFoot(playerPed) then
-
-			--[[ if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pickup hydrochloric acid', 0.5)
-			end ]]
-
-			--if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -60,11 +54,9 @@ AddEventHandler("qb-drugtrafficking:hydrochloricacid", function()
 				end)
 
 				isPickingUp = false
-			--end
 		else
 			Citizen.Wait(500)
 		end
-	--end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
