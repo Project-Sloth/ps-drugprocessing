@@ -213,23 +213,3 @@ function GetCoordZCoke(x, y)
 
 	return 77
 end
-
-Citizen.CreateThread(function()
-	exports['qb-target']:AddBoxZone("cokeproc", vector3(-239.55, -1515.75, 33.36), 0.4, 0.6, {
-		name="cokeproc",
-		heading=140.0,
-		debugPoly=false,
-		minZ = 30.16,
-		maxZ = 34.16,
-	  },{
-		options = {
-				{
-				  type = "client",
-				  event = "qb-crafting:opencraftingtable",
-				  icon = "fab fa-envira",
-				  label = "Process Cocaine",
-				},
-			 },
-		distance = 2.5
-		 })
-   end)
