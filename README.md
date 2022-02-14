@@ -1,5 +1,8 @@
 # Project Sloth Advanced Drug Processing
 
+# Meth Preview
+https://streamable.com/0pcjlt
+
 # Add to qb-core > shared.lua
 
 ```
