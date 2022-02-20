@@ -135,7 +135,9 @@ Config.TargetModels = {
         distance = 4.0
     },
 }
+```
 
+```
 Config.BoxZones = {
 	---- ps-drugprocessing options -----
 	["chemmenu"] = {
@@ -238,12 +240,9 @@ Config.BoxZones = {
         },
         distance = 3.5
     },
-
-	-----------------------------------------------------------------------------------
+    
 }
-
 ```
-
 
 # Helpful Triggers:
 
