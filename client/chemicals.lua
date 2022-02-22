@@ -154,9 +154,9 @@ function process_lsa()
 				break
 			end
 		end
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end, function()
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -211,9 +211,9 @@ function process_sulfuric_acid()
 				break
 			end
 		end
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end, function()
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -244,9 +244,9 @@ function process_sodium_hydroxide()
 				break
 			end
 		end
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end, function()
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -277,9 +277,9 @@ function process_hydrochloric_acid()
 				break
 			end
 		end
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end, function()
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -309,7 +309,7 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
-					ClearPedTasks(PlayerPedId())
+					StopAnimTask(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -319,7 +319,7 @@ AddEventHandler("qb-drugtrafficking:chemicals", function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpChemicals')
 
 				end, function()
-					ClearPedTasks(PlayerPedId())
+					StopAnimTask(PlayerPedId())
 				end)
 
 				isPickingUp = false

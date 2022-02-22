@@ -71,9 +71,9 @@ function ProcessCoke()
 				break
 			end
 		end
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end, function()
-		ClearPedTasks(PlayerPedId())
+		StopAnimTask(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
-					ClearPedTasks(PlayerPedId())
+					StopAnimTask(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -118,7 +118,7 @@ Citizen.CreateThread(function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpCocaLeaf')
 
 				end, function()
-					ClearPedTasks(PlayerPedId())
+					StopAnimTask(PlayerPedId())
 				end)
 
 				isPickingUp = false
