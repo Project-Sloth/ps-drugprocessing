@@ -66,9 +66,9 @@ function Processlsd()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -161,9 +161,9 @@ function Processthionylchloride()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 
 	isProcessing = false

@@ -180,9 +180,9 @@ function ProcessChemicals()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -214,9 +214,9 @@ function ProcessTempUp()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 	
 	isTempChangeU = false
@@ -248,9 +248,9 @@ function ProcessTempDown()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 	
 	isTempChangeD = false
@@ -283,9 +283,9 @@ function ProcessProduct()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 	
 	isBagging = false

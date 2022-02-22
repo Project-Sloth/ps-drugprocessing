@@ -41,7 +41,7 @@ AddEventHandler("qb-drugtrafficking:client:sulfuric", function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -51,7 +51,7 @@ AddEventHandler("qb-drugtrafficking:client:sulfuric", function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpSulfuricAcid')
 
 				end, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false

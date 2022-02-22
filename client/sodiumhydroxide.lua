@@ -41,7 +41,7 @@ AddEventHandler("qb-drugtrafficking:client:sodium", function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject3, false, true)
 					DeleteObject(nearbyObject3)
 
@@ -51,7 +51,7 @@ AddEventHandler("qb-drugtrafficking:client:sodium", function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpSodiumHydroxide')
 
 				end, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false

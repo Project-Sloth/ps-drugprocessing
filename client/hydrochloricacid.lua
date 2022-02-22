@@ -41,7 +41,7 @@ AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -51,7 +51,7 @@ AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpHydrochloricAcid')
 
 				end, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false

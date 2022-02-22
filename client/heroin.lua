@@ -72,9 +72,9 @@ function ProcessHeroin()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 
 	isProcessing = false
@@ -109,7 +109,7 @@ Citizen.CreateThread(function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -119,7 +119,7 @@ Citizen.CreateThread(function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpPoppy')
 
 				end, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false
