@@ -72,9 +72,9 @@ function ProcessWeed()
 				break
 			end
 		end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 	isProcessing = false
 end
@@ -104,7 +104,7 @@ AddEventHandler("qb-drugtrafficking:client:weed", function()
 					disableMouse = false,
 					disableCombat = true,
 				}, {}, {}, {}, function() -- Done
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 					SetEntityAsMissionEntity(nearbyObject, false, true)
 					DeleteObject(nearbyObject)
 
@@ -114,7 +114,7 @@ AddEventHandler("qb-drugtrafficking:client:weed", function()
 					TriggerServerEvent('qb-drugtrafficking:pickedUpCannabis')
 
 				end, function()
-					StopAnimTask(PlayerPedId())
+					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false
@@ -240,9 +240,9 @@ function RollJoint()
 	timeLeft = timeLeft - 1
 
 	end
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end, function()
-		StopAnimTask(PlayerPedId())
+		ClearPedTasks(PlayerPedId())
 	end)
 	isProcessing = false
 end
