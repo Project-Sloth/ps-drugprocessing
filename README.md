@@ -136,3 +136,126 @@ Config.TargetModels = {
     },
 }
 ```
+
+```
+Config.BoxZones = {
+	---- ps-drugprocessing options -----
+	["chemmenu"] = {
+        name = "chemmenu",
+        coords = vector3(3535.66, 3661.69, 28.12),
+        length = 1.65,
+        width = 2.4,
+        heading = 350,
+        debugPoly = false,
+        minZ = 27.52,
+        maxZ = 29.12,
+        options = {
+            {
+                type = "client",
+                event = "qb-drugtrafficking:chemicalmenu",
+                icon = "fas fa-vials",
+                label = "Learn a New Chemical Compound",
+                --job = "pawnshop", -- Remove this line if you do not want a job check.
+            },
+        },
+        distance = 2.5
+    },
+	["methprocess"] = {
+        name = "methprocess",
+        coords = vector3(978.22, -147.1, -48.53),
+        length = 1.6,
+        width = 1.8,
+        heading = 0,
+        debugPoly = false,
+        minZ = -50.33,
+        maxZ = -45.53,
+        options = {
+            {
+                type = "client",
+                event = "qb-drugprocessing:ProcessChemicals",
+                icon = "fas fa-vials",
+                label = "Cook Something Wonderful & Blue",
+                --job = "methcook", -- Remove this line if you do not want a job check.
+            },
+        },
+        distance = 3.5
+    },
+	["methtempup"] = {
+        name = "methtempup",
+        coords = vector3(982.56, -145.59, -49.0),
+        length = 1.2,
+        width = 1.4,
+        heading = 0,
+        debugPoly = false,
+        minZ = -50.3,
+        maxZ = -47.3,
+        options = {
+            {
+                type = "client",
+                event = "qb-drugprocessing:ChangeTemp",
+                icon = "fas fa-temperature-empty",
+                label = "Hmmm Seems Cold",
+                --job = "methcook", -- Remove this line if you do not want a job check.
+            },
+        },
+        distance = 3.5
+    },
+	["methtempdown"] = {
+        name = "methtempdown",
+        coords = vector3(979.59, -144.14, -49.0),
+        length = 1.2,
+        width = 0.5,
+        heading = 354,
+        debugPoly = false,
+        minZ = -49.2,
+        maxZ = -47.9,
+        options = {
+            {
+                type = "client",
+                event = "qb-drugprocessing:ChangeTemp2",
+                icon = "fas fa-temperature-full",
+                label = "Hmmm Seems Hot",
+                --job = "methcook", -- Remove this line if you do not want a job check.
+            },
+        },
+        distance = 3.5
+    },
+	["methbagging"] = {
+        name = "methbagging",
+        coords = vector3(987.44, -140.5, -49.0),
+        length = 0.5,
+        width = 0.7,
+        heading = 1,
+        debugPoly = false,
+        minZ = -49.35,
+        maxZ = -48.65,
+        options = {
+            {
+                type = "client",
+                event = "qb-drugprocessing:ProcessProduct",
+                icon = "fas fa-box",
+                label = "Start Bagging",
+                --job = "methcook", -- Remove this line if you do not want a job check.
+            },
+        },
+        distance = 3.5
+    },
+    
+}
+```
+
+# Helpful Triggers:
+
+* "qb-drugtrafficking:chemicalmenu" - Open Chemical Menu
+* "qb-drugtrafficking:hydrochloric_acid" - Process Hydrochloric Acid
+* "qb-drugtrafficking:sodium_hydroxide" - Process Sodium Hydroxide
+* "qb-drugtrafficking:sulfuric_acid" - Process Sulfuric Acid
+* "qb-drugtrafficking:lsa" - Process LSA
+
+
+# Dependencies
+* qb-target - https://github.com/BerkieBb/qb-target
+* qb-menu - https://github.com/qbcore-framework/qb-menu
+
+# Original Repo
+https://github.com/DoPeMan17/esx_drugs
