@@ -141,7 +141,9 @@ Config.TargetModels = {
         distance = 4.0
     },
 }
+```
 
+```
 Config.BoxZones = {
 	---- ps-drugprocessing options -----
 	["chemmenu"] = {
@@ -345,9 +347,8 @@ Config.BoxZones = {
         distance = 3.5
     },
 
-	-----------------------------------------------------------------------------------
-}
-
+```
+```
 Config.Peds = {
     [65] = {
 		model = 'a_m_m_hillbilly_02',
@@ -390,10 +391,7 @@ Config.Peds = {
 		minusOne = true,
 	},
 }
-
 ```
-
-
 # Helpful Triggers:
 
 * "qb-drugtrafficking:chemicalmenu" - Open Chemical Menu
