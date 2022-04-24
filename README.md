@@ -1,4 +1,5 @@
 # Project Sloth Advanced Drug Processing
+- Beta release. Please submit PRs and create issues if needed.  
 
 # Meth Preview
 https://streamable.com/0pcjlt
