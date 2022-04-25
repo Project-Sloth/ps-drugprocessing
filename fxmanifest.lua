@@ -33,6 +33,7 @@ client_scripts {
 	'client/hydrochloricacid.lua',
 	'client/sodiumhydroxide.lua',
 	'client/sulfuricacid.lua',
+	'client/target.lua',
 }
 
 files {
