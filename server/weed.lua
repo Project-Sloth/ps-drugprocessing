@@ -1,5 +1,4 @@
-local QBCore = exports['ps-core']:GetCoreObject()
-
+local QBCore = exports['qb-core']:GetCoreObject()
 local playersProcessingCannabis = {}
 
 RegisterServerEvent('ps-drugtrafficking:pickedUpCannabis')

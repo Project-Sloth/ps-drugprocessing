@@ -1,5 +1,5 @@
 local playersProcessingMeth = {}
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterServerEvent('ps-drugtrafficking:pickedUpHydrochloricAcid')
 AddEventHandler('ps-drugtrafficking:pickedUpHydrochloricAcid', function()

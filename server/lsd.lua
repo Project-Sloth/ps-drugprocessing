@@ -1,5 +1,5 @@
 local playersProcessingLSD = {}
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterServerEvent('ps-drugtrafficking:Processlsd')
 AddEventHandler('ps-drugtrafficking:Processlsd', function()

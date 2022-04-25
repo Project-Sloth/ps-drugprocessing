@@ -1,7 +1,7 @@
 local spawnedWeeds = 0
 local weedPlants = {}
 local isPickingUp, isProcessing = false, false
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 
 
@@ -18,34 +18,6 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
---[[
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local playerPed = PlayerPedId()
-		local coords = GetEntityCoords(playerPed)
-
-		if GetDistanceBetweenCoords(coords, Config.CircleZones.WeedProcessing.coords, true) < 2 then
-			if not isProcessing then
-				local pos = GetEntityCoords(PlayerPedId())
-				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ -Trim weed")
-			end
-
-			if IsControlJustReleased(0, 38) and not isProcessing then
-				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-					if result then
-						ProcessWeed()
-					else
-						QBCore.Functions.Notify('You lack unprocessed weed', 'error')
-					end
-				end, 'cannabis')
-			end
-		else
-			Citizen.Wait(500)
-		end
-	end
-end)
-]]
 
 function ProcessWeed()
 	isProcessing = true

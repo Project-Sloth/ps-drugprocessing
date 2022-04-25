@@ -1,6 +1,6 @@
 local spawnedSodiumHydroxideBarrels = 0
 local SodiumHydroxideBarrels = {}
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
 	while true do

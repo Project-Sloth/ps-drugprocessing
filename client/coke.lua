@@ -1,4 +1,4 @@
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local spawnedCocaLeaf = 0
 local CocaPlants = {}

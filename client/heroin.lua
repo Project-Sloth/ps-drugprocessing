@@ -1,7 +1,7 @@
 local spawnedPoppys = 0
 local PoppyPlants = {}
 local isPickingUp, isProcessing = false, false
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 
 Citizen.CreateThread(function()

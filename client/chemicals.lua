@@ -1,4 +1,4 @@
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 local SpawnedChemicals = 0
 local Chemicals = {}
 
@@ -24,27 +24,6 @@ AddEventHandler('onResourceStop', function(resource)
 		end
 	end
 end)
-
---[[Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local playerPed = PlayerPedId()
-		local coords = GetEntityCoords(playerPed)
-
-		if GetDistanceBetweenCoords(coords, Config.CircleZones.ChemicalsConvertionMenu.coords, true) < 3 then
-			if not menuOpen then
-				local pos = GetEntityCoords(PlayerPedId())
-				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ - Open chemical menu")
-
-				if IsControlJustReleased(0, Keys['E']) then
-					TriggerEvent('ps-drugtrafficking:chemicalmenu')
-				end
-			else
-				Citizen.Wait(5500)
-			end
-		end
-	end
-end)]]--
 
 -- Chemical Menu Trigger & Menu Button Triggers --
 

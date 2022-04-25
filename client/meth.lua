@@ -1,53 +1,6 @@
 local  isProcessing, isTempChangeU, isTempChangeD, isBagging, hasitem1, hasitem2 = false, false, false, false, false, false
 local Methlab = false
-local QBCore = exports['ps-core']:GetCoreObject()
-
---[[Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        local playerPed = PlayerPedId()
-        local coords = GetEntityCoords(playerPed)
-
-        if GetDistanceBetweenCoords(coords, Config.CircleZones.MethProcessing.coords, true) < 5 then
-            if not isProcessing then
-                local pos = GetEntityCoords(PlayerPedId())
-                QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "E - Process Meth")
-            end
-
-            if IsControlJustReleased(0, 38) and not isProcessing then
-                
-                QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-                    if result then
-                        hasitem1 = true
-                    else
-                        QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
-                    end
-                end, 'sulfuric_acid')
-                Citizen.Wait(1000) -- BUFFER
-
-                QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-                    if result and hasitem1 then
-                        hasitem2 = true
-                    else
-                        QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
-                    end
-                end, 'hydrochloric_acid')
-				Citizen.Wait(1000) -- BUFFER  
-                QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-                    if result and hasitem2 then
-                        ProcessMeth()
-                        hasitem1 = false
-                        hasitem2 = false
-                    else
-                        QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
-                    end
-                end, 'sodium_hydroxide')
-            end
-        else
-            Citizen.Wait(500)
-        end
-    end
-end)]]--
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterNetEvent('ps-drugprocessing:ProcessChemicals')
 AddEventHandler('ps-drugprocessing:ProcessChemicals', function()

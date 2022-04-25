@@ -1,4 +1,4 @@
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     exports['qb-target']:SpawnPed({

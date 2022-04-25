@@ -1,5 +1,5 @@
 local playersProcessingCocaLeaf = {}
-local QBCore = exports['ps-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
 AddEventHandler('ps-drugtrafficking:pickedUpCocaLeaf', function()
