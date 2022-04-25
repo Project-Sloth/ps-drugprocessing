@@ -39,7 +39,6 @@ https://streamable.com/0pcjlt
 
 qb-inventory > html > images
 
-
 # Dependencies
 * qb-target - https://github.com/BerkieBb/qb-target
 * qb-menu - https://github.com/qbcore-framework/qb-menu
