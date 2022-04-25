@@ -39,16 +39,6 @@ https://streamable.com/0pcjlt
 
 qb-inventory > html > images
 
-
-# Helpful Triggers:
-
-* "qb-drugtrafficking:chemicalmenu" - Open Chemical Menu
-* "qb-drugtrafficking:hydrochloric_acid" - Process Hydrochloric Acid
-* "qb-drugtrafficking:sodium_hydroxide" - Process Sodium Hydroxide
-* "qb-drugtrafficking:sulfuric_acid" - Process Sulfuric Acid
-* "qb-drugtrafficking:lsa" - Process LSA
-
-
 # Dependencies
 * qb-target - https://github.com/BerkieBb/qb-target
 * qb-menu - https://github.com/qbcore-framework/qb-menu
