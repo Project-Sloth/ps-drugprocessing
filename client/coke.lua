@@ -330,56 +330,6 @@ AddEventHandler('qb-drugprocessing:pickCocaLeaves', function()
 
 end)
 
---[[Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local playerPed = PlayerPedId()
-		local coords = GetEntityCoords(playerPed)
-		local nearbyObject, nearbyID
-
-		for i=1, #CocaPlants, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 1 then
-				nearbyObject, nearbyID = CocaPlants[i], i
-			end
-		end
-
-		if nearbyObject and IsPedOnFoot(playerPed) then
-
-			if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pick cocaine leaves', 0.5)
-			end
-
-			if IsControlJustReleased(0, 38) and not isPickingUp then
-				isPickingUp = true
-				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
-				QBCore.Functions.Progressbar("search_register", "Picking cocaine leaves..", 10000, false, true, {
-					disableMovement = true,
-					disableCarMovement = true,
-					disableMouse = false,
-					disableCombat = true,
-				}, {}, {}, {}, function() -- Done
-					ClearPedTasks(PlayerPedId())
-					SetEntityAsMissionEntity(nearbyObject, false, true)
-					DeleteObject(nearbyObject)
-
-					table.remove(CocaPlants, nearbyID)
-					spawnedCocaLeaf = spawnedCocaLeaf - 1
-	
-					TriggerServerEvent('qb-drugtrafficking:pickedUpCocaLeaf')
-
-				end, function()
-					ClearPedTasks(PlayerPedId())
-				end)
-
-				isPickingUp = false
-			end
-		else
-			Citizen.Wait(500)
-		end
-	end
-end)]]--
-
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(CocaPlants) do
