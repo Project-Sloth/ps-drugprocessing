@@ -52,7 +52,7 @@ function Processlsd()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:Processlsd')
+	TriggerServerEvent('ps-drugprocessing:Processlsd')
 
 		local timeLeft = Config.Delays.lsdProcessing / 1000
 
@@ -62,7 +62,7 @@ function Processlsd()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.lsdProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -86,7 +86,7 @@ Citizen.CreateThread(function()
 		options = {
 				{
 				  type = "client",
-				  event = "ps-crafting:opencraftingtable",
+				  event = "qb-crafting:opencraftingtable",
 				  icon = "fas fa-biohazard",
 				  label = "Process Thionyl Chloride",
 				},
@@ -108,7 +108,7 @@ function Processthionylchloride()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugtrafficking:processThionylChloride')
+		TriggerServerEvent('ps-drugprocessing:processThionylChloride')
 
 	local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -118,7 +118,7 @@ function Processthionylchloride()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.thionylchlorideProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end

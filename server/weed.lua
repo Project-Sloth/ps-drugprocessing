@@ -1,8 +1,8 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local playersProcessingCannabis = {}
 
-RegisterServerEvent('ps-drugtrafficking:pickedUpCannabis')
-AddEventHandler('ps-drugtrafficking:pickedUpCannabis', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpCannabis')
+AddEventHandler('ps-drugprocessing:pickedUpCannabis', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -10,8 +10,8 @@ AddEventHandler('ps-drugtrafficking:pickedUpCannabis', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["cannabis"], "add")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processCannabis')
-AddEventHandler('ps-drugtrafficking:processCannabis', function()
+RegisterServerEvent('ps-drugprocessing:processCannabis')
+AddEventHandler('ps-drugprocessing:processCannabis', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -22,8 +22,8 @@ AddEventHandler('ps-drugtrafficking:processCannabis', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Cannabis successfully processed!', "success")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:rollJoint')
-AddEventHandler('ps-drugtrafficking:rollJoint', function()
+RegisterServerEvent('ps-drugprocessing:rollJoint')
+AddEventHandler('ps-drugprocessing:rollJoint', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -43,12 +43,12 @@ function CancelProcessing(playerId)
 	end
 end
 
-RegisterServerEvent('ps-drugtrafficking:cancelProcessing')
-AddEventHandler('ps-drugtrafficking:cancelProcessing', function()
+RegisterServerEvent('ps-drugprocessing:cancelProcessing')
+AddEventHandler('ps-drugprocessing:cancelProcessing', function()
 	CancelProcessing(source)
 end)
 
 QBCore.Functions.CreateUseableItem("rolling_paper", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('ps-drugtrafficking:client:rollJoint', source, 'marijuana', item)
+    TriggerClientEvent('ps-drugprocessing:client:rollJoint', source, 'marijuana', item)
 end)

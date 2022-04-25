@@ -1,8 +1,8 @@
 local playersProcessingCocaLeaf = {}
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
-AddEventHandler('ps-drugtrafficking:pickedUpCocaLeaf', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpCocaLeaf')
+AddEventHandler('ps-drugprocessing:pickedUpCocaLeaf', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -10,8 +10,8 @@ AddEventHandler('ps-drugtrafficking:pickedUpCocaLeaf', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["coca_leaf"], "add")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processCocaLeaf')
-AddEventHandler('ps-drugtrafficking:processCocaLeaf', function()
+RegisterServerEvent('ps-drugprocessing:processCocaLeaf')
+AddEventHandler('ps-drugprocessing:processCocaLeaf', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local count = math.random(2,7)
@@ -23,8 +23,8 @@ AddEventHandler('ps-drugtrafficking:processCocaLeaf', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Cocaine Leafs successfully processed!', "success")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processCocaPowder')
-AddEventHandler('ps-drugtrafficking:processCocaPowder', function()
+RegisterServerEvent('ps-drugprocessing:processCocaPowder')
+AddEventHandler('ps-drugprocessing:processCocaPowder', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local count = math.random(1,2)
@@ -38,8 +38,8 @@ AddEventHandler('ps-drugtrafficking:processCocaPowder', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Cocaine Powder successfully Cut!', "success")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processCocaBrick')
-AddEventHandler('ps-drugtrafficking:processCocaBrick', function()
+RegisterServerEvent('ps-drugprocessing:processCocaBrick')
+AddEventHandler('ps-drugprocessing:processCocaBrick', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -57,8 +57,8 @@ function CancelProcessing(playerId)
 	end
 end
 
-RegisterServerEvent('ps-drugtrafficking:cancelProcessing')
-AddEventHandler('ps-drugtrafficking:cancelProcessing', function()
+RegisterServerEvent('ps-drugprocessing:cancelProcessing')
+AddEventHandler('ps-drugprocessing:cancelProcessing', function()
 	CancelProcessing(source)
 end)
 

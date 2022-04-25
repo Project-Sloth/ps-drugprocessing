@@ -31,7 +31,7 @@ function ProcessWeed()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processCannabis')
+	TriggerServerEvent('ps-drugprocessing:processCannabis')
 
 		local timeLeft = Config.Delays.WeedProcessing / 1000
 
@@ -40,7 +40,7 @@ function ProcessWeed()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.WeedProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -51,8 +51,8 @@ function ProcessWeed()
 	isProcessing = false
 end
 
-RegisterNetEvent("ps-drugtrafficking:pickWeed")
-AddEventHandler("ps-drugtrafficking:pickWeed", function()
+RegisterNetEvent("ps-drugprocessing:pickWeed")
+AddEventHandler("ps-drugprocessing:pickWeed", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -83,7 +83,7 @@ AddEventHandler("ps-drugtrafficking:pickWeed", function()
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
 	
-					TriggerServerEvent('ps-drugtrafficking:pickedUpCannabis')
+					TriggerServerEvent('ps-drugprocessing:pickedUpCannabis')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())
@@ -181,8 +181,8 @@ function GetCoordZWeed(x, y)
 	return 53.85
 end
 
-RegisterNetEvent('ps-drugtrafficking:client:rollJoint')
-AddEventHandler('ps-drugtrafficking:client:rollJoint', function()
+RegisterNetEvent('ps-drugprocessing:client:rollJoint')
+AddEventHandler('ps-drugprocessing:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 		if result then
 			RollJoint()
@@ -204,7 +204,7 @@ function RollJoint()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:rollJoint')
+	TriggerServerEvent('ps-drugprocessing:rollJoint')
 	local timeLeft = Config.Delays.WeedProcessing / 1000
 
 	while timeLeft > 0 do

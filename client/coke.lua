@@ -198,7 +198,7 @@ function ProcessCoke()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processCocaLeaf')
+	TriggerServerEvent('ps-drugprocessing:processCocaLeaf')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -207,7 +207,7 @@ function ProcessCoke()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -230,7 +230,7 @@ function CutCokePowder()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processCocaPowder')
+	TriggerServerEvent('ps-drugprocessing:processCocaPowder')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -239,7 +239,7 @@ function CutCokePowder()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -263,7 +263,7 @@ function ProcessBricks()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processCocaBrick')
+	TriggerServerEvent('ps-drugprocessing:processCocaBrick')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -272,7 +272,7 @@ function ProcessBricks()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeBrick.coords, false) > 4 then
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -316,7 +316,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 				table.remove(CocaPlants, nearbyID)
 				spawnedCocaLeaf = spawnedCocaLeaf - 1
 
-				TriggerServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
+				TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf')
 
 			end, function()
 				ClearPedTasks(PlayerPedId())
@@ -368,7 +368,7 @@ end)
 					table.remove(CocaPlants, nearbyID)
 					spawnedCocaLeaf = spawnedCocaLeaf - 1
 	
-					TriggerServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
+					TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

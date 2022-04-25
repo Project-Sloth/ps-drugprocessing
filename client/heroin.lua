@@ -31,7 +31,7 @@ function ProcessHeroin()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processPoppyResin')
+	TriggerServerEvent('ps-drugprocessing:processPoppyResin')
 
 		local timeLeft = Config.Delays.HeroinProcessing / 1000
 
@@ -40,7 +40,7 @@ function ProcessHeroin()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.HeroinProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -84,7 +84,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 					table.remove(PoppyPlants, nearbyID)
 					spawnedPoppys = spawnedPoppys - 1
 	
-					TriggerServerEvent('ps-drugtrafficking:pickedUpPoppy')
+					TriggerServerEvent('ps-drugprocessing:pickedUpPoppy')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

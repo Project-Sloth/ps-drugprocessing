@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("ps-drugtrafficking:pickSodium")
-AddEventHandler("ps-drugtrafficking:pickSodium", function()
+RegisterNetEvent("ps-drugprocessing:pickSodium")
+AddEventHandler("ps-drugprocessing:pickSodium", function()
 		Citizen.Wait(0)
 		local playerPe3 = PlayerPedId()
 		local coords = GetEntityCoords(playerPe3)
@@ -48,7 +48,7 @@ AddEventHandler("ps-drugtrafficking:pickSodium", function()
 					table.remove(SodiumHydroxideBarrels, nearbyID3)
 					spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
 	
-					TriggerServerEvent('ps-drugtrafficking:pickedUpSodiumHydroxide')
+					TriggerServerEvent('ps-drugprocessing:pickedUpSodiumHydroxide')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

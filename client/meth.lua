@@ -56,8 +56,8 @@ AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 		end,
 		function() -- failure
 			print("failure")
-			TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
-			TriggerServerEvent('ps-drugtrafficking:processFailUp')
+			TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+			TriggerServerEvent('ps-drugprocessing:processFailUp')
 		end)
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
@@ -75,8 +75,8 @@ AddEventHandler('ps-drugprocessing:ChangeTemp2', function()
 		end,
 		function() -- failure
 			print("failure")
-			TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
-			TriggerServerEvent('ps-drugtrafficking:processFailDown')
+			TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+			TriggerServerEvent('ps-drugprocessing:processFailDown')
 		end)
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
@@ -120,7 +120,7 @@ function ProcessChemicals()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processChemicals')
+	TriggerServerEvent('ps-drugprocessing:processChemicals')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -130,7 +130,7 @@ function ProcessChemicals()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethProcessing.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -154,7 +154,7 @@ function ProcessTempUp()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processTempUp')
+	TriggerServerEvent('ps-drugprocessing:processTempUp')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -164,7 +164,7 @@ function ProcessTempUp()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -188,7 +188,7 @@ function ProcessTempDown()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processTempDown')
+	TriggerServerEvent('ps-drugprocessing:processTempDown')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -198,7 +198,7 @@ function ProcessTempDown()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
@@ -223,7 +223,7 @@ function ProcessProduct()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugtrafficking:processMeth')
+	TriggerServerEvent('ps-drugprocessing:processMeth')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -233,7 +233,7 @@ function ProcessProduct()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethBag.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
 		end
