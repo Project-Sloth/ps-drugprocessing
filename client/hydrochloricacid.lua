@@ -17,8 +17,8 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterNetEvent("qb-drugtrafficking:client:hydrochloricacid")
-AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
+RegisterNetEvent("qb-drugtrafficking:client:hydro")
+AddEventHandler("qb-drugtrafficking:client:hydro", function()
 	
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
