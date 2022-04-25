@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("qb-drugtrafficking:client:sulfuric")
-AddEventHandler("qb-drugtrafficking:client:sulfuric", function()
+RegisterNetEvent("ps-drugtrafficking:pickSulfuric")
+AddEventHandler("ps-drugtrafficking:pickSulfuric", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -48,7 +48,7 @@ AddEventHandler("qb-drugtrafficking:client:sulfuric", function()
 					table.remove(SulfuricAcidBarrels, nearbyID)
 					spawnedSulfuricAcidBarrels = spawnedSulfuricAcidBarrels - 1
 	
-					TriggerServerEvent('qb-drugtrafficking:pickedUpSulfuricAcid')
+					TriggerServerEvent('ps-drugtrafficking:pickedUpSulfuricAcid')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())
