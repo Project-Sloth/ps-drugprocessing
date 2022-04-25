@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 local spawnedCocaLeaf = 0
 local CocaPlants = {}
@@ -19,8 +19,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ProcessCocaFarm')
-AddEventHandler('qb-drugprocessing:ProcessCocaFarm', function()
+RegisterNetEvent('ps-drugprocessing:ProcessCocaFarm')
+AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
 	
 	if GetDistanceBetweenCoords(coords, Config.CircleZones.CokeProcessing.coords, true) < 5 then
@@ -46,8 +46,8 @@ AddEventHandler('qb-drugprocessing:ProcessCocaFarm', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ProcessCocaPowder')
-AddEventHandler('qb-drugprocessing:ProcessCocaPowder', function()
+RegisterNetEvent('ps-drugprocessing:ProcessCocaPowder')
+AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
 	local amount = 10
 	local amount2 = 5
@@ -94,8 +94,8 @@ AddEventHandler('qb-drugprocessing:ProcessCocaPowder', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ProcessBricks')
-AddEventHandler('qb-drugprocessing:ProcessBricks', function()
+RegisterNetEvent('ps-drugprocessing:ProcessBricks')
+AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
 	local amount = 4
 	
@@ -127,8 +127,8 @@ AddEventHandler('qb-drugprocessing:ProcessBricks', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:EnterCWarehouse')
-AddEventHandler('qb-drugprocessing:EnterCWarehouse', function()
+RegisterNetEvent('ps-drugprocessing:EnterCWarehouse')
+AddEventHandler('ps-drugprocessing:EnterCWarehouse', function()
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
     local dist = #(pos - vector3(Config.CokeLab["enter"].coords.x, Config.CokeLab["enter"].coords.y, Config.CokeLab["enter"].coords.z))
@@ -146,8 +146,8 @@ AddEventHandler('qb-drugprocessing:EnterCWarehouse', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ExitCWarehouse')
-AddEventHandler('qb-drugprocessing:ExitCWarehouse', function()
+RegisterNetEvent('ps-drugprocessing:ExitCWarehouse')
+AddEventHandler('ps-drugprocessing:ExitCWarehouse', function()
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
     local dist = #(pos - vector3(Config.CokeLab["exit"].coords.x, Config.CokeLab["exit"].coords.y, Config.CokeLab["exit"].coords.z))
@@ -198,7 +198,7 @@ function ProcessCoke()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processCocaLeaf')
+	TriggerServerEvent('ps-drugtrafficking:processCocaLeaf')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -207,7 +207,7 @@ function ProcessCoke()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeProcessing.coords, false) > 4 then
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -230,7 +230,7 @@ function CutCokePowder()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processCocaPowder')
+	TriggerServerEvent('ps-drugtrafficking:processCocaPowder')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -239,7 +239,7 @@ function CutCokePowder()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeProcessing.coords, false) > 4 then
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -263,7 +263,7 @@ function ProcessBricks()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processCocaBrick')
+	TriggerServerEvent('ps-drugtrafficking:processCocaBrick')
 
 		local timeLeft = Config.Delays.CokeProcessing / 1000
 
@@ -272,7 +272,7 @@ function ProcessBricks()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.CokeBrick.coords, false) > 4 then
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -285,8 +285,8 @@ function ProcessBricks()
 end
 
 
-RegisterNetEvent('qb-drugprocessing:pickCocaLeaves')
-AddEventHandler('qb-drugprocessing:pickCocaLeaves', function()
+RegisterNetEvent('ps-drugprocessing:pickCocaLeaves')
+AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 	local playerPed = PlayerPedId()
 	local coords = GetEntityCoords(playerPed)
 	local nearbyObject, nearbyID
@@ -316,7 +316,7 @@ AddEventHandler('qb-drugprocessing:pickCocaLeaves', function()
 				table.remove(CocaPlants, nearbyID)
 				spawnedCocaLeaf = spawnedCocaLeaf - 1
 
-				TriggerServerEvent('qb-drugtrafficking:pickedUpCocaLeaf')
+				TriggerServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
 
 			end, function()
 				ClearPedTasks(PlayerPedId())
@@ -330,6 +330,59 @@ AddEventHandler('qb-drugprocessing:pickCocaLeaves', function()
 
 end)
 
+<<<<<<< Updated upstream
+=======
+--[[Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+		local nearbyObject, nearbyID
+
+		for i=1, #CocaPlants, 1 do
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 1 then
+				nearbyObject, nearbyID = CocaPlants[i], i
+			end
+		end
+
+		if nearbyObject and IsPedOnFoot(playerPed) then
+
+			if not isPickingUp then
+				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pick cocaine leaves', 0.5)
+			end
+
+			if IsControlJustReleased(0, 38) and not isPickingUp then
+				isPickingUp = true
+				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
+
+				QBCore.Functions.Progressbar("search_register", "Picking cocaine leaves..", 10000, false, true, {
+					disableMovement = true,
+					disableCarMovement = true,
+					disableMouse = false,
+					disableCombat = true,
+				}, {}, {}, {}, function() -- Done
+					ClearPedTasks(PlayerPedId())
+					SetEntityAsMissionEntity(nearbyObject, false, true)
+					DeleteObject(nearbyObject)
+
+					table.remove(CocaPlants, nearbyID)
+					spawnedCocaLeaf = spawnedCocaLeaf - 1
+	
+					TriggerServerEvent('ps-drugtrafficking:pickedUpCocaLeaf')
+
+				end, function()
+					ClearPedTasks(PlayerPedId())
+				end)
+
+				isPickingUp = false
+			end
+		else
+			Citizen.Wait(500)
+		end
+	end
+end)]]--
+
+>>>>>>> Stashed changes
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		for k, v in pairs(CocaPlants) do
