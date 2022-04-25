@@ -229,7 +229,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:client:coke",
+                event = "ps-drugprocessing:pickCocaLeaves",
                 icon = "fas fa-leaf",
                 label = "Pickup Coke Leafs",
             },
@@ -240,7 +240,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:client:heorin",
+                event = "ps-drugprocessing:pickHeroin",
                 icon = "fas fa-seedling",
                 label = "Pickup Poppy Plants",
             },

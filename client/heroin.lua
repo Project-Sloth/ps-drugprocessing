@@ -17,34 +17,6 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
---[[
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local playerPed = PlayerPedId()
-		local coords = GetEntityCoords(playerPed)
-
-		if GetDistanceBetweenCoords(coords, Config.CircleZones.HeroinProcessing.coords, true) < 2 then
-			if not isProcessing then
-				local pos = GetEntityCoords(PlayerPedId())
-				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ - Process poppy resin")
-			end
-
-			if IsControlJustReleased(0, 38) and not isProcessing then
-				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-					if result then
-						ProcessHeroin()
-					else
-						QBCore.Functions.Notify('You lack poppy resin', 'error')
-					end
-				end, 'poppyresin')
-			end
-		else
-			Citizen.Wait(500)
-		end
-	end
-end)
-]]
 
 function ProcessHeroin()
 
@@ -80,8 +52,9 @@ function ProcessHeroin()
 	isProcessing = false
 end
 
-Citizen.CreateThread(function()
-	while true do
+RegisterNetEvent("ps-drugprocessing:pickHeroin")
+AddEventHandler("ps-drugprocessing:pickHeroin", function()
+	
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -95,11 +68,6 @@ Citizen.CreateThread(function()
 
 		if nearbyObject and IsPedOnFoot(playerPed) then
 
-			if not isPickingUp then
-				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pickup poppy resin', 0.5)
-			end
-
-			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -123,11 +91,9 @@ Citizen.CreateThread(function()
 				end)
 
 				isPickingUp = false
-			end
 		else
 			Citizen.Wait(500)
 		end
-	end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
