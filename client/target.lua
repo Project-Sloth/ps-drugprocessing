@@ -1,7 +1,7 @@
 local QBCore = exports['ps-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
-    exports['ps-target']:SpawnPed({
+    exports['qb-target']:SpawnPed({
         model = 'a_m_m_hillbilly_02',
         coords = vector4(-1187.73, -445.27, 43.91, 289.45), 
         minusOne = true, 
@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
           distance = 2.5,
         },
     })
-    exports['ps-target']:SpawnPed({
+    exports['qb-target']:SpawnPed({
         model = 'a_m_m_mlcrisis_01',
         coords = vector4(811.03, -2400.17, 23.66, 216.01), 
         minusOne = true, 
@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-    exports["ps-target"]:AddBoxZone("chemmenu", vector3(3535.66, 3661.69, 28.12), 1.65, 2.4, {
+    exports["qb-target"]:AddBoxZone("chemmenu", vector3(3535.66, 3661.69, 28.12), 1.65, 2.4, {
         name = "chemmenu",
         heading = 350.0,
         debugPoly = false,
@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
         },
     distance = 2.5
     })
-    exports["ps-target"]:AddBoxZone("methprocess", vector3(978.22, -147.1, -48.53), 1.6, 1.8, {
+    exports["qb-target"]:AddBoxZone("methprocess", vector3(978.22, -147.1, -48.53), 1.6, 1.8, {
         name = "methprocess",
         heading = 0,
         debugPoly = false,
@@ -78,7 +78,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("methtempup", vector3(982.56, -145.59, -49.0), 1.2, 1.4, {
+    exports["qb-target"]:AddBoxZone("methtempup", vector3(982.56, -145.59, -49.0), 1.2, 1.4, {
         name = "methtempup",
         heading = 0,
         debugPoly = false,
@@ -96,7 +96,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("methtempdown", vector3(979.59, -144.14, -49.0), 1.2, 0.5, {
+    exports["qb-target"]:AddBoxZone("methtempdown", vector3(979.59, -144.14, -49.0), 1.2, 0.5, {
         name = "methtempdown",
         heading = 354,
         debugPoly = false,
@@ -114,7 +114,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("methbagging", vector3(987.44, -140.5, -49.0), 0.5, 0.7, {
+    exports["qb-target"]:AddBoxZone("methbagging", vector3(987.44, -140.5, -49.0), 0.5, 0.7, {
         name = "methbagging",
         heading = 1,
         debugPoly = false,
@@ -132,7 +132,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("methkeypad", vector3(969.04, -146.17, -46.4), 0.4, 0.2, {
+    exports["qb-target"]:AddBoxZone("methkeypad", vector3(969.04, -146.17, -46.4), 0.4, 0.2, {
         name = "methkeypad",
         heading = 0,
         debugPoly = false,
@@ -150,7 +150,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("cokekeypad", vector3(1087.66, -3187.16, -38.99), 0.1, 0.2, {
+    exports["qb-target"]:AddBoxZone("cokekeypad", vector3(1087.66, -3187.16, -38.99), 0.1, 0.2, {
         name = "cokekeypad",
         heading = 0,
         debugPoly = false,
@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("cokeleafproc", vector3(1086.2, -3194.9, -38.99), 2.5, 1.4, {
+    exports["qb-target"]:AddBoxZone("cokeleafproc", vector3(1086.2, -3194.9, -38.99), 2.5, 1.4, {
         name = "cokeleafproc",
         heading = 0,
         debugPoly = false,
@@ -186,7 +186,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("cokepowdercut", vector3(1092.89, -3195.78, -38.99), 7.65, 1.2, {
+    exports["qb-target"]:AddBoxZone("cokepowdercut", vector3(1092.89, -3195.78, -38.99), 7.65, 1.2, {
         name = "cokepowdercut",
         heading = 90,
         debugPoly = false,
@@ -204,7 +204,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["ps-target"]:AddBoxZone("cokebricked", vector3(1098.77, -3194.19, -38.99), 2.6, 1.0, {
+    exports["qb-target"]:AddBoxZone("cokebricked", vector3(1098.77, -3194.19, -38.99), 2.6, 1.0, {
         name = "cokebricked",
         heading = 90,
         debugPoly = false,
@@ -225,7 +225,7 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-    exports['ps-target']:AddTargetModel("mw_coke_plant", {
+    exports['qb-target']:AddTargetModel("mw_coke_plant", {
         options = {
             {
                 type = "client",
@@ -236,7 +236,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['ps-target']:AddTargetModel("mw_heroin_plant", {
+    exports['qb-target']:AddTargetModel("mw_heroin_plant", {
         options = {
             {
                 type = "client",
@@ -247,7 +247,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['ps-target']:AddTargetModel("mw_weed_plant", {
+    exports['qb-target']:AddTargetModel("mw_weed_plant", {
         options = {
             {
                 type = "client",
@@ -258,7 +258,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['ps-target']:AddTargetModel("mw_sodium_barrel", {
+    exports['qb-target']:AddTargetModel("mw_sodium_barrel", {
         options = {
             {
                 type = "client",
@@ -269,7 +269,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['ps-target']:AddTargetModel("mw_sulfuric_barrel", {
+    exports['qb-target']:AddTargetModel("mw_sulfuric_barrel", {
         options = {
             {
                 type = "client",
@@ -280,7 +280,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['ps-target']:AddTargetModel("mw_chemical_barrel", {
+    exports['qb-target']:AddTargetModel("mw_chemical_barrel", {
         options = {
             {
                 type = "client",

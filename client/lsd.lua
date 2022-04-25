@@ -76,7 +76,7 @@ end
 
 
 Citizen.CreateThread(function()
-	exports['ps-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
+	exports['qb-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
 		name="thychloride",
 		heading=340.0,
 		debugPoly=false,

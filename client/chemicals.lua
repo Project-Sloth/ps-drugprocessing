@@ -50,7 +50,7 @@ end)]]--
 
 RegisterNetEvent('ps-drugtrafficking:chemicalmenu', function()
 	createChemicalMenu()
-	exports['ps-menu']:openMenu(chemMenu)
+	exports['qb-menu']:openMenu(chemMenu)
 end)
 
 function createChemicalMenu()
@@ -96,11 +96,11 @@ function createChemicalMenu()
 			txt = "Close Menu",
 			params = {
                 isServer = false,
-                event = exports['ps-menu']:closeMenu(),
+                event = exports['qb-menu']:closeMenu(),
             }
         },
     }
-    exports['ps-menu']:openMenu(chemMenu)
+    exports['qb-menu']:openMenu(chemMenu)
 end
 
 --------------------------------------------------------------------
