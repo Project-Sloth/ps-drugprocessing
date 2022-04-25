@@ -1,8 +1,8 @@
 local playersProcessingMeth = {}
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterServerEvent('ps-drugtrafficking:pickedUpHydrochloricAcid')
-AddEventHandler('ps-drugtrafficking:pickedUpHydrochloricAcid', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpHydrochloricAcid')
+AddEventHandler('ps-drugprocessing:pickedUpHydrochloricAcid', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -10,8 +10,8 @@ AddEventHandler('ps-drugtrafficking:pickedUpHydrochloricAcid', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["hydrochloric_acid"], "add")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:pickedUpSodiumHydroxide')
-AddEventHandler('ps-drugtrafficking:pickedUpSodiumHydroxide', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpSodiumHydroxide')
+AddEventHandler('ps-drugprocessing:pickedUpSodiumHydroxide', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -19,8 +19,8 @@ AddEventHandler('ps-drugtrafficking:pickedUpSodiumHydroxide', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sodium_hydroxide"], "add")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:pickedUpSulfuricAcid')
-AddEventHandler('ps-drugtrafficking:pickedUpSulfuricAcid', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpSulfuricAcid')
+AddEventHandler('ps-drugprocessing:pickedUpSulfuricAcid', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -28,8 +28,8 @@ AddEventHandler('ps-drugtrafficking:pickedUpSulfuricAcid', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sulfuric_acid"], "add")
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processChemicals')
-AddEventHandler('ps-drugtrafficking:processChemicals', function()
+RegisterServerEvent('ps-drugprocessing:processChemicals')
+AddEventHandler('ps-drugprocessing:processChemicals', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -45,8 +45,8 @@ AddEventHandler('ps-drugtrafficking:processChemicals', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processTempUp')
-AddEventHandler('ps-drugtrafficking:processTempUp', function()
+RegisterServerEvent('ps-drugprocessing:processTempUp')
+AddEventHandler('ps-drugprocessing:processTempUp', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -58,8 +58,8 @@ AddEventHandler('ps-drugtrafficking:processTempUp', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processTempDown')
-AddEventHandler('ps-drugtrafficking:processTempDown', function()
+RegisterServerEvent('ps-drugprocessing:processTempDown')
+AddEventHandler('ps-drugprocessing:processTempDown', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -71,8 +71,8 @@ AddEventHandler('ps-drugtrafficking:processTempDown', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processMeth')
-AddEventHandler('ps-drugtrafficking:processMeth', function()
+RegisterServerEvent('ps-drugprocessing:processMeth')
+AddEventHandler('ps-drugprocessing:processMeth', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -85,8 +85,8 @@ AddEventHandler('ps-drugtrafficking:processMeth', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processFailUp')
-AddEventHandler('ps-drugtrafficking:processFailUp', function()
+RegisterServerEvent('ps-drugprocessing:processFailUp')
+AddEventHandler('ps-drugprocessing:processFailUp', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -96,8 +96,8 @@ AddEventHandler('ps-drugtrafficking:processFailUp', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugtrafficking:processFailDown')
-AddEventHandler('ps-drugtrafficking:processFailDown', function()
+RegisterServerEvent('ps-drugprocessing:processFailDown')
+AddEventHandler('ps-drugprocessing:processFailDown', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -113,8 +113,8 @@ function CancelProcessing(playerID)
 	end
 end
 
-RegisterServerEvent('ps-drugtrafficking:cancelProcessing')
-AddEventHandler('ps-drugtrafficking:cancelProcessing', function()
+RegisterServerEvent('ps-drugprocessing:cancelProcessing')
+AddEventHandler('ps-drugprocessing:cancelProcessing', function()
 	CancelProcessing(source)
 end)
 

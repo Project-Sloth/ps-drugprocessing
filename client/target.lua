@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:chemicalmenu",
+                event = "ps-drugprocessing:chemicalmenu",
                 icon = "fas fa-vials",
                 label = "Learn a New Chemical Compound",
                 --job = "pawnshop", -- Remove this line if you do not want a job check.
@@ -251,7 +251,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:pickWeed",
+                event = "ps-drugprocessing:pickWeed",
                 icon = "fas fa-envira",
                 label = "Pickup Weed Leafs",
             },
@@ -262,7 +262,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:pickSodium",
+                event = "ps-drugprocessing:pickSodium",
                 icon = "fas fa-dna",
                 label = "Pickup Sodium Barrel",
             },
@@ -273,7 +273,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:pickSulfuric",
+                event = "ps-drugprocessing:pickSulfuric",
                 icon = "fas fa-shield-virus",
                 label = "Pickup Sulfuric Barrel",
             },
@@ -284,7 +284,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:pickChemicals",
+                event = "ps-drugprocessing:pickChemicals",
                 icon = "fas fa-radiation",
                 label = "Pickup Chem Barrels",
             },
