@@ -1,9 +1,9 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 local playersProcessingChemicalsToHydrochloricAcid = {}
 
-RegisterServerEvent('qb-drugtrafficking:pickedUpChemicals')
-AddEventHandler('qb-drugtrafficking:pickedUpChemicals', function()
+RegisterServerEvent('ps-drugtrafficking:pickedUpChemicals')
+AddEventHandler('ps-drugtrafficking:pickedUpChemicals', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -11,8 +11,8 @@ AddEventHandler('qb-drugtrafficking:pickedUpChemicals', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["chemicals"], "add")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:processHydrochloric_acid')
-AddEventHandler('qb-drugtrafficking:processHydrochloric_acid', function()
+RegisterServerEvent('ps-drugtrafficking:processHydrochloric_acid')
+AddEventHandler('ps-drugtrafficking:processHydrochloric_acid', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -23,8 +23,8 @@ AddEventHandler('qb-drugtrafficking:processHydrochloric_acid', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Hydrochloric acid process was succesful !', "success")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:processsodium_hydroxide')
-AddEventHandler('qb-drugtrafficking:processsodium_hydroxide', function()
+RegisterServerEvent('ps-drugtrafficking:processsodium_hydroxide')
+AddEventHandler('ps-drugtrafficking:processsodium_hydroxide', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -35,8 +35,8 @@ AddEventHandler('qb-drugtrafficking:processsodium_hydroxide', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Sodium Hydroxide process was succesful !', "success")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:processprocess_sulfuric_acid')
-AddEventHandler('qb-drugtrafficking:processprocess_sulfuric_acid', function()
+RegisterServerEvent('ps-drugtrafficking:processprocess_sulfuric_acid')
+AddEventHandler('ps-drugtrafficking:processprocess_sulfuric_acid', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -47,8 +47,8 @@ AddEventHandler('qb-drugtrafficking:processprocess_sulfuric_acid', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Sulfuric Acid process was succesful !', "success")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:process_lsa')
-AddEventHandler('qb-drugtrafficking:process_lsa', function()
+RegisterServerEvent('ps-drugtrafficking:process_lsa')
+AddEventHandler('ps-drugtrafficking:process_lsa', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 

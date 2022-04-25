@@ -1,7 +1,7 @@
 local spawnedPoppys = 0
 local PoppyPlants = {}
 local isPickingUp, isProcessing = false, false
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 
 Citizen.CreateThread(function()
@@ -59,7 +59,7 @@ function ProcessHeroin()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processPoppyResin')
+	TriggerServerEvent('ps-drugtrafficking:processPoppyResin')
 
 		local timeLeft = Config.Delays.HeroinProcessing / 1000
 
@@ -68,7 +68,7 @@ function ProcessHeroin()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.HeroinProcessing.coords, false) > 4 then
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -116,7 +116,7 @@ Citizen.CreateThread(function()
 					table.remove(PoppyPlants, nearbyID)
 					spawnedPoppys = spawnedPoppys - 1
 	
-					TriggerServerEvent('qb-drugtrafficking:pickedUpPoppy')
+					TriggerServerEvent('ps-drugtrafficking:pickedUpPoppy')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

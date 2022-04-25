@@ -1,7 +1,7 @@
 local spawnedWeeds = 0
 local weedPlants = {}
 local isPickingUp, isProcessing = false, false
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 
 
@@ -59,7 +59,7 @@ function ProcessWeed()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processCannabis')
+	TriggerServerEvent('ps-drugtrafficking:processCannabis')
 
 		local timeLeft = Config.Delays.WeedProcessing / 1000
 
@@ -68,7 +68,7 @@ function ProcessWeed()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.WeedProcessing.coords, false) > 4 then
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -79,8 +79,8 @@ function ProcessWeed()
 	isProcessing = false
 end
 
-RegisterNetEvent("qb-drugtrafficking:client:weed")
-AddEventHandler("qb-drugtrafficking:client:weed", function()
+RegisterNetEvent("ps-drugtrafficking:client:weed")
+AddEventHandler("ps-drugtrafficking:client:weed", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -111,7 +111,7 @@ AddEventHandler("qb-drugtrafficking:client:weed", function()
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
 	
-					TriggerServerEvent('qb-drugtrafficking:pickedUpCannabis')
+					TriggerServerEvent('ps-drugtrafficking:pickedUpCannabis')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())
@@ -209,8 +209,8 @@ function GetCoordZWeed(x, y)
 	return 53.85
 end
 
-RegisterNetEvent('qb-drugtrafficking:client:rollJoint')
-AddEventHandler('qb-drugtrafficking:client:rollJoint', function()
+RegisterNetEvent('ps-drugtrafficking:client:rollJoint')
+AddEventHandler('ps-drugtrafficking:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 		if result then
 			RollJoint()
@@ -232,7 +232,7 @@ function RollJoint()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:rollJoint')
+	TriggerServerEvent('ps-drugtrafficking:rollJoint')
 	local timeLeft = Config.Delays.WeedProcessing / 1000
 
 	while timeLeft > 0 do

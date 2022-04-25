@@ -1,6 +1,6 @@
 local  isProcessing, isTempChangeU, isTempChangeD, isBagging, hasitem1, hasitem2 = false, false, false, false, false, false
 local Methlab = false
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 --[[Citizen.CreateThread(function()
     while true do
@@ -49,8 +49,8 @@ local QBCore = exports['qb-core']:GetCoreObject()
     end
 end)]]--
 
-RegisterNetEvent('qb-drugprocessing:ProcessChemicals')
-AddEventHandler('qb-drugprocessing:ProcessChemicals', function()
+RegisterNetEvent('ps-drugprocessing:ProcessChemicals')
+AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
 	
 	if GetDistanceBetweenCoords(coords, Config.CircleZones.MethProcessing.coords, true) < 5 then
@@ -92,8 +92,8 @@ AddEventHandler('qb-drugprocessing:ProcessChemicals', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ChangeTemp')
-AddEventHandler('qb-drugprocessing:ChangeTemp', function()
+RegisterNetEvent('ps-drugprocessing:ChangeTemp')
+AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
 		exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
 		function() -- success
@@ -103,16 +103,16 @@ AddEventHandler('qb-drugprocessing:ChangeTemp', function()
 		end,
 		function() -- failure
 			print("failure")
-			TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
-			TriggerServerEvent('qb-drugtrafficking:processFailUp')
+			TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+			TriggerServerEvent('ps-drugtrafficking:processFailUp')
 		end)
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ChangeTemp2')
-AddEventHandler('qb-drugprocessing:ChangeTemp2', function()
+RegisterNetEvent('ps-drugprocessing:ChangeTemp2')
+AddEventHandler('ps-drugprocessing:ChangeTemp2', function()
 	if not isTempChangeD then
 		exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
 		function() -- success
@@ -122,16 +122,16 @@ AddEventHandler('qb-drugprocessing:ChangeTemp2', function()
 		end,
 		function() -- failure
 			print("failure")
-			TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
-			TriggerServerEvent('qb-drugtrafficking:processFailDown')
+			TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
+			TriggerServerEvent('ps-drugtrafficking:processFailDown')
 		end)
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ProcessProduct')
-AddEventHandler('qb-drugprocessing:ProcessProduct', function()
+RegisterNetEvent('ps-drugprocessing:ProcessProduct')
+AddEventHandler('ps-drugprocessing:ProcessProduct', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
 	
 	if GetDistanceBetweenCoords(coords, Config.CircleZones.MethBag.coords, true) < 5 then
@@ -167,7 +167,7 @@ function ProcessChemicals()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processChemicals')
+	TriggerServerEvent('ps-drugtrafficking:processChemicals')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -177,7 +177,7 @@ function ProcessChemicals()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethProcessing.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -201,7 +201,7 @@ function ProcessTempUp()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processTempUp')
+	TriggerServerEvent('ps-drugtrafficking:processTempUp')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -211,7 +211,7 @@ function ProcessTempUp()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -235,7 +235,7 @@ function ProcessTempDown()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processTempDown')
+	TriggerServerEvent('ps-drugtrafficking:processTempDown')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -245,7 +245,7 @@ function ProcessTempDown()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -270,7 +270,7 @@ function ProcessProduct()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:processMeth')
+	TriggerServerEvent('ps-drugtrafficking:processMeth')
 
 	local timeLeft = Config.Delays.MethProcessing / 1000
 
@@ -280,7 +280,7 @@ function ProcessProduct()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethBag.coords, false) > 2 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -293,8 +293,8 @@ function ProcessProduct()
 end
 
 
-RegisterNetEvent('qb-drugprocessing:EnterLab')
-AddEventHandler('qb-drugprocessing:EnterLab', function()
+RegisterNetEvent('ps-drugprocessing:EnterLab')
+AddEventHandler('ps-drugprocessing:EnterLab', function()
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
     local dist = #(pos - vector3(Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z))
@@ -313,8 +313,8 @@ AddEventHandler('qb-drugprocessing:EnterLab', function()
 	end
 end)
 
-RegisterNetEvent('qb-drugprocessing:ExitLab')
-AddEventHandler('qb-drugprocessing:ExitLab', function()
+RegisterNetEvent('ps-drugprocessing:ExitLab')
+AddEventHandler('ps-drugprocessing:ExitLab', function()
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
     local dist = #(pos - vector3(Config.MethLab["exit"].coords.x, Config.MethLab["exit"].coords.y, Config.MethLab["exit"].coords.z))

@@ -1,6 +1,6 @@
 local spawnedSodiumHydroxideBarrels = 0
 local SodiumHydroxideBarrels = {}
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
 	while true do
@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("qb-drugtrafficking:client:sodium")
-AddEventHandler("qb-drugtrafficking:client:sodium", function()
+RegisterNetEvent("ps-drugtrafficking:client:sodium")
+AddEventHandler("ps-drugtrafficking:client:sodium", function()
 		Citizen.Wait(0)
 		local playerPe3 = PlayerPedId()
 		local coords = GetEntityCoords(playerPe3)
@@ -48,7 +48,7 @@ AddEventHandler("qb-drugtrafficking:client:sodium", function()
 					table.remove(SodiumHydroxideBarrels, nearbyID3)
 					spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels - 1
 	
-					TriggerServerEvent('qb-drugtrafficking:pickedUpSodiumHydroxide')
+					TriggerServerEvent('ps-drugtrafficking:pickedUpSodiumHydroxide')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

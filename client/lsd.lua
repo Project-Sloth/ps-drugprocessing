@@ -1,5 +1,5 @@
 local isPickingUp, isProcessing, requiredItemsShowed, hasitem1, hasitem2 = false, false, false, false, false
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['ps-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     while true do
@@ -52,7 +52,7 @@ function Processlsd()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('qb-drugtrafficking:Processlsd')
+	TriggerServerEvent('ps-drugtrafficking:Processlsd')
 
 		local timeLeft = Config.Delays.lsdProcessing / 1000
 
@@ -62,7 +62,7 @@ function Processlsd()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.lsdProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -76,7 +76,7 @@ end
 
 
 Citizen.CreateThread(function()
-	exports['qb-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
+	exports['ps-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
 		name="thychloride",
 		heading=340.0,
 		debugPoly=false,
@@ -86,7 +86,7 @@ Citizen.CreateThread(function()
 		options = {
 				{
 				  type = "client",
-				  event = "qb-crafting:opencraftingtable",
+				  event = "ps-crafting:opencraftingtable",
 				  icon = "fas fa-biohazard",
 				  label = "Process Thionyl Chloride",
 				},
@@ -147,7 +147,7 @@ function Processthionylchloride()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-		TriggerServerEvent('qb-drugtrafficking:processThionylChloride')
+		TriggerServerEvent('ps-drugtrafficking:processThionylChloride')
 
 	local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -157,7 +157,7 @@ function Processthionylchloride()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.thionylchlorideProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
+				TriggerServerEvent('ps-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
