@@ -51,8 +51,8 @@ function ProcessWeed()
 	isProcessing = false
 end
 
-RegisterNetEvent("ps-drugtrafficking:client:weed")
-AddEventHandler("ps-drugtrafficking:client:weed", function()
+RegisterNetEvent("ps-drugtrafficking:pickWeed")
+AddEventHandler("ps-drugtrafficking:pickWeed", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)

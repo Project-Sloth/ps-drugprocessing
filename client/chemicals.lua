@@ -265,8 +265,8 @@ function process_hydrochloric_acid()
 end
 
 
-RegisterNetEvent("ps-drugtrafficking:chemicals")
-AddEventHandler("ps-drugtrafficking:chemicals", function()
+RegisterNetEvent("ps-drugtrafficking:pickChemicals")
+AddEventHandler("ps-drugtrafficking:pickChemicals", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)

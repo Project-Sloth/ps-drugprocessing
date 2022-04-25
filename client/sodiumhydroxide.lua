@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("ps-drugtrafficking:client:sodium")
-AddEventHandler("ps-drugtrafficking:client:sodium", function()
+RegisterNetEvent("ps-drugtrafficking:pickSodium")
+AddEventHandler("ps-drugtrafficking:pickSodium", function()
 		Citizen.Wait(0)
 		local playerPe3 = PlayerPedId()
 		local coords = GetEntityCoords(playerPe3)

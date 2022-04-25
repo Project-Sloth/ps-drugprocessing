@@ -251,7 +251,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:client:weed",
+                event = "ps-drugtrafficking:pickWeed",
                 icon = "fas fa-envira",
                 label = "Pickup Weed Leafs",
             },
@@ -262,7 +262,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:client:sodium",
+                event = "ps-drugtrafficking:pickSodium",
                 icon = "fas fa-dna",
                 label = "Pickup Sodium Barrel",
             },
@@ -273,7 +273,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:client:sulfuric",
+                event = "ps-drugtrafficking:pickSulfuric",
                 icon = "fas fa-shield-virus",
                 label = "Pickup Sulfuric Barrel",
             },
@@ -284,7 +284,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugtrafficking:chemicals",
+                event = "ps-drugtrafficking:pickChemicals",
                 icon = "fas fa-radiation",
                 label = "Pickup Chem Barrels",
             },
