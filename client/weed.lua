@@ -18,6 +18,34 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+--[[
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+
+		if GetDistanceBetweenCoords(coords, Config.CircleZones.WeedProcessing.coords, true) < 2 then
+			if not isProcessing then
+				local pos = GetEntityCoords(PlayerPedId())
+				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ -Trim weed")
+			end
+
+			if IsControlJustReleased(0, 38) and not isProcessing then
+				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+					if result then
+						ProcessWeed()
+					else
+						QBCore.Functions.Notify('You lack unprocessed weed', 'error')
+					end
+				end, 'cannabis')
+			end
+		else
+			Citizen.Wait(500)
+		end
+	end
+end)
+]]
 
 function ProcessWeed()
 	isProcessing = true
@@ -31,7 +59,7 @@ function ProcessWeed()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:processCannabis')
+	TriggerServerEvent('qb-drugtrafficking:processCannabis')
 
 		local timeLeft = Config.Delays.WeedProcessing / 1000
 
@@ -40,7 +68,7 @@ function ProcessWeed()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.WeedProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -51,13 +79,8 @@ function ProcessWeed()
 	isProcessing = false
 end
 
-RegisterNetEvent("ps-drugprocessing:processWeed")
-AddEventHandler("ps-drugprocessing:processWeed",function()
-	ProcessWeed()
-end)
-
-RegisterNetEvent("ps-drugprocessing:pickWeed")
-AddEventHandler("ps-drugprocessing:pickWeed", function()
+RegisterNetEvent("qb-drugtrafficking:client:weed")
+AddEventHandler("qb-drugtrafficking:client:weed", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -88,7 +111,7 @@ AddEventHandler("ps-drugprocessing:pickWeed", function()
 					table.remove(weedPlants, nearbyID)
 					spawnedWeeds = spawnedWeeds - 1
 	
-					TriggerServerEvent('ps-drugprocessing:pickedUpCannabis')
+					TriggerServerEvent('qb-drugtrafficking:pickedUpCannabis')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())
@@ -186,8 +209,8 @@ function GetCoordZWeed(x, y)
 	return 53.85
 end
 
-RegisterNetEvent('ps-drugprocessing:client:rollJoint')
-AddEventHandler('ps-drugprocessing:client:rollJoint', function()
+RegisterNetEvent('qb-drugtrafficking:client:rollJoint')
+AddEventHandler('qb-drugtrafficking:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 		if result then
 			RollJoint()
@@ -209,7 +232,7 @@ function RollJoint()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:rollJoint')
+	TriggerServerEvent('qb-drugtrafficking:rollJoint')
 	local timeLeft = Config.Delays.WeedProcessing / 1000
 
 	while timeLeft > 0 do

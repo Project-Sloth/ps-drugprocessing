@@ -25,9 +25,30 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
+--[[Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+
+		if GetDistanceBetweenCoords(coords, Config.CircleZones.ChemicalsConvertionMenu.coords, true) < 3 then
+			if not menuOpen then
+				local pos = GetEntityCoords(PlayerPedId())
+				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ - Open chemical menu")
+
+				if IsControlJustReleased(0, Keys['E']) then
+					TriggerEvent('qb-drugtrafficking:chemicalmenu')
+				end
+			else
+				Citizen.Wait(5500)
+			end
+		end
+	end
+end)]]--
+
 -- Chemical Menu Trigger & Menu Button Triggers --
 
-RegisterNetEvent('ps-drugprocessing:chemicalmenu', function()
+RegisterNetEvent('qb-drugtrafficking:chemicalmenu', function()
 	createChemicalMenu()
 	exports['qb-menu']:openMenu(chemMenu)
 end)
@@ -43,7 +64,7 @@ function createChemicalMenu()
             txt = "x1 Chemicals",
 			params = {
                 isServer = false,
-                event = "ps-drugprocessing:hydrochloric_acid",
+                event = "qb-drugtrafficking:hydrochloric_acid",
             }
         },
         {
@@ -51,7 +72,7 @@ function createChemicalMenu()
             txt = "x1 Chemicals",
 			params = {
                 isServer = false,
-                event = "ps-drugprocessing:sodium_hydroxide",
+                event = "qb-drugtrafficking:sodium_hydroxide",
             }
         },
         {
@@ -59,7 +80,7 @@ function createChemicalMenu()
             txt = "x1 Chemicals",
 			params = {
                 isServer = false,
-                event = "ps-drugprocessing:sulfuric_acid",
+                event = "qb-drugtrafficking:sulfuric_acid",
             }
         },
         {
@@ -67,7 +88,7 @@ function createChemicalMenu()
             txt = "x1 Chemicals",
 			params = {
                 isServer = false,
-                event = "ps-drugprocessing:lsa",
+                event = "qb-drugtrafficking:lsa",
             }
         },
         {
@@ -84,8 +105,8 @@ end
 
 --------------------------------------------------------------------
 
-RegisterNetEvent("ps-drugprocessing:hydrochloric_acid")
-AddEventHandler("ps-drugprocessing:hydrochloric_acid", function()
+RegisterNetEvent("qb-drugtrafficking:hydrochloric_acid")
+AddEventHandler("qb-drugtrafficking:hydrochloric_acid", function()
     ped = PlayerPedId();
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
@@ -96,8 +117,8 @@ AddEventHandler("ps-drugprocessing:hydrochloric_acid", function()
 	end, 'chemicals')
 end)
 
-RegisterNetEvent("ps-drugprocessing:lsa")
-AddEventHandler("ps-drugprocessing:lsa", function()
+RegisterNetEvent("qb-drugtrafficking:lsa")
+AddEventHandler("qb-drugtrafficking:lsa", function()
     ped = PlayerPedId();
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
@@ -120,7 +141,7 @@ function process_lsa()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:process_lsa')
+	TriggerServerEvent('qb-drugtrafficking:process_lsa')
 
 		local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -129,7 +150,7 @@ function process_lsa()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.ChemicalsConvertionMenu.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -141,8 +162,8 @@ function process_lsa()
 	isProcessing = false
 end
 
-RegisterNetEvent("ps-drugprocessing:sulfuric_acid")
-AddEventHandler("ps-drugprocessing:sulfuric_acid", function()
+RegisterNetEvent("qb-drugtrafficking:sulfuric_acid")
+AddEventHandler("qb-drugtrafficking:sulfuric_acid", function()
     ped = PlayerPedId();
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
@@ -153,8 +174,8 @@ AddEventHandler("ps-drugprocessing:sulfuric_acid", function()
 	end, 'chemicals')
 end)
 
-RegisterNetEvent("ps-drugprocessing:sodium_hydroxide")
-AddEventHandler("ps-drugprocessing:sodium_hydroxide", function()
+RegisterNetEvent("qb-drugtrafficking:sodium_hydroxide")
+AddEventHandler("qb-drugtrafficking:sodium_hydroxide", function()
     ped = PlayerPedId();
     QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 	if result then
@@ -177,7 +198,7 @@ function process_sulfuric_acid()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:processprocess_sulfuric_acid')
+	TriggerServerEvent('qb-drugtrafficking:processprocess_sulfuric_acid')
 
 		local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -186,7 +207,7 @@ function process_sulfuric_acid()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.ChemicalsConvertionMenu.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -210,7 +231,7 @@ function process_sodium_hydroxide()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:processsodium_hydroxide')
+	TriggerServerEvent('qb-drugtrafficking:processsodium_hydroxide')
 
 		local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -219,7 +240,7 @@ function process_sodium_hydroxide()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.ChemicalsConvertionMenu.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -243,7 +264,7 @@ function process_hydrochloric_acid()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:processHydrochloric_acid')
+	TriggerServerEvent('qb-drugtrafficking:processHydrochloric_acid')
 
 		local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -252,7 +273,7 @@ function process_hydrochloric_acid()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.ChemicalsConvertionMenu.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -265,8 +286,8 @@ function process_hydrochloric_acid()
 end
 
 
-RegisterNetEvent("ps-drugprocessing:pickChemicals")
-AddEventHandler("ps-drugprocessing:pickChemicals", function()
+RegisterNetEvent("qb-drugtrafficking:chemicals")
+AddEventHandler("qb-drugtrafficking:chemicals", function()
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -295,7 +316,7 @@ AddEventHandler("ps-drugprocessing:pickChemicals", function()
 					table.remove(Chemicals, nearbyID)
 					SpawnedChemicals = SpawnedChemicals - 1
 	
-					TriggerServerEvent('ps-drugprocessing:pickedUpChemicals')
+					TriggerServerEvent('qb-drugtrafficking:pickedUpChemicals')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

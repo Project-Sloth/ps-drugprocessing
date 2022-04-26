@@ -17,8 +17,8 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterNetEvent("ps-drugprocessing:client:hydrochloricacid")
-AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
+RegisterNetEvent("qb-drugtrafficking:client:hydrochloricacid")
+AddEventHandler("qb-drugtrafficking:client:hydrochloricacid", function()
 	
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
@@ -48,7 +48,7 @@ AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
 					table.remove(HydrochloricAcidBarrels, nearbyID)
 					spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels - 1
 	
-					TriggerServerEvent('ps-drugprocessing:pickedUpHydrochloricAcid')
+					TriggerServerEvent('qb-drugtrafficking:pickedUpHydrochloricAcid')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())

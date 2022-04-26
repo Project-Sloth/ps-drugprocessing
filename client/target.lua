@@ -12,7 +12,7 @@ Citizen.CreateThread(function()
             options = {
                 {
 					type = "client",
-					event = "ps-drugprocessing:EnterLab",
+					event = "qb-drugprocessing:EnterLab",
 					icon = "fas fa-atom",
 					label = "Talk to Walter",
                 }
@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
             options = {
                 {
 					type = "client",
-					event = "ps-drugprocessing:EnterCWarehouse",
+					event = "qb-drugprocessing:EnterCWarehouse",
 					icon = "fas fa-key",
 					label = "Talk to Draco",
                 }
@@ -52,7 +52,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:chemicalmenu",
+                event = "qb-drugtrafficking:chemicalmenu",
                 icon = "fas fa-vials",
                 label = "Learn a New Chemical Compound",
                 --job = "pawnshop", -- Remove this line if you do not want a job check.
@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ProcessChemicals",
+                event = "qb-drugprocessing:ProcessChemicals",
                 icon = "fas fa-vials",
                 label = "Cook Something Wonderful & Blue",
                 --job = "methcook", -- Remove this line if you do not want a job check.
@@ -88,7 +88,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ChangeTemp",
+                event = "qb-drugprocessing:ChangeTemp",
                 icon = "fas fa-temperature-empty",
                 label = "Hmmm Seems Cold",
                 --job = "methcook", -- Remove this line if you do not want a job check.
@@ -106,7 +106,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ChangeTemp2",
+                event = "qb-drugprocessing:ChangeTemp2",
                 icon = "fas fa-temperature-full",
                 label = "Hmmm Seems Hot",
                 --job = "methcook", -- Remove this line if you do not want a job check.
@@ -124,7 +124,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ProcessProduct",
+                event = "qb-drugprocessing:ProcessProduct",
                 icon = "fas fa-box",
                 label = "Start Bagging",
                 --job = "methcook", -- Remove this line if you do not want a job check.
@@ -142,7 +142,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ExitLab",
+                event = "qb-drugprocessing:ExitLab",
                 icon = "fas fa-lock",
                 label = "Secure Lab & Leave",
                 --job = "methcook", -- Remove this line if you do not want a job check.
@@ -160,7 +160,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ExitCWarehouse",
+                event = "qb-drugprocessing:ExitCWarehouse",
                 icon = "fas fa-lock",
                 label = "Secure Warehouse & Leave",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
@@ -178,7 +178,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ProcessCocaFarm",
+                event = "qb-drugprocessing:ProcessCocaFarm",
                 icon = "fas fa-scissors",
                 label = "Breakdown Leaves",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
@@ -196,7 +196,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ProcessCocaPowder",
+                event = "qb-drugprocessing:ProcessCocaPowder",
                 icon = "fas fa-weight-scale",
                 label = "Cut Product & Weight",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
@@ -214,27 +214,10 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:ProcessBricks",
+                event = "qb-drugprocessing:ProcessBricks",
                 icon = "fas fa-weight-scale",
                 label = "Brick Up Product",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
-            },
-        },
-    distance = 3.5
-    })
-    exports["qb-target"]:AddBoxZone("weedproces", vector3(2328.53, 2570.99, 46.61), 2.5, 2.5, {
-        name = "weedproces",
-        heading = 331.74,
-        debugPoly = false,
-        minZ = 45.99,
-        maxZ = 47.59,
-    }, {
-        options = {
-            {
-                type = "client",
-                event = "ps-drugprocessing:processWeed",
-                icon = "fas fa-envira",
-                label = "Process the Blaze",
             },
         },
     distance = 3.5
@@ -246,7 +229,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickCocaLeaves",
+                event = "qb-drugtrafficking:client:coke",
                 icon = "fas fa-leaf",
                 label = "Pickup Coke Leafs",
             },
@@ -257,8 +240,8 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickHeroin",
-                icon = "fas fa-leaf",
+                event = "qb-drugtrafficking:client:heorin",
+                icon = "fas fa-seedling",
                 label = "Pickup Poppy Plants",
             },
         },
@@ -268,7 +251,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickWeed",
+                event = "qb-drugtrafficking:client:weed",
                 icon = "fas fa-envira",
                 label = "Pickup Weed Leafs",
             },
@@ -279,7 +262,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickSodium",
+                event = "qb-drugtrafficking:client:sodium",
                 icon = "fas fa-dna",
                 label = "Pickup Sodium Barrel",
             },
@@ -290,7 +273,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickSulfuric",
+                event = "qb-drugtrafficking:client:sulfuric",
                 icon = "fas fa-shield-virus",
                 label = "Pickup Sulfuric Barrel",
             },
@@ -301,29 +284,7 @@ Citizen.CreateThread(function()
         options = {
             {
                 type = "client",
-                event = "ps-drugprocessing:pickChemicals",
-                icon = "fas fa-radiation",
-                label = "Pickup Chem Barrels",
-            },
-        },
-        distance = 4.0
-    })
-    exports['qb-target']:AddTargetModel("mw_hydro_barrel", {
-        options = {
-            {
-                type = "client",
-                event = "ps-drugprocessing:client:hydrochloricacid",
-                icon = "fas fa-radiation",
-                label = "Pickup Hydrochloric Acid Barrels",
-            },
-        },
-        distance = 4.0
-    })
-        exports['qb-target']:AddTargetModel("mw_chemical_barrel", {
-        options = {
-            {
-                type = "client",
-                event = "ps-drugprocessing:pickChemicals",
+                event = "qb-drugtrafficking:chemicals",
                 icon = "fas fa-radiation",
                 label = "Pickup Chem Barrels",
             },

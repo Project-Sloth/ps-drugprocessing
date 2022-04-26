@@ -52,7 +52,7 @@ function Processlsd()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:Processlsd')
+	TriggerServerEvent('qb-drugtrafficking:Processlsd')
 
 		local timeLeft = Config.Delays.lsdProcessing / 1000
 
@@ -62,7 +62,7 @@ function Processlsd()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.lsdProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -93,7 +93,46 @@ Citizen.CreateThread(function()
 			 },
 		distance = 2.5
 		 })
-	end)
+   end)
+
+
+--[[ Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+
+		if GetDistanceBetweenCoords(coords, Config.CircleZones.thionylchlorideProcessing.coords, true) < 5 then
+			if not isProcessing then
+				local pos = GetEntityCoords(PlayerPedId())
+				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "E - Process Thionyl Chloride")
+			end
+
+			if IsControlJustReleased(0, 38) and not isProcessing then
+				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+					if result then
+						hasitem2 = true
+					else
+						QBCore.Functions.Notify('You lack some of the required items - LSA & Chemicals', 'error')
+					end
+				end, 'lsa')
+
+				Citizen.Wait(1000) -- BUFFER
+
+                QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+                    if result and hasitem2 then
+                        Processthionylchloride()
+						hasitem2 = false
+                    else
+                        QBCore.Functions.Notify('You lack some of the required items - LSA & Chemicals', 'error')
+                    end
+                end, 'chemicals')
+			end 
+		else
+			Citizen.Wait(1000)
+		end
+	end
+end) ]]
 
 function Processthionylchloride()
 	isProcessing = true
@@ -108,7 +147,7 @@ function Processthionylchloride()
 		disableCombat = true,
 		disableKeyboard = true,
 	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processThionylChloride')
+		TriggerServerEvent('qb-drugtrafficking:processThionylChloride')
 
 	local timeLeft = Config.Delays.thionylchlorideProcessing / 1000
 
@@ -118,7 +157,7 @@ function Processthionylchloride()
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.thionylchlorideProcessing.coords, false) > 5 then
 				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end

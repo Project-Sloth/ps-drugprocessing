@@ -1,8 +1,8 @@
 local playersProcessingPoppyResin = {}
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterServerEvent('ps-drugprocessing:pickedUpPoppy')
-AddEventHandler('ps-drugprocessing:pickedUpPoppy', function()
+RegisterServerEvent('qb-drugtrafficking:pickedUpPoppy')
+AddEventHandler('qb-drugtrafficking:pickedUpPoppy', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -10,8 +10,8 @@ AddEventHandler('ps-drugprocessing:pickedUpPoppy', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["poppyresin"], "add")
 end)
 
-RegisterServerEvent('ps-drugprocessing:processPoppyResin')
-AddEventHandler('ps-drugprocessing:processPoppyResin', function()
+RegisterServerEvent('qb-drugtrafficking:processPoppyResin')
+AddEventHandler('qb-drugtrafficking:processPoppyResin', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -29,7 +29,7 @@ function CancelProcessing(playerID)
 	end
 end
 
-RegisterServerEvent('ps-drugprocessing:cancelProcessing')
-AddEventHandler('ps-drugprocessing:cancelProcessing', function()
+RegisterServerEvent('qb-drugtrafficking:cancelProcessing')
+AddEventHandler('qb-drugtrafficking:cancelProcessing', function()
 	CancelProcessing(source)
 end)
