@@ -48,17 +48,25 @@ end)
 RegisterNetEvent('ps-drugprocessing:ChangeTemp')
 AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
-		exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
-		function() -- success
-			print("success")
-			QBCore.Functions.Notify('Temperature Increase Successful', 'success')
-			ProcessTempUp()
-		end,
-		function() -- failure
-			print("failure")
-			TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-			TriggerServerEvent('ps-drugprocessing:processFailUp')
-		end)
+		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+			if result and hasitem1 then
+				print('You have this item HA')
+				hasitem2 = true
+			exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
+			function() -- success
+				print("success")
+				QBCore.Functions.Notify('Temperature Increase Successful', 'success')
+				ProcessTempUp()
+			end,
+			function() -- failure
+				print("failure")
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('ps-drugprocessing:processFailUp')
+			end)
+		else
+				QBCore.Functions.Notify('You lack some of the required items - Chemical Vapor', 'error')
+			end
+		end, 'chemicalvapor')
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
 	end
