@@ -53,7 +53,14 @@ end
 
 RegisterNetEvent("ps-drugprocessing:processWeed")
 AddEventHandler("ps-drugprocessing:processWeed",function()
-	ProcessWeed()
+	QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+		if result then
+			print('You have this item HA')
+			ProcessWeed()
+		else
+			QBCore.Functions.Notify("You don't have any cannabis!", 'error')
+		end
+	end,'cannabis')
 end)
 
 RegisterNetEvent("ps-drugprocessing:pickWeed")
