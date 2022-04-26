@@ -65,7 +65,7 @@ AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 			else
 				QBCore.Functions.Notify('You lack some of the required items - Chemical Mix', 'error')
 			end
-		end, 'chemicalmix')
+		end, 'liquidmix')
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
 	end
