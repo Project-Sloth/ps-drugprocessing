@@ -51,6 +51,11 @@ function ProcessWeed()
 	isProcessing = false
 end
 
+RegisterNetEvent("ps-drugprocessing:processWeed")
+AddEventHandler("ps-drugprocessing:processWeed",function()
+	ProcessWeed()
+end)
+
 RegisterNetEvent("ps-drugprocessing:pickWeed")
 AddEventHandler("ps-drugprocessing:pickWeed", function()
 		Citizen.Wait(0)
