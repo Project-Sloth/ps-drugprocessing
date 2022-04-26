@@ -48,17 +48,24 @@ end)
 RegisterNetEvent('ps-drugprocessing:ChangeTemp')
 AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
-		exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
-		function() -- success
-			print("success")
-			QBCore.Functions.Notify('Temperature Increase Successful', 'success')
-			ProcessTempUp()
-		end,
-		function() -- failure
-			print("failure")
-			TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-			TriggerServerEvent('ps-drugprocessing:processFailUp')
-		end)
+		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+			if result then
+				print('You have this item HA')
+				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
+				function() -- success
+					print("success")
+					QBCore.Functions.Notify('Temperature Increase Successful', 'success')
+					ProcessTempUp()
+				end,
+				function() -- failure
+					print("failure")
+					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+					TriggerServerEvent('ps-drugprocessing:processFailUp')
+				end)
+			else
+				QBCore.Functions.Notify('You lack some of the required items - Chemical Mix', 'error')
+			end
+		end, 'chemicalmix')
 	else
 		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
 	end
@@ -67,21 +74,29 @@ end)
 RegisterNetEvent('ps-drugprocessing:ChangeTemp2')
 AddEventHandler('ps-drugprocessing:ChangeTemp2', function()
 	if not isTempChangeD then
-		exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
-		function() -- success
-			print("success")
-			QBCore.Functions.Notify('Temperature Decrease Successful', 'success')
-			ProcessTempDown()
-		end,
-		function() -- failure
-			print("failure")
-			TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-			TriggerServerEvent('ps-drugprocessing:processFailDown')
-		end)
+		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+			if result then
+				print('You have this item HA')
+				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
+				function() -- success
+					print("success")
+					QBCore.Functions.Notify('Temperature Decrease Successful', 'success')
+					ProcessTempUp()
+				end,
+				function() -- failure
+					print("failure")
+					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+					TriggerServerEvent('ps-drugprocessing:processFailDown')
+				end)
+			else
+				QBCore.Functions.Notify('You lack some of the required items - Chemical Vapor', 'error')
+			end
+		end, 'chemicalvapor')
 	else
-		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
+		QBCore.Functions.Notify('Temperature is Already Cold Enough', 'error')
 	end
 end)
+
 
 RegisterNetEvent('ps-drugprocessing:ProcessProduct')
 AddEventHandler('ps-drugprocessing:ProcessProduct', function()
