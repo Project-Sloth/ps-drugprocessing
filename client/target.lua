@@ -222,6 +222,23 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
+    exports["qb-target"]:AddBoxZone("weedproces", vector3(2328.53, 2570.99, 46.61), 2.5, 2.5, {
+        name = "weedproces",
+        heading = 331.74,
+        debugPoly = false,
+        minZ = 45.99,
+        maxZ = 47.59,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:processWeed",
+                icon = "fas fa-envira",
+                label = "Process the Blaze",
+            },
+        },
+    distance = 3.5
+    })
 end)
 
 Citizen.CreateThread(function()
@@ -241,7 +258,7 @@ Citizen.CreateThread(function()
             {
                 type = "client",
                 event = "ps-drugprocessing:pickHeroin",
-                icon = "fas fa-seedling",
+                icon = "fas fa-leaf",
                 label = "Pickup Poppy Plants",
             },
         },
@@ -281,6 +298,28 @@ Citizen.CreateThread(function()
         distance = 4.0
     })
     exports['qb-target']:AddTargetModel("mw_chemical_barrel", {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:pickChemicals",
+                icon = "fas fa-radiation",
+                label = "Pickup Chem Barrels",
+            },
+        },
+        distance = 4.0
+    })
+    exports['qb-target']:AddTargetModel("mw_hydro_barrel", {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:client:hydrochloricacid",
+                icon = "fas fa-radiation",
+                label = "Pickup Hydrochloric Acid Barrels",
+            },
+        },
+        distance = 4.0
+    })
+        exports['qb-target']:AddTargetModel("mw_chemical_barrel", {
         options = {
             {
                 type = "client",
