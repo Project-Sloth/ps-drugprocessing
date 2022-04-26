@@ -1,9 +1,8 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
 local playersProcessingCannabis = {}
 
-RegisterServerEvent('qb-drugtrafficking:pickedUpCannabis')
-AddEventHandler('qb-drugtrafficking:pickedUpCannabis', function()
+RegisterServerEvent('ps-drugprocessing:pickedUpCannabis')
+AddEventHandler('ps-drugprocessing:pickedUpCannabis', function()
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
@@ -11,8 +10,8 @@ AddEventHandler('qb-drugtrafficking:pickedUpCannabis', function()
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["cannabis"], "add")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:processCannabis')
-AddEventHandler('qb-drugtrafficking:processCannabis', function()
+RegisterServerEvent('ps-drugprocessing:processCannabis')
+AddEventHandler('ps-drugprocessing:processCannabis', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -23,8 +22,8 @@ AddEventHandler('qb-drugtrafficking:processCannabis', function()
 	TriggerClientEvent('QBCore:Notify', src, 'Cannabis successfully processed!', "success")
 end)
 
-RegisterServerEvent('qb-drugtrafficking:rollJoint')
-AddEventHandler('qb-drugtrafficking:rollJoint', function()
+RegisterServerEvent('ps-drugprocessing:rollJoint')
+AddEventHandler('ps-drugprocessing:rollJoint', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -44,12 +43,12 @@ function CancelProcessing(playerId)
 	end
 end
 
-RegisterServerEvent('qb-drugtrafficking:cancelProcessing')
-AddEventHandler('qb-drugtrafficking:cancelProcessing', function()
+RegisterServerEvent('ps-drugprocessing:cancelProcessing')
+AddEventHandler('ps-drugprocessing:cancelProcessing', function()
 	CancelProcessing(source)
 end)
 
 QBCore.Functions.CreateUseableItem("rolling_paper", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-drugtrafficking:client:rollJoint', source, 'marijuana', item)
+    TriggerClientEvent('ps-drugprocessing:client:rollJoint', source, 'marijuana', item)
 end)
