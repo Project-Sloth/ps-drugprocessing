@@ -17,6 +17,34 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+--[[
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+		local coords = GetEntityCoords(playerPed)
+
+		if GetDistanceBetweenCoords(coords, Config.CircleZones.HeroinProcessing.coords, true) < 2 then
+			if not isProcessing then
+				local pos = GetEntityCoords(PlayerPedId())
+				QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ - Process poppy resin")
+			end
+
+			if IsControlJustReleased(0, 38) and not isProcessing then
+				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+					if result then
+						ProcessHeroin()
+					else
+						QBCore.Functions.Notify('You lack poppy resin', 'error')
+					end
+				end, 'poppyresin')
+			end
+		else
+			Citizen.Wait(500)
+		end
+	end
+end)
+]]
 
 function ProcessHeroin()
 
@@ -31,7 +59,7 @@ function ProcessHeroin()
 		disableMouse = false,
 		disableCombat = true,
 	}, {}, {}, {}, function()
-	TriggerServerEvent('ps-drugprocessing:processPoppyResin')
+	TriggerServerEvent('qb-drugtrafficking:processPoppyResin')
 
 		local timeLeft = Config.Delays.HeroinProcessing / 1000
 
@@ -40,7 +68,7 @@ function ProcessHeroin()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.HeroinProcessing.coords, false) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				TriggerServerEvent('qb-drugtrafficking:cancelProcessing')
 				break
 			end
 		end
@@ -52,9 +80,8 @@ function ProcessHeroin()
 	isProcessing = false
 end
 
-RegisterNetEvent("ps-drugprocessing:pickHeroin")
-AddEventHandler("ps-drugprocessing:pickHeroin", function()
-	
+Citizen.CreateThread(function()
+	while true do
 		Citizen.Wait(0)
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
@@ -68,6 +95,11 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 
 		if nearbyObject and IsPedOnFoot(playerPed) then
 
+			if not isPickingUp then
+				QBCore.Functions.Draw2DText(0.5, 0.88, 'Press [~g~ E ~w~] to pickup poppy resin', 0.5)
+			end
+
+			if IsControlJustReleased(0, 38) and not isPickingUp then
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
@@ -84,16 +116,18 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 					table.remove(PoppyPlants, nearbyID)
 					spawnedPoppys = spawnedPoppys - 1
 	
-					TriggerServerEvent('ps-drugprocessing:pickedUpPoppy')
+					TriggerServerEvent('qb-drugtrafficking:pickedUpPoppy')
 
 				end, function()
 					ClearPedTasks(PlayerPedId())
 				end)
 
 				isPickingUp = false
+			end
 		else
 			Citizen.Wait(500)
 		end
+	end
 end)
 
 AddEventHandler('onResourceStop', function(resource)

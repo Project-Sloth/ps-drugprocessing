@@ -18,7 +18,7 @@ Config.ChemicalsConvertionItems = {
 
 Config.CircleZones = {
 	WeedField = {coords = vector3(2224.64, 5577.03, 53.85), name = ('Weed Farm'), radius = 100.0},
-	WeedProcessing = {coords = vector3(2328.3, 2569.99, 46.68), name = ('Weed Process'), radius = 100.0},
+	WeedProcessing = {coords = vector3(2329.12, 2571.86, 46.68), name = ('Weed Process'), radius = 100.0},
 	
 	MethProcessing = {coords = vector3(978.17, -147.98, -48.53), name = ('Meth Process'), radius = 20.0},
 	MethTemp = {coords = vector3(982.56, -145.59, -49.0), name = ('Meth Temperature'), radius = 20.0},

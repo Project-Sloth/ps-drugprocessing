@@ -1,8 +1,8 @@
 local playersProcessingLSD = {}
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterServerEvent('ps-drugprocessing:Processlsd')
-AddEventHandler('ps-drugprocessing:Processlsd', function()
+RegisterServerEvent('qb-drugtrafficking:Processlsd')
+AddEventHandler('qb-drugtrafficking:Processlsd', function()
 	if not playersProcessingLSD[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -14,8 +14,8 @@ AddEventHandler('ps-drugprocessing:Processlsd', function()
 	end
 end)
 
-RegisterServerEvent('ps-drugprocessing:processThionylChloride')
-AddEventHandler('ps-drugprocessing:processThionylChloride', function()
+RegisterServerEvent('qb-drugtrafficking:processThionylChloride')
+AddEventHandler('qb-drugtrafficking:processThionylChloride', function()
 	if not playersProcessingLSD[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
@@ -33,7 +33,7 @@ function CancelProcessing(playerID)
 	end
 end
 
-RegisterServerEvent('ps-drugprocessing:cancelProcessing')
-AddEventHandler('ps-drugprocessing:cancelProcessing', function()
+RegisterServerEvent('qb-drugtrafficking:cancelProcessing')
+AddEventHandler('qb-drugtrafficking:cancelProcessing', function()
 	CancelProcessing(source)
 end)
