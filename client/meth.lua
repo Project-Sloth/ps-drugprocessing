@@ -49,9 +49,9 @@ RegisterNetEvent('ps-drugprocessing:ChangeTemp')
 AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
 		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-			if result and hasitem1 then
+			if result then
 				print('You have this item HA')
-				hasitem2 = true
+				hasitem1 = true
 			exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
 			function() -- success
 				print("success")
