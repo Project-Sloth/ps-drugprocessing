@@ -39,7 +39,7 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 					print('You have this item HA')
 					ProcessCoke()
 				else
-					QBCore.Functions.Notify('You need scissors to do this!' 'error')
+					QBCore.Functions.Notify('You need scissors to do this!', 'error')
 				end
 			end, 'trimming_scissors')
 		end
