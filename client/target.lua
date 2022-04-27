@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     })
     exports['qb-target']:SpawnPed({
         model = 'a_m_m_mlcrisis_01',
-        coords = vector4(811.03, -2400.17, 23.66, 216.01), 
+        coords = vector4(908.5, -1587.66, 30.34, 117.33), 
         minusOne = true, 
         freeze = true, 
         invincible = true, 
@@ -150,8 +150,8 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["qb-target"]:AddBoxZone("cokekeypad", vector3(1087.66, -3187.16, -38.99), 0.1, 0.2, {
-        name = "cokekeypad",
+    exports["qb-target"]:AddBoxZone("cokeleave", vector3(1088.56, -3187.02, -38.67), 1, 1, {
+        name = "cokeleave",
         heading = 0,
         debugPoly = false,
         minZ = -38.74,

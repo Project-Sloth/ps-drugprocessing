@@ -30,7 +30,7 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 					print('You have this item SA')
 					hasitem1 = true
 				else
-					QBCore.Functions.Notify('You lack the correct item...', 'error')
+					QBCore.Functions.Notify('You need Coca Leafs!', 'error')
 				end
 			end, 'coca_leaf')
 			Citizen.Wait(1000) -- BUFFER
@@ -39,7 +39,7 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 					print('You have this item HA')
 					ProcessCoke()
 				else
-					QBCore.Functions.Notify('You lack the correct item...', 'error')
+					QBCore.Functions.Notify('You need scissors to do this!' 'error')
 				end
 			end, 'trimming_scissors')
 		end
@@ -81,7 +81,7 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 				else
 					QBCore.Functions.Notify('You need ' ..amount2.. ' Baking Soda' , 'error')
 					Citizen.Wait(1000)
-					QBCore.Functions.Notify('Get The Right Items and Come Back', 'error')
+					QBCore.Functions.Notify('You need Baking Soda to do this!', 'error')
 				end
 			else
 				QBCore.Functions.Notify('You need ' ..amount.. ' Piles of Cocaine' , 'error')
