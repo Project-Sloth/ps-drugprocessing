@@ -204,7 +204,7 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
-    exports["qb-target"]:AddBoxZone("cokebricked", vector3(1098.77, -3194.19, -38.99), 2.6, 1.0, {
+    exports["qb-target"]:AddBoxZone("cokebricked", vector3(1100.51, -3199.46, -38.93), 2.6, 1.0, {
         name = "cokebricked",
         heading = 90,
         debugPoly = false,
