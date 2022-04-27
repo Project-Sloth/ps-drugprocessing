@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     })
     exports['qb-target']:SpawnPed({
         model = 'a_m_m_mlcrisis_01',
-        coords = vector4(908.5, -1587.66, 30.34, 117.33), 
+        coords = vector4(812.49, -2399.59, 23.66, 223.1), 
         minusOne = true, 
         freeze = true, 
         invincible = true, 
