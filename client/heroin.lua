@@ -109,11 +109,11 @@ function SpawnPoppyPlants()
 	while spawnedPoppys < 15 do
 		Citizen.Wait(0)
 		local heroinCoords = GenerateHeroinCoords()
-		RequestModel(`mw_heroin_plant`)
-		while not HasModelLoaded(`mw_heroin_plant`) do
+		RequestModel(`prop_cs_plant_01t`)
+		while not HasModelLoaded(`prop_cs_plant_01`) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_heroin_plant`, heroinCoords.x, heroinCoords.y, heroinCoords.z, true, true, false)
+		local obj = CreateObject(`prop_cs_plant_01`, heroinCoords.x, heroinCoords.y, heroinCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
 		table.insert(PoppyPlants, obj)
