@@ -81,7 +81,7 @@ AddEventHandler('ps-drugprocessing:ChangeTemp2', function()
 				function() -- success
 					print("success")
 					QBCore.Functions.Notify('Temperature Decrease Successful', 'success')
-					ProcessTempUp()
+					ProcessTempDown()
 				end,
 				function() -- failure
 					print("failure")

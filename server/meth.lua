@@ -103,7 +103,7 @@ AddEventHandler('ps-drugprocessing:processFailDown', function()
 		local Player = QBCore.Functions.GetPlayer(src)
 
 		Player.Functions.RemoveItem("chemicalvapor", 1)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["chemicalvapor"], "add")
+		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["chemicalvapor"], "remove")
 	end
 end)
 
