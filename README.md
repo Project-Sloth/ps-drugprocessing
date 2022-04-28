@@ -20,7 +20,7 @@
 ![image](https://user-images.githubusercontent.com/82112471/165861162-cf19f312-92bb-4241-86a4-9cc07720773d.png)
 
 # Heroin Preview
-Coming soon...
+![image](https://user-images.githubusercontent.com/82112471/165862181-2c641fee-15bb-46d8-8e65-f43aa8d9546b.png)
 
 # LSD Preview
 Coming soon...
