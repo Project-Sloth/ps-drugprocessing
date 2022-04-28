@@ -253,7 +253,7 @@ Citizen.CreateThread(function()
         },
         distance = 4.0
     })
-    exports['qb-target']:AddTargetModel("mw_heroin_plant", {
+    exports['qb-target']:AddTargetModel("prop_plant_01b", {
         options = {
             {
                 type = "client",
