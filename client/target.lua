@@ -54,7 +54,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:chemicalmenu",
                 icon = "fas fa-vials",
-                label = "Lerne eine neue chemische Verbindung",
+                label = "Chemische Verbindungen",
                 --job = "pawnshop", -- Remove this line if you do not want a job check.
             },
         },
@@ -90,7 +90,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ChangeTemp",
                 icon = "fas fa-temperature-empty",
-                label = "Hmmm scheint kalt zu sein",
+                label = "Temperatur verringern",
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ChangeTemp2",
                 icon = "fas fa-temperature-full",
-                label = "Hmmm Scheint heiß zu sein",
+                label = "Temperatur erhöhen",
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -126,7 +126,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessProduct",
                 icon = "fas fa-box",
-                label = "Abpacken beginnen",
+                label = "Verpacken",
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -144,7 +144,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ExitLab",
                 icon = "fas fa-lock",
-                label = "Labor abschließen & verlassen",
+                label = "Labor verlassen",
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -162,7 +162,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ExitCWarehouse",
                 icon = "fas fa-lock",
-                label = "Lager abschließen & verlassen",
+                label = "Labor verlassen",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -180,7 +180,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessCocaFarm",
                 icon = "fas fa-scissors",
-                label = "Blätter Sammeln",
+                label = "Blätter Verarbeiten",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -198,7 +198,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessCocaPowder",
                 icon = "fas fa-weight-scale",
-                label = "Zerschneiden & Wiegen",
+                label = "Verfeinern",
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },

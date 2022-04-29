@@ -2,7 +2,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local spawnedCocaLeaf = 0
 local CocaPlants = {}
-local isPickingUp, isProcessing, CWarehouse = false, false, false
+local isPickingUp, isProcessing, CWarehouse, hasitem1, hasitem2 = false, false, false, false, false
 
 
 Citizen.CreateThread(function()
@@ -28,18 +28,21 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
 					hasitem1 = true
-				else
-					QBCore.Functions.Notify('Du benötigst Kokainblätter!', 'error')
 				end
 			end, 'coca_leaf')
 			Citizen.Wait(1000) -- BUFFER
-			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-				if result and hasitem1 then
-					ProcessCoke()
-				else
-					QBCore.Functions.Notify('Dazu brauchst du eine Trimmschere!', 'error')
-				end
-			end, 'trimming_scissors')
+			if hasitem1 then
+				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+					if result and hasitem1 then
+						ProcessCoke()
+						hasitem1 = false
+					else
+						QBCore.Functions.Notify('Dazu brauchst du eine Trimmschere!', 'error')
+					end
+				end, 'trimming_scissors')
+			else
+				QBCore.Functions.Notify('Du benötigst Kokainblätter!', 'error')
+			end
 		end
 	end
 end)
