@@ -27,19 +27,17 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				else
-					QBCore.Functions.Notify('You need Coca Leafs!', 'error')
+					QBCore.Functions.Notify('Du benötigst Kokainblätter!', 'error')
 				end
 			end, 'coca_leaf')
 			Citizen.Wait(1000) -- BUFFER
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result and hasitem1 then
-					print('You have this item HA')
 					ProcessCoke()
 				else
-					QBCore.Functions.Notify('You need scissors to do this!', 'error')
+					QBCore.Functions.Notify('Dazu brauchst du eine Trimmschere!', 'error')
 				end
 			end, 'trimming_scissors')
 		end
@@ -56,7 +54,6 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				end
 			end, 'coke', 10)
@@ -64,7 +61,6 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result then
-						print('You have this item SA')
 						hasitem2 = true
 					end
 				end, 'bakingsoda', 5)
@@ -72,25 +68,24 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 				if hasitem2 == true then
 					QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 						if result and hasitem2 then
-							print('You have this item HA')
 							CutCokePowder()
 							hasitem1 = false
 							hasitem2 = false	
 						end
 					end, 'finescale')
 				else
-					QBCore.Functions.Notify('You need ' ..amount2.. ' Baking Soda' , 'error')
+					QBCore.Functions.Notify('Du benötigst ' ..amount2.. ' Backpulver' , 'error')
 					Citizen.Wait(1000)
-					QBCore.Functions.Notify('You need Baking Soda to do this!', 'error')
+					QBCore.Functions.Notify('Dazu brauchst du Backpulver!', 'error')
 				end
 			else
-				QBCore.Functions.Notify('You need ' ..amount.. ' Piles of Cocaine' , 'error')
+				QBCore.Functions.Notify('Du brauchst ' ..amount.. ' Haufen Kokain' , 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Get The Right Items and Come Back', 'error')
+				QBCore.Functions.Notify('Hol dir die richtigen Items und kommen wieder', 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('You are already processing something', 'error')
+		QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
 	end
 end)
 
@@ -103,7 +98,6 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				end
 			end, 'coke_small_brick', 4)
@@ -111,19 +105,18 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result and hasitem1 then
-						print('You have this item HA')
 						ProcessBricks()
 						hasitem1 = false
 					end
 				end, 'finescale')
 			else
-				QBCore.Functions.Notify('You need ' ..amount.. ' Small Bricks' , 'error')
+				QBCore.Functions.Notify('Du benötigst ' ..amount.. ' kleine päckchen' , 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Get The Right Items and Come Back', 'error')
+				QBCore.Functions.Notify('Hol dir die richtigen Items und kommen wieder', 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('You are already processing something', 'error')
+		QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
 	end
 end)
 
@@ -140,7 +133,7 @@ AddEventHandler('ps-drugprocessing:EnterCWarehouse', function()
 				print('Entering Warehouse')
 			else
 				print('No Key Stupid')
-				QBCore.Functions.Notify('You lack the required items', 'error')
+				QBCore.Functions.Notify('Dir fehlen die erforderlichen Gegenstände', 'error')
 			end
 		end, 'cocainekey')
 	end
@@ -192,7 +185,7 @@ function ProcessCoke()
 	
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing Leaves...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Verarbeite Kokainblätter...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -224,7 +217,7 @@ function CutCokePowder()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Cutting Cocaine...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Kokain schnippeln...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -257,7 +250,7 @@ function ProcessBricks()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Bricking Up Cocaine...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Verpacke Kokain...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -303,7 +296,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 			isPickingUp = true
 			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-			QBCore.Functions.Progressbar("search_register", "Picking cocaine leaves..", 10000, false, true, {
+			QBCore.Functions.Progressbar("search_register", "Sammle Kokainblätter...", 10000, false, true, {
 				disableMovement = true,
 				disableCarMovement = true,
 				disableMouse = false,

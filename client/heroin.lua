@@ -25,7 +25,7 @@ function ProcessHeroin()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing resin...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Verarbeite Schlafmohn...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -71,7 +71,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up poppy resin...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", "Sammle Schlafmohn...", 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

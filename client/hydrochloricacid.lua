@@ -35,7 +35,7 @@ AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up hydrochloric acid..", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", "Salzsäure sammeln...", 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

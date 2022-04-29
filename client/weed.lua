@@ -25,7 +25,7 @@ function ProcessWeed()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Trimming weed...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Gras trimmen...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -58,7 +58,7 @@ AddEventHandler("ps-drugprocessing:processWeed",function()
 			print('You have this item HA')
 			ProcessWeed()
 		else
-			QBCore.Functions.Notify("You don't have any cannabis!", 'error')
+			QBCore.Functions.Notify("Du hast kein Cannabis!", 'error')
 		end
 	end,'cannabis')
 end)
@@ -82,7 +82,7 @@ AddEventHandler("ps-drugprocessing:pickWeed", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Uprooting weed plant...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", "Entwurzeln von Gras...", 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,
@@ -199,7 +199,7 @@ AddEventHandler('ps-drugprocessing:client:rollJoint', function()
 		if result then
 			RollJoint()
 		else
-			QBCore.Functions.Notify('You lack marijuana', 'error')
+			QBCore.Functions.Notify('Dir fehlt Marihuana', 'error')
 		end
 	end, 'marijuana')
 end)
@@ -210,7 +210,7 @@ function RollJoint()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Rolling a joint ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Rolle Joint...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,

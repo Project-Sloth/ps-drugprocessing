@@ -10,10 +10,9 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				else
-					QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
+					QBCore.Functions.Notify('Dir fehlen einige der benötigten Gegenstände - Salzsäure, Schwefelsäure oder Natriumhydroxid', 'error')
 				end
 			end, 'sulfuric_acid')
 			Citizen.Wait(1000) -- BUFFER
@@ -22,7 +21,7 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 					print('You have this item HA')
 					hasitem2 = true
 				else
-					QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
+					QBCore.Functions.Notify('Dir fehlen einige der benötigten Gegenstände - Salzsäure, Schwefelsäure oder Natriumhydroxid', 'error')
 				end
 			end, 'hydrochloric_acid')
 			Citizen.Wait(1000) -- BUFFER  
@@ -34,11 +33,11 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 					hasitem1 = false
 					hasitem2 = false
 				else
-					QBCore.Functions.Notify('You lack some of the required items - Hydrochloric Acid, Sulfuric Acid or Sodium Hydroxide', 'error')
+					QBCore.Functions.Notify('Dir fehlen einige der benötigten Gegenstände - Salzsäure, Schwefelsäure oder Natriumhydroxid', 'error')
 				end
 			end, 'sodium_hydroxide')
 		else
-			QBCore.Functions.Notify('You are already processing something', 'error')
+			QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
 		end
 	else
 		Citizen.Wait(500)
@@ -54,7 +53,7 @@ AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
 				function() -- success
 					print("success")
-					QBCore.Functions.Notify('Temperature Increase Successful', 'success')
+					QBCore.Functions.Notify('Temperaturerhöhung erfolgreich', 'success')
 					ProcessTempUp()
 				end,
 				function() -- failure
@@ -63,11 +62,11 @@ AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 					TriggerServerEvent('ps-drugprocessing:processFailUp')
 				end)
 			else
-				QBCore.Functions.Notify('You lack some of the required items - Chemical Mix', 'error')
+				QBCore.Functions.Notify('Dir fehlen einige der erforderlichen Gegenstände - Flüssige Chemikalienmischung', 'error')
 			end
 		end, 'liquidmix')
 	else
-		QBCore.Functions.Notify('Temperature is Already Hot Enough', 'error')
+		QBCore.Functions.Notify('Die Temperatur ist schon heiß genug', 'error')
 	end
 end)
 
@@ -76,24 +75,21 @@ AddEventHandler('ps-drugprocessing:ChangeTemp2', function()
 	if not isTempChangeD then
 		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 			if result then
-				print('You have this item HA')
 				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,
 				function() -- success
-					print("success")
-					QBCore.Functions.Notify('Temperature Decrease Successful', 'success')
+					QBCore.Functions.Notify('Temperaturabnahme erfolgreich', 'success')
 					ProcessTempDown()
 				end,
 				function() -- failure
-					print("failure")
 					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 					TriggerServerEvent('ps-drugprocessing:processFailDown')
 				end)
 			else
-				QBCore.Functions.Notify('You lack some of the required items - Chemical Vapor', 'error')
+				QBCore.Functions.Notify('Dir fehlen einige der erforderlichen Gegenstände - Chemische Dämpfe', 'error')
 			end
 		end, 'chemicalvapor')
 	else
-		QBCore.Functions.Notify('Temperature is Already Cold Enough', 'error')
+		QBCore.Functions.Notify('Die Temperatur ist schon kalt genug', 'error')
 	end
 end)
 
@@ -106,15 +102,13 @@ AddEventHandler('ps-drugprocessing:ProcessProduct', function()
 		if not isBagging then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item')
 					ProcessProduct()
-					print('processing meth')
 				else
-					QBCore.Functions.Notify('You lack the required items', 'error')
+					QBCore.Functions.Notify('Dir fehlen die benötigten gegenstände', 'error')
 				end
 			end, 'methtray')
 		else
-			QBCore.Functions.Notify('You are already processing something', 'error')
+			QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
 		end
 	else
 		Citizen.Wait(500)
@@ -129,7 +123,7 @@ function ProcessChemicals()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing Chemicals...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Verarbeitung von Chemikalien...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -144,7 +138,7 @@ function ProcessChemicals()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethProcessing.coords, false) > 2 then
-				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
+				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
@@ -163,7 +157,7 @@ function ProcessTempUp()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Increasing Temperature...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Erhöhe Temperatur...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -178,7 +172,7 @@ function ProcessTempUp()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
-				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
+				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
@@ -197,7 +191,7 @@ function ProcessTempDown()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Decreasing Temperature...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Senke Temperatur...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -212,7 +206,7 @@ function ProcessTempDown()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethTemp.coords, false) > 2 then
-				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
+				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
@@ -232,7 +226,7 @@ function ProcessProduct()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Bagging Up Meth...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", "Verpacke Meth...", 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -247,7 +241,7 @@ function ProcessProduct()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.MethBag.coords, false) > 2 then
-				QBCore.Functions.Notify('The processing has been canceled due to you abandoning the area')
+				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
@@ -270,11 +264,9 @@ AddEventHandler('ps-drugprocessing:EnterLab', function()
 		if not Methlab then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have the key')
 					EnterMethlab()
-					print('Entering Lab')
 				else
-					QBCore.Functions.Notify('You lack the required items', 'error')
+					QBCore.Functions.Notify('Dir fehlen die erforderlichen Gegenstände', 'error')
 				end
 			end, 'methkey')
 		end
