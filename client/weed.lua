@@ -71,7 +71,7 @@ AddEventHandler("ps-drugprocessing:pickWeed", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #weedPlants, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(weedPlants[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(weedPlants[i]), false) < 2 then
 				nearbyObject, nearbyID = weedPlants[i], i
 			end
 		end

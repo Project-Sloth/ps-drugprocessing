@@ -61,7 +61,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #PoppyPlants, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(PoppyPlants[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(PoppyPlants[i]), false) < 2 then
 				nearbyObject, nearbyID = PoppyPlants[i], i
 			end
 		end

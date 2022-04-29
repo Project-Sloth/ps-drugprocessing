@@ -26,7 +26,7 @@ AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #HydrochloricAcidBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(HydrochloricAcidBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(HydrochloricAcidBarrels[i]), false) < 2 then
 				nearbyObject, nearbyID = HydrochloricAcidBarrels[i], i
 			end
 		end

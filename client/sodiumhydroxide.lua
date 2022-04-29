@@ -24,7 +24,7 @@ AddEventHandler("ps-drugprocessing:pickSodium", function()
 		local nearbyObject3, nearbyID3
 
 		for i=1, #SodiumHydroxideBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 2 then
 				nearbyObject3, nearbyID3 = SodiumHydroxideBarrels[i], i
 			end
 		end

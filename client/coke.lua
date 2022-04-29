@@ -288,7 +288,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 	local nearbyObject, nearbyID
 
 	for i=1, #CocaPlants, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 1 then
+		if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 2 then
 			nearbyObject, nearbyID = CocaPlants[i], i
 		end
 	end

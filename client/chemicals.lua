@@ -273,7 +273,7 @@ AddEventHandler("ps-drugprocessing:pickChemicals", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #Chemicals, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(Chemicals[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(Chemicals[i]), false) < 2 then
 				nearbyObject, nearbyID = Chemicals[i], i
 			end
 		end

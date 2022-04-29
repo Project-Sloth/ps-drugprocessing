@@ -24,7 +24,7 @@ AddEventHandler("ps-drugprocessing:pickSulfuric", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #SulfuricAcidBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(SulfuricAcidBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(SulfuricAcidBarrels[i]), false) < 2 then
 				nearbyObject, nearbyID = SulfuricAcidBarrels[i], i
 			end
 		end
