@@ -239,6 +239,23 @@ Citizen.CreateThread(function()
         },
     distance = 3.5
     })
+	exports["qb-target"]:AddBoxZone("heroinproces", vector3(1384.9, -2080.61, 52.21), 2.5, 2.5, {
+        name = "heroinproces",
+        heading = 223.98,
+        debugPoly = false,
+        minZ = 51.21,
+        maxZ = 53.21,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:processHeroin",
+                icon = "fas fa-envira",
+                label = "Process the Blaze",
+            },
+        },
+    distance = 3.5
+    })
 end)
 
 Citizen.CreateThread(function()
