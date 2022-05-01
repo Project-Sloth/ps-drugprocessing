@@ -25,7 +25,7 @@ function ProcessWeed()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Trimming weed...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -55,10 +55,9 @@ RegisterNetEvent("ps-drugprocessing:processWeed")
 AddEventHandler("ps-drugprocessing:processWeed",function()
 	QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 		if result then
-			print('You have this item HA')
 			ProcessWeed()
 		else
-			QBCore.Functions.Notify("You don't have any cannabis!", 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_cannabis"), 'error')
 		end
 	end,'cannabis')
 end)
@@ -71,7 +70,7 @@ AddEventHandler("ps-drugprocessing:pickWeed", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #weedPlants, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(weedPlants[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(weedPlants[i]), false) < 2 then
 				nearbyObject, nearbyID = weedPlants[i], i
 			end
 		end
@@ -82,7 +81,7 @@ AddEventHandler("ps-drugprocessing:pickWeed", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Uprooting weed plant...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,
@@ -199,7 +198,7 @@ AddEventHandler('ps-drugprocessing:client:rollJoint', function()
 		if result then
 			RollJoint()
 		else
-			QBCore.Functions.Notify('You lack marijuana', 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_marijuhana"), 'error')
 		end
 	end, 'marijuana')
 end)
@@ -210,7 +209,7 @@ function RollJoint()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Rolling a joint ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.rolling_joint"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,

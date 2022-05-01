@@ -27,7 +27,6 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				end
 			end, 'coca_leaf')
@@ -35,15 +34,14 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 			if hasitem1 then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result and hasitem1 then
-						print('You have this item HA')
 						ProcessCoke()
 						hasitem1 = false
 					else
-						QBCore.Functions.Notify('You need scissors to do this!', 'error')
+						QBCore.Functions.Notify(Lang:t("error.no_trimming_scissors"), 'error')
 					end
 				end, 'trimming_scissors')
 			else
-				QBCore.Functions.Notify('You need Coca Leafs!', 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_coca_leaf"), 'error')
 			end
 		end
 	end
@@ -59,7 +57,6 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				end
 			end, 'coke', 10)
@@ -67,7 +64,6 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result then
-						print('You have this item SA')
 						hasitem2 = true
 					end
 				end, 'bakingsoda', 5)
@@ -75,25 +71,24 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 				if hasitem2 == true then
 					QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 						if result and hasitem2 then
-							print('You have this item HA')
 							CutCokePowder()
 							hasitem1 = false
 							hasitem2 = false	
 						end
 					end, 'finescale')
 				else
-					QBCore.Functions.Notify('You need ' ..amount2.. ' Baking Soda' , 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_bakingsoda_amount", {value = amount2}), 'error')
 					Citizen.Wait(1000)
-					QBCore.Functions.Notify('You need Baking Soda to do this!', 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_bakingsoda"), 'error')
 				end
 			else
-				QBCore.Functions.Notify('You need ' ..amount.. ' Piles of Cocaine' , 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_cokain_amount", {value = amount}), 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Get The Right Items and Come Back', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('You are already processing something', 'error')
+		QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 	end
 end)
 
@@ -106,7 +101,6 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('You have this item SA')
 					hasitem1 = true
 				end
 			end, 'coke_small_brick', 4)
@@ -114,19 +108,18 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result and hasitem1 then
-						print('You have this item HA')
 						ProcessBricks()
 						hasitem1 = false
 					end
 				end, 'finescale')
 			else
-				QBCore.Functions.Notify('You need ' ..amount.. ' Small Bricks' , 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_enough_small_bricks", {value = amount}), 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Get The Right Items and Come Back', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('You are already processing something', 'error')
+		QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 	end
 end)
 
@@ -138,12 +131,9 @@ AddEventHandler('ps-drugprocessing:EnterCWarehouse', function()
     if dist < 2 then
 		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 			if result then
-				print('You have the key')
 				EnterCWarehouse()
-				print('Entering Warehouse')
 			else
-				print('No Key Stupid')
-				QBCore.Functions.Notify('You lack the required items', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end, 'cocainekey')
 	end
@@ -156,7 +146,6 @@ AddEventHandler('ps-drugprocessing:ExitCWarehouse', function()
     local dist = #(pos - vector3(Config.CokeLab["exit"].coords.x, Config.CokeLab["exit"].coords.y, Config.CokeLab["exit"].coords.z))
     if dist < 2 then
 		ExitCWarehouse()
-		print('Exiting Warehouse')
 	end
 end)
 
@@ -195,7 +184,7 @@ function ProcessCoke()
 	
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing Leaves...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -227,7 +216,7 @@ function CutCokePowder()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Cutting Cocaine...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -260,7 +249,7 @@ function ProcessBricks()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Bricking Up Cocaine...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.packing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -295,7 +284,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 	local nearbyObject, nearbyID
 
 	for i=1, #CocaPlants, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 1 then
+		if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 2 then
 			nearbyObject, nearbyID = CocaPlants[i], i
 		end
 	end
@@ -306,7 +295,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 			isPickingUp = true
 			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-			QBCore.Functions.Progressbar("search_register", "Picking cocaine leaves..", 10000, false, true, {
+			QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 				disableMovement = true,
 				disableCarMovement = true,
 				disableMouse = false,

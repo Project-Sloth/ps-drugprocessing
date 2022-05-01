@@ -36,43 +36,43 @@ function createChemicalMenu()
     chemMenu = {
         {
             isHeader = true,
-            header = 'Chemical Menu'
+            header = Lang:t("menu.chemMenuHeader")
         },
         {
-            header = "Hydrochloric Acid",
-            txt = "x1 Chemicals",
+            header = Lang:t("items.hydrochloric_acid"),
+            txt = Lang:t("menu.chemicals"),
 			params = {
                 isServer = false,
                 event = "ps-drugprocessing:hydrochloric_acid",
             }
         },
         {
-            header = "Sodium Hydroxide",
-            txt = "x1 Chemicals",
+            header = Lang:t("items.sodium_hydroxide"),
+            txt = Lang:t("menu.chemicals"),
 			params = {
                 isServer = false,
                 event = "ps-drugprocessing:sodium_hydroxide",
             }
         },
         {
-            header = "Sulfuric Acid",
-            txt = "x1 Chemicals",
+            header = Lang:t("items.sulfuric_acid"),
+            txt = Lang:t("menu.chemicals"),
 			params = {
                 isServer = false,
                 event = "ps-drugprocessing:sulfuric_acid",
             }
         },
         {
-			header = "LSA",
-            txt = "x1 Chemicals",
+			header = Lang:t("items.lsa"),
+            txt = Lang:t("menu.chemicals"),
 			params = {
                 isServer = false,
                 event = "ps-drugprocessing:lsa",
             }
         },
         {
-            header = "Close Menu",
-			txt = "Close Menu",
+            header = Lang:t("items.close"),
+			txt = Lang:t("items.closetxt"),
 			params = {
                 isServer = false,
                 event = exports['qb-menu']:closeMenu(),
@@ -91,7 +91,7 @@ AddEventHandler("ps-drugprocessing:hydrochloric_acid", function()
 	if result then
 		process_hydrochloric_acid()
 		else
-			QBCore.Functions.Notify('You lack Chemicals', 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_chemicals"), 'error')
 		end
 	end, 'chemicals')
 end)
@@ -103,7 +103,7 @@ AddEventHandler("ps-drugprocessing:lsa", function()
 	if result then
 		process_lsa()
 		else
-			QBCore.Functions.Notify('You lack Chemicals', 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_chemicals"), 'error')
 		end
 	end, 'chemicals')
 end)
@@ -114,7 +114,7 @@ function process_lsa()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -148,7 +148,7 @@ AddEventHandler("ps-drugprocessing:sulfuric_acid", function()
 	if result then
 		process_sulfuric_acid()
 		else
-			QBCore.Functions.Notify('You lack Chemicals', 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_chemicals"), 'error')
 		end
 	end, 'chemicals')
 end)
@@ -160,7 +160,7 @@ AddEventHandler("ps-drugprocessing:sodium_hydroxide", function()
 	if result then
 		process_sodium_hydroxide()
 		else
-			QBCore.Functions.Notify('You lack Chemicals', 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_chemicals"), 'error')
 		end
 	end, 'chemicals')
 end)
@@ -171,7 +171,7 @@ function process_sulfuric_acid()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -204,7 +204,7 @@ function process_sodium_hydroxide()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -237,7 +237,7 @@ function process_hydrochloric_acid()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing ...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -273,7 +273,7 @@ AddEventHandler("ps-drugprocessing:pickChemicals", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #Chemicals, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(Chemicals[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(Chemicals[i]), false) < 2 then
 				nearbyObject, nearbyID = Chemicals[i], i
 			end
 		end
@@ -282,7 +282,7 @@ AddEventHandler("ps-drugprocessing:pickChemicals", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up chemicals..", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.pickup_chemicals"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,
