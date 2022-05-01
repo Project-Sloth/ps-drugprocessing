@@ -11,6 +11,7 @@ AddEventHandler('ps-drugprocessing:Processlsd', function()
 		Player.Functions.RemoveItem("thionyl_chloride", 1)
 		Player.Functions.AddItem("lsd", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["lsd"], "add")
+		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.lsd"), "success")
 	end
 end)
 
@@ -20,10 +21,11 @@ AddEventHandler('ps-drugprocessing:processThionylChloride', function()
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
 
-		Player.Functions.AddItem("thionyl_chloride", 1)
 		Player.Functions.RemoveItem("lsa", 1)
 		Player.Functions.RemoveItem("chemicals", 1)
+		Player.Functions.AddItem("thionyl_chloride", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["thionyl_chloride"], "add")
+		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.thionyl_chloride"), "success")
 	end
 end)
 

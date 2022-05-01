@@ -37,11 +37,11 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 						ProcessCoke()
 						hasitem1 = false
 					else
-						QBCore.Functions.Notify('Dazu brauchst du eine Trimmschere!', 'error')
+						QBCore.Functions.Notify(Lang:t("error.no_trimming_scissors"), 'error')
 					end
 				end, 'trimming_scissors')
 			else
-				QBCore.Functions.Notify('Du benötigst Kokainblätter!', 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_coca_leaf"), 'error')
 			end
 		end
 	end
@@ -77,18 +77,18 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 						end
 					end, 'finescale')
 				else
-					QBCore.Functions.Notify('Du benötigst ' ..amount2.. ' Backpulver' , 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_bakingsoda_amount", {value = amount2}), 'error')
 					Citizen.Wait(1000)
-					QBCore.Functions.Notify('Dazu brauchst du Backpulver!', 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_bakingsoda"), 'error')
 				end
 			else
-				QBCore.Functions.Notify('Du brauchst ' ..amount.. ' Haufen Kokain' , 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_cokain_amount", {value = amount}), 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Hol dir die richtigen Items und kommen wieder', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
+		QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 	end
 end)
 
@@ -113,13 +113,13 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 					end
 				end, 'finescale')
 			else
-				QBCore.Functions.Notify('Du benötigst ' ..amount.. ' kleine päckchen' , 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_enough_small_bricks", {value = amount}), 'error')
 				Citizen.Wait(1000)
-				QBCore.Functions.Notify('Hol dir die richtigen Items und kommen wieder', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end
 	else
-		QBCore.Functions.Notify('Du verarbeitest bereits etwas', 'error')
+		QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 	end
 end)
 
@@ -131,12 +131,9 @@ AddEventHandler('ps-drugprocessing:EnterCWarehouse', function()
     if dist < 2 then
 		QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 			if result then
-				print('You have the key')
 				EnterCWarehouse()
-				print('Entering Warehouse')
 			else
-				print('No Key Stupid')
-				QBCore.Functions.Notify('Dir fehlen die erforderlichen Gegenstände', 'error')
+				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 			end
 		end, 'cocainekey')
 	end
@@ -149,7 +146,6 @@ AddEventHandler('ps-drugprocessing:ExitCWarehouse', function()
     local dist = #(pos - vector3(Config.CokeLab["exit"].coords.x, Config.CokeLab["exit"].coords.y, Config.CokeLab["exit"].coords.z))
     if dist < 2 then
 		ExitCWarehouse()
-		print('Exiting Warehouse')
 	end
 end)
 
@@ -188,7 +184,7 @@ function ProcessCoke()
 	
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Verarbeite Kokainblätter...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -220,7 +216,7 @@ function CutCokePowder()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Kokain schnippeln...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -253,7 +249,7 @@ function ProcessBricks()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Verpacke Kokain...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.packing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -299,7 +295,7 @@ AddEventHandler('ps-drugprocessing:pickCocaLeaves', function()
 			isPickingUp = true
 			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-			QBCore.Functions.Progressbar("search_register", "Sammle Kokainblätter...", 10000, false, true, {
+			QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 				disableMovement = true,
 				disableCarMovement = true,
 				disableMouse = false,

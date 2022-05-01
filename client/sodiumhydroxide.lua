@@ -35,7 +35,7 @@ AddEventHandler("ps-drugprocessing:pickSodium", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Natriumhydroxid sammeln...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

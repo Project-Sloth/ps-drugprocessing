@@ -25,7 +25,7 @@ function ProcessHeroin()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Verarbeite Schlafmohn...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -56,10 +56,9 @@ RegisterNetEvent("ps-drugprocessing:processHeroin")
 AddEventHandler("ps-drugprocessing:processHeroin",function()
 	QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 		if result then
-			print('You have this item HA')
 			ProcessHeroin()
 		else
-			QBCore.Functions.Notify("You don't have any Poppy Resin!", 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_poppy_resin"), 'error')
 		end
 	end,'poppyresin')
 end)
@@ -84,7 +83,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Sammle Schlafmohn...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

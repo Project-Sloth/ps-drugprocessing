@@ -10,7 +10,7 @@ Citizen.CreateThread(function()
         if GetDistanceBetweenCoords(coords, Config.CircleZones.lsdProcessing.coords, true) < 2 then
             if not isProcessing then
                 local pos = GetEntityCoords(PlayerPedId())
-                QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, "~g~E~w~ - LSD verarbeiten")
+                QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, Lang:t("drawtext.process_lsd"))
             end
 
             if IsControlJustReleased(0, 38) and not isProcessing then
@@ -19,7 +19,7 @@ Citizen.CreateThread(function()
 					if result then
 						hasitem1 = true
 					else
-						QBCore.Functions.Notify('Dir fehlen einige der erforderlichen Elemente - LSA & Thionylchlorid', 'error')
+						QBCore.Functions.Notify(Lang:t("error.no_lsa"), 'error')
 					end
 				end, 'lsa')
 				Citizen.Wait(1000) -- BUFFER
@@ -29,7 +29,7 @@ Citizen.CreateThread(function()
                         Processlsd()
 						hasitem1 = false
                     else
-                        QBCore.Functions.Notify('Dir fehlen einige der erforderlichen Elemente - LSA & Thionylchlorid', 'error')
+                        QBCore.Functions.Notify(Lang:t("error.no_thionyl_chloride"), 'error')
                     end
                 end, 'thionyl_chloride')
             end
@@ -45,7 +45,7 @@ function Processlsd()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Verarbeite LSD...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -61,7 +61,7 @@ function Processlsd()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.lsdProcessing.coords, false) > 5 then
-				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
+				QBCore.Functions.Notify(Lang:t("error.too_far"))
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end
@@ -88,7 +88,7 @@ Citizen.CreateThread(function()
 				  type = "client",
 				  event = "qb-crafting:opencraftingtable",
 				  icon = "fas fa-biohazard",
-				  label = "Thionylchlorid verarbeiten",
+				  label = Lang:t("tagert.process_thionyl_chloride"),
 				},
 			 },
 		distance = 2.5
@@ -101,7 +101,7 @@ function Processthionylchloride()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Verarbeite Thionylchlorid...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -117,7 +117,7 @@ function Processthionylchloride()
 			timeLeft = timeLeft - 1
 
 			if GetDistanceBetweenCoords(GetEntityCoords(playerPed), Config.CircleZones.thionylchlorideProcessing.coords, false) > 5 then
-				QBCore.Functions.Notify('Die Verarbeitung wurde abgebrochen, weil du das Gebiet verlassen hast')
+				QBCore.Functions.Notify(Lang:t("error.too_far"))
 				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 				break
 			end

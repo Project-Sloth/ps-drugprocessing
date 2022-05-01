@@ -8,6 +8,7 @@ AddEventHandler('ps-drugprocessing:pickedUpPoppy', function()
 
 	Player.Functions.AddItem("poppyresin", 1)
 	TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["poppyresin"], "add")
+	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.poppyresin"), "success")
 end)
 
 RegisterServerEvent('ps-drugprocessing:processPoppyResin')
@@ -19,7 +20,7 @@ AddEventHandler('ps-drugprocessing:processPoppyResin', function()
 	Player.Functions.AddItem('heroin', 1)
 	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['poppyresin'], "remove")
 	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['heroin'], "add")
-	TriggerClientEvent('QBCore:Notify', src, 'Heroin erfolgreich verarbeitet!', "success")
+	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.heroin"), "success")
 end)
 
 function CancelProcessing(playerID)
