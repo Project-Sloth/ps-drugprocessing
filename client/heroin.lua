@@ -52,6 +52,19 @@ function ProcessHeroin()
 	isProcessing = false
 end
 
+RegisterNetEvent("ps-drugprocessing:processHeroin")
+AddEventHandler("ps-drugprocessing:processHeroin",function()
+	QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+		if result then
+			print('You have this item HA')
+			ProcessHeroin()
+		else
+			QBCore.Functions.Notify("You don't have any Poppy Resin!", 'error')
+		end
+	end,'poppyresin')
+end)
+
+
 RegisterNetEvent("ps-drugprocessing:pickHeroin")
 AddEventHandler("ps-drugprocessing:pickHeroin", function()
 	
