@@ -43,7 +43,7 @@ function ProcessHeroin()
 
 	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
 
-	QBCore.Functions.Progressbar("search_register", "Processing resin...", 15000, false, true, {
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
 		disableMovement = true,
 		disableCarMovement = true,
 		disableMouse = false,
@@ -70,6 +70,18 @@ function ProcessHeroin()
 	isProcessing = false
 end
 
+RegisterNetEvent("ps-drugprocessing:processHeroin")
+AddEventHandler("ps-drugprocessing:processHeroin",function()
+	QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+		if result then
+			ProcessHeroin()
+		else
+			QBCore.Functions.Notify(Lang:t("error.no_poppy_resin"), 'error')
+		end
+	end,'poppyresin')
+end)
+
+
 RegisterNetEvent("ps-drugprocessing:pickHeroin")
 AddEventHandler("ps-drugprocessing:pickHeroin", function()
 	
@@ -79,7 +91,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #PoppyPlants, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(PoppyPlants[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(PoppyPlants[i]), false) < 2 then
 				nearbyObject, nearbyID = PoppyPlants[i], i
 			end
 		end
@@ -89,7 +101,7 @@ AddEventHandler("ps-drugprocessing:pickHeroin", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up poppy resin...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

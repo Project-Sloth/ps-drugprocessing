@@ -24,7 +24,7 @@ AddEventHandler("ps-drugprocessing:pickSodium", function()
 		local nearbyObject3, nearbyID3
 
 		for i=1, #SodiumHydroxideBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 2 then
 				nearbyObject3, nearbyID3 = SodiumHydroxideBarrels[i], i
 			end
 		end
@@ -35,7 +35,7 @@ AddEventHandler("ps-drugprocessing:pickSodium", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPe3, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up Sodium Hydroxide..", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

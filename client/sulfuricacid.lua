@@ -24,7 +24,7 @@ AddEventHandler("ps-drugprocessing:pickSulfuric", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #SulfuricAcidBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(SulfuricAcidBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(SulfuricAcidBarrels[i]), false) < 2 then
 				nearbyObject, nearbyID = SulfuricAcidBarrels[i], i
 			end
 		end
@@ -35,7 +35,7 @@ AddEventHandler("ps-drugprocessing:pickSulfuric", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up sulfuric acid ...", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

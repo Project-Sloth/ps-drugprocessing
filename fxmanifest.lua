@@ -10,8 +10,13 @@ this_is_a_map 'yes'
 
 version '1.0.0'
 
-server_scripts {
+shared_scripts {
 	'config.lua',
+	'@qb-core/shared/locale.lua',
+	'locales/en.lua'
+}
+
+server_scripts {
 	'server/coke.lua',
 	'server/lsd.lua',
 	'server/meth.lua',
@@ -23,7 +28,6 @@ server_scripts {
 }
 
 client_scripts {
-	'config.lua',
 	'client/weed.lua',
 	'client/meth.lua',
 	'client/coke.lua',
