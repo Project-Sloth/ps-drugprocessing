@@ -26,10 +26,9 @@ AddEventHandler('ps-drugprocessing:ProcessPoppy', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('nice')
 					ProcessHeroin()
 				else
-					QBCore.Functions.Notify('You dont have the correct items', 'error')
+					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 				end
 			end, 'poppyresin')
 		end

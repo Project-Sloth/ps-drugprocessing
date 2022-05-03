@@ -87,6 +87,7 @@ local Translations = {
         cokepowdercut = "Refine",
         weedproces = "Cutting and drying",
         heroinproces = "Process mixture",
+        heroinproc = "Process Poppy Seeds",
         pickCocaLeaves = "Collect coca leaves",
         pickHeroin = "Collect poppy resin",
         pickWeed = "Collect cannabis",
