@@ -1,5 +1,4 @@
 # Project Sloth Advanced Drug Processing
-- Beta release. Please submit PRs and create issues if needed.  
 
 # Chemicals Preview
 ![image](https://user-images.githubusercontent.com/82112471/165860380-861eddc3-8548-442d-b483-2afd311970ad.png)

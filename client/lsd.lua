@@ -74,26 +74,33 @@ function Processlsd()
 	isProcessing = false
 end
 
+RegisterNetEvent('ps-drugprocessing:processingThiChlo')
+AddEventHandler('ps-drugprocessing:processingThiChlo', function()
+	local coords = GetEntityCoords(PlayerPedId(source))
+	
+	if GetDistanceBetweenCoords(coords, Config.CircleZones.thionylchlorideProcessing.coords, true) < 5 then
+		if not isProcessing then
+			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+				if result then
+					print('nice')
+					hasitem1 = true
+				else
+					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+				end
+			end, 'lsa')
+			Citizen.Wait(1000) -- BUFFER
+			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+				if result and hasitem1 then
+					print('nice')
+					Processthionylchloride()
+				else
+					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+				end
+			end, 'chemicals')
+		end
+	end
+end)
 
-Citizen.CreateThread(function()
-	exports['qb-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
-		name="thychloride",
-		heading=340.0,
-		debugPoly=false,
-		minZ = 14.33,
-		maxZ = 18.33,
-	  },{
-		options = {
-				{
-				  type = "client",
-				  event = "qb-crafting:opencraftingtable",
-				  icon = "fas fa-biohazard",
-				  label = Lang:t("target.process_thionyl_chloride"),
-				},
-			 },
-		distance = 2.5
-		 })
-	end)
 
 function Processthionylchloride()
 	isProcessing = true
