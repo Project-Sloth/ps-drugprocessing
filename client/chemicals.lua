@@ -71,8 +71,8 @@ function createChemicalMenu()
             }
         },
         {
-            header = Lang:t("items.close"),
-			txt = Lang:t("items.closetxt"),
+            header = Lang:t("menu.close"),
+			txt = Lang:t("menu.closetxt"),
 			params = {
                 isServer = false,
                 event = exports['qb-menu']:closeMenu(),
