@@ -26,7 +26,7 @@ AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
 		local nearbyObject, nearbyID
 
 		for i=1, #HydrochloricAcidBarrels, 1 do
-			if GetDistanceBetweenCoords(coords, GetEntityCoords(HydrochloricAcidBarrels[i]), false) < 1 then
+			if GetDistanceBetweenCoords(coords, GetEntityCoords(HydrochloricAcidBarrels[i]), false) < 2 then
 				nearbyObject, nearbyID = HydrochloricAcidBarrels[i], i
 			end
 		end
@@ -35,7 +35,7 @@ AddEventHandler("ps-drugprocessing:client:hydrochloricacid", function()
 				isPickingUp = true
 				TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
 
-				QBCore.Functions.Progressbar("search_register", "Picking up hydrochloric acid..", 10000, false, true, {
+				QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 					disableMovement = true,
 					disableCarMovement = true,
 					disableMouse = false,

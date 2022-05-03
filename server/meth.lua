@@ -82,6 +82,7 @@ AddEventHandler('ps-drugprocessing:processMeth', function()
 		Player.Functions.RemoveItem("methtray", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["meth"], "add")
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["methtray"], "remove")
+		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.meth"), "success")
 	end
 end)
 
@@ -90,9 +91,9 @@ AddEventHandler('ps-drugprocessing:processFailUp', function()
 	if not playersProcessingMeth[source] then
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
-
 		Player.Functions.RemoveItem("liquidmix", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["liquidmix"], "remove")
+		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.temp_too_high"), "error")
 	end
 end)
 
@@ -104,6 +105,7 @@ AddEventHandler('ps-drugprocessing:processFailDown', function()
 
 		Player.Functions.RemoveItem("chemicalvapor", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["chemicalvapor"], "remove")
+		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.temp_too_low"), "error")
 	end
 end)
 

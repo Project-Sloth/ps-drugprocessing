@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 					type = "client",
 					event = "ps-drugprocessing:EnterLab",
 					icon = "fas fa-atom",
-					label = "Talk to Walter",
+					label = Lang:t("target.talk_to_walter"),
                 }
             },
           distance = 2.5,
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
 					type = "client",
 					event = "ps-drugprocessing:EnterCWarehouse",
 					icon = "fas fa-key",
-					label = "Talk to Draco",
+					label = Lang:t("target.talk_to_draco"),
                 }
             },
           distance = 2.5,
@@ -54,7 +54,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:chemicalmenu",
                 icon = "fas fa-vials",
-                label = "Learn a New Chemical Compound",
+                label = Lang:t("target.chemmenu"),
                 --job = "pawnshop", -- Remove this line if you do not want a job check.
             },
         },
@@ -72,7 +72,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessChemicals",
                 icon = "fas fa-vials",
-                label = "Cook Something Wonderful & Blue",
+                label = Lang:t("target.methprocess"),
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -90,7 +90,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ChangeTemp",
                 icon = "fas fa-temperature-empty",
-                label = "Hmmm Seems Cold",
+                label = Lang:t("target.methtempup"),
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ChangeTemp2",
                 icon = "fas fa-temperature-full",
-                label = "Hmmm Seems Hot",
+                label = Lang:t("target.methtempdown"),
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -126,7 +126,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessProduct",
                 icon = "fas fa-box",
-                label = "Start Bagging",
+                label = Lang:t("target.bagging"),
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -144,7 +144,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ExitLab",
                 icon = "fas fa-lock",
-                label = "Secure Lab & Leave",
+                label = Lang:t("target.keypad"),
                 --job = "methcook", -- Remove this line if you do not want a job check.
             },
         },
@@ -162,7 +162,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ExitCWarehouse",
                 icon = "fas fa-lock",
-                label = "Secure Warehouse & Leave",
+                label = Lang:t("target.keypad"),
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -180,7 +180,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessCocaFarm",
                 icon = "fas fa-scissors",
-                label = "Breakdown Leaves",
+                label = Lang:t("target.cokeleafproc"),
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -198,7 +198,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessCocaPowder",
                 icon = "fas fa-weight-scale",
-                label = "Cut Product & Weight",
+                label = Lang:t("target.cokepowdercut"),
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -216,7 +216,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:ProcessBricks",
                 icon = "fas fa-weight-scale",
-                label = "Brick Up Product",
+                label = Lang:t("target.bagging"),
                 --job = "cokecutter", -- Remove this line if you do not want a job check.
             },
         },
@@ -234,7 +234,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:processWeed",
                 icon = "fas fa-envira",
-                label = "Process the Blaze",
+                label = Lang:t("target.weedproces"),
             },
         },
     distance = 3.5
@@ -251,7 +251,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:processHeroin",
                 icon = "fas fa-envira",
-                label = "Process the Blaze",
+                label = Lang:t("target.heroinproces"),
             },
         },
     distance = 3.5
@@ -265,7 +265,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickCocaLeaves",
                 icon = "fas fa-leaf",
-                label = "Pickup Coke Leafs",
+                label = Lang:t("target.pickCocaLeaves"),
             },
         },
         distance = 4.0
@@ -276,7 +276,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickHeroin",
                 icon = "fas fa-leaf",
-                label = "Pickup Poppy Plants",
+                label = Lang:t("target.pickHeroin"),
             },
         },
         distance = 4.0
@@ -287,7 +287,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickWeed",
                 icon = "fas fa-envira",
-                label = "Pickup Weed Leafs",
+                label = Lang:t("target.pickWeed"),
             },
         },
         distance = 4.0
@@ -298,7 +298,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickSodium",
                 icon = "fas fa-dna",
-                label = "Pickup Sodium Barrel",
+                label = Lang:t("target.pickSodium"),
             },
         },
         distance = 4.0
@@ -309,7 +309,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickSulfuric",
                 icon = "fas fa-shield-virus",
-                label = "Pickup Sulfuric Barrel",
+                label = Lang:t("target.pickSulfuric"),
             },
         },
         distance = 4.0
@@ -320,7 +320,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:pickChemicals",
                 icon = "fas fa-radiation",
-                label = "Pickup Chem Barrels",
+                label = Lang:t("target.pickChemicals"),
             },
         },
         distance = 4.0
@@ -331,18 +331,7 @@ Citizen.CreateThread(function()
                 type = "client",
                 event = "ps-drugprocessing:client:hydrochloricacid",
                 icon = "fas fa-radiation",
-                label = "Pickup Hydrochloric Acid Barrels",
-            },
-        },
-        distance = 4.0
-    })
-        exports['qb-target']:AddTargetModel("mw_chemical_barrel", {
-        options = {
-            {
-                type = "client",
-                event = "ps-drugprocessing:pickChemicals",
-                icon = "fas fa-radiation",
-                label = "Pickup Chem Barrels",
+                label = Lang:t("target.hydrochloricacid"),
             },
         },
         distance = 4.0
