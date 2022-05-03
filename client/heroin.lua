@@ -18,6 +18,24 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('ps-drugprocessing:ProcessPoppy')
+AddEventHandler('ps-drugprocessing:ProcessPoppy', function()
+	local coords = GetEntityCoords(PlayerPedId(source))
+	
+	if GetDistanceBetweenCoords(coords, Config.CircleZones.HeroinProcessing.coords, true) < 5 then
+		if not isProcessing then
+			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+				if result then
+					print('nice')
+					ProcessHeroin()
+				else
+					QBCore.Functions.Notify('You dont have the correct items', 'error')
+				end
+			end, 'poppyresin')
+		end
+	end
+end)
+
 function ProcessHeroin()
 
 	isProcessing = true
