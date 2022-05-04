@@ -35,13 +35,13 @@ AddEventHandler('ps-drugprocessing:processChemicals', function()
 		local Player = QBCore.Functions.GetPlayer(src)
 
 		Player.Functions.AddItem("liquidmix", 1)
-		Player.Functions.RemoveItem("sulfuric_acid", Config.SulfAcid)
-		Player.Functions.RemoveItem("hydrochloric_acid", Config.HydAcid)
-		Player.Functions.RemoveItem("sodium_hydroxide", Config.SodHyd)
+		Player.Functions.RemoveItem("sulfuric_acid", Config.MethProcessing.SulfAcid)
+		Player.Functions.RemoveItem("hydrochloric_acid", Config.MethProcessing.HydAcid)
+		Player.Functions.RemoveItem("sodium_hydroxide", Config.MethProcessing.SodHyd)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["liquidmix"], "add", 1)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sulfuric_acid"], "remove", Config.SulfAcid)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["hydrochloric_acid"], "remove", Config.HydAcid)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sodium_hydroxide"], "remove", Config.SodHyd)
+		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sulfuric_acid"], "remove", Config.MethProcessing.SulfAcid)
+		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["hydrochloric_acid"], "remove", Config.MethProcessing.HydAcid)
+		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["sodium_hydroxide"], "remove", Config.MethProcessing.SodHyd)
 	end
 end)
 
@@ -79,7 +79,7 @@ AddEventHandler('ps-drugprocessing:processMeth', function()
 
 		Player.Functions.AddItem("meth", Config.Meth)
 		Player.Functions.RemoveItem("methtray", 1)
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["meth"], "add", Config.Meth)
+		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["meth"], "add", Config.MethProcessing.Meth)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["methtray"], "remove")
 		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.meth"), "success")
 	end

@@ -16,10 +16,10 @@ AddEventHandler('ps-drugprocessing:processCocaLeaf', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-	Player.Functions.RemoveItem('coca_leaf', Config.CokeLeaf)
-	Player.Functions.AddItem('coke', Config.ProcessCokeLeaf)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coca_leaf'], "remove", Config.CokeLeaf)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "add", Config.ProcessCokeLeaf)
+	Player.Functions.RemoveItem('coca_leaf', Config.CokeProcessing.CokeLeaf)
+	Player.Functions.AddItem('coke', Config.CokeProcessing.ProcessCokeLeaf)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coca_leaf'], "remove", Config.CokeProcessing.CokeLeaf)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "add", Config.CokeProcessing.ProcessCokeLeaf)
 	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke"), "success")
 end)
 
@@ -28,12 +28,12 @@ AddEventHandler('ps-drugprocessing:processCocaPowder', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-	Player.Functions.RemoveItem('coke', Config.Coke)
-	Player.Functions.RemoveItem('bakingsoda', Config.BakingSoda)
-	Player.Functions.AddItem('coke_small_brick', Config.SmallCokeBrick)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "remove", Config.Coke)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['bakingsoda'], "remove", Config.BakingSoda)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_small_brick'], "add", Config.SmallCokeBrick)
+	Player.Functions.RemoveItem('coke', Config.CokeProcessing.Coke)
+	Player.Functions.RemoveItem('bakingsoda', Config.CokeProcessing.BakingSoda)
+	Player.Functions.AddItem('coke_small_brick', Config.CokeProcessing.SmallCokeBrick)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "remove", Config.CokeProcessing.Coke)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['bakingsoda'], "remove", Config.CokeProcessing.BakingSoda)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_small_brick'], "add", Config.CokeProcessing.SmallCokeBrick)
 	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke_small_brick"), "success")
 end)
 
@@ -42,10 +42,10 @@ AddEventHandler('ps-drugprocessing:processCocaBrick', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-	Player.Functions.RemoveItem('coke_small_brick', Config.SmallBrick)
-	Player.Functions.AddItem('coke_brick', Config.LargeBrick)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_small_brick'], "remove", Config.SmallBrick)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_brick'], "add", Config.LargeBrick)
+	Player.Functions.RemoveItem('coke_small_brick', Config.CokeProcessing.SmallBrick)
+	Player.Functions.AddItem('coke_brick', Config.CokeProcessing.LargeBrick)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_small_brick'], "remove", Config.CokeProcessing.SmallBrick)
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_brick'], "add", Config.CokeProcessing.LargeBrick)
 	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke_brick"), "success")
 end)
 
