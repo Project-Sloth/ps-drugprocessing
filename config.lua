@@ -71,3 +71,36 @@ Config.WeedLab = {
         coords = vector4(1088.68, -3187.68, -38.99, 176.04), -- GTA DLC Biker Cocaine Lab -- vector3(1088.68, -3187.68, -38.99)
     },]]--
 }
+
+
+--------------------------------
+-- DRUG CONFIG AMOUNTS --
+--------------------------------
+
+--------------------------------
+-- COKE PROCESSING AMOUNTS --
+--------------------------------
+Config.CokeLeaf = 1 -- Amount of Leaf Needed to Process
+Config.ProcessCokeLeaf = math.random(2,7) -- Amount of Coke Received
+-- Processing Small Bricks:
+Config.Coke = 10 -- Amount of Coke Needed for Small Brick
+Config.BakingSoda = 5 -- Amount of Baking Soda Needed for Small Brick
+Config.SmallCokeBrick = math.random(2,7)
+-- Process Small Bricks Into Large Bricks
+Config.SmallBrick = 4 -- Amount of Small Bricks Required
+Config.LargeBrick = 1 -- Large Bricks Received
+
+--------------------------------
+-- METH PROCESSING AMOUNTS --
+--------------------------------
+-- Chemical Processing:
+Config.SulfAcid = 1 -- Amount of Sulfuric Acid Needed for Liquid Mix
+Config.HydAcid = 1 -- Amount of Hydrochloric Acid Needed for Liquid Mix
+Config.SodHyd = 1 -- Amount of Sodium Hydroxide Needed for Liquid Mix
+-- Meth Processing:
+Config.Meth = math.random(5,12) -- Amount of Meth Received From 1 Tray
+
+--------------------------------
+-- HEROIN PROCESSING AMOUNTS --
+--------------------------------
+Config.Poppy = 2 -- Amount of Poppy Required for 1 Heroin

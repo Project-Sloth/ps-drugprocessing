@@ -16,9 +16,9 @@ AddEventHandler('ps-drugprocessing:processPoppyResin', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-	Player.Functions.RemoveItem('poppyresin', 1)
+	Player.Functions.RemoveItem('poppyresin', Config.Poppy)
 	Player.Functions.AddItem('heroin', 1)
-	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['poppyresin'], "remove")
+	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['poppyresin'], "remove", Config.Poppy)
 	TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['heroin'], "add")
 	TriggerClientEvent('QBCore:Notify', src, Lang:t("success.heroin"), "success")
 end)
