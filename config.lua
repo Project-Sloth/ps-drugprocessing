@@ -9,13 +9,6 @@ Config.Delays = {
 	thionylchlorideProcessing = 1000 * 10,
 }
 
-Config.ChemicalsConvertionItems = {
-	hydrochloric_acid = 0,
-	sodium_hydroxide = 0,
-	sulfuric_acid = 0,
-	lsa = 0,
-}
-
 Config.CircleZones = {
 	WeedField = {coords = vector3(2224.64, 5577.03, 53.85), name = ('Weed Farm'), radius = 100.0},
 	WeedProcessing = {coords = vector3(2329.12, 2571.86, 46.68), name = ('Weed Process'), radius = 100.0},
@@ -70,4 +63,43 @@ Config.WeedLab = {
     ["exit"] = {
         coords = vector4(1088.68, -3187.68, -38.99, 176.04), -- GTA DLC Biker Cocaine Lab -- vector3(1088.68, -3187.68, -38.99)
     },]]--
+}
+
+
+--------------------------------
+-- DRUG CONFIG AMOUNTS --
+--------------------------------
+
+--------------------------------
+-- COKE PROCESSING AMOUNTS --
+--------------------------------
+
+Config.CokeProcessing = {
+	CokeLeaf = 1, -- Amount of Leaf Needed to Process
+	ProcessCokeLeaf = math.random(2,7), -- Amount of Coke Received
+	-- Processing Small Bricks --
+	Coke = 10, -- Amount of Coke Needed for Small Brick
+	BakingSoda = 5, -- Amount of Baking Soda Needed for Small Brick
+	SmallCokeBrick = math.random(2,7),
+	-- Process Small Bricks Into Large Brick --
+	SmallBrick = 4, -- Amount of Small Bricks Required
+	LargeBrick = 1, -- Large Bricks Received
+}
+
+--------------------------------
+-- METH PROCESSING AMOUNTS --
+--------------------------------
+Config.MethProcessing = {
+	-- Chemical Processing --
+	SulfAcid = 1, -- Amount of Sulfuric Acid Needed for Liquid Mix
+	HydAcid = 1, -- Amount of Hydrochloric Acid Needed for Liquid Mix
+	SodHyd = 1, -- Amount of Sodium Hydroxide Needed for Liquid Mix
+	Meth = math.random(5,12), -- Amount of Meth Recevied From 1 Tray
+}
+
+--------------------------------
+-- HEROIN PROCESSING AMOUNTS --
+--------------------------------
+Config.HeroinProcessing = {
+	Poppy = 2 -- Amount of Poppy Required for 1 Heroin
 }
