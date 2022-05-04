@@ -268,7 +268,7 @@ Citizen.CreateThread(function()
 				type = "client",
 				event = "ps-drugprocessing:processingThiChlo",
 				icon = "fas fa-biohazard",
-				label = "Process Thionyl Chloride",
+				label = Lang:t("target.process_thionyl_chloride"),
 			},
 		},
 	distance = 2.5
@@ -285,7 +285,7 @@ Citizen.CreateThread(function()
 				type = "client",
 				event = "ps-drugprocessing:ProcessPoppy",
 				icon = "fas fa-leaf",
-				label = "Process Poppy Seeds",
+				label = Lang:t("target.heroinproc"),
 			},
 			},
 	distance = 2.5

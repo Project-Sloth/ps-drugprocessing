@@ -85,7 +85,7 @@ AddEventHandler('ps-drugprocessing:processingThiChlo', function()
 					print('nice')
 					hasitem1 = true
 				else
-					QBCore.Functions.Notify('You dont have the correct items', 'error')
+					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 				end
 			end, 'lsa')
 			Citizen.Wait(1000) -- BUFFER
@@ -94,7 +94,7 @@ AddEventHandler('ps-drugprocessing:processingThiChlo', function()
 					print('nice')
 					Processthionylchloride()
 				else
-					QBCore.Functions.Notify('You dont have the correct items', 'error')
+					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 				end
 			end, 'chemicals')
 		end
