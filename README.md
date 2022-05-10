@@ -66,5 +66,8 @@ qb-inventory > html > images
 * qb-target - https://github.com/BerkieBb/qb-target
 * qb-menu - https://github.com/qbcore-framework/qb-menu
 
+# Meth Memory Game
+* https://github.com/Project-Sloth/memorygame
+
 # Original Repo
 https://github.com/DoPeMan17/esx_drugs
