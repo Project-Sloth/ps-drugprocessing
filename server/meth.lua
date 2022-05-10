@@ -77,7 +77,7 @@ AddEventHandler('ps-drugprocessing:processMeth', function()
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
 
-		Player.Functions.AddItem("meth", Config.Meth)
+		Player.Functions.AddItem("meth", Config.MethProcessing.Meth)
 		Player.Functions.RemoveItem("methtray", 1)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["meth"], "add", Config.MethProcessing.Meth)
 		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["methtray"], "remove")
