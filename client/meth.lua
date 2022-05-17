@@ -52,7 +52,6 @@ AddEventHandler('ps-drugprocessing:ChangeTemp', function()
 					ProcessTempUp()
 				end,
 				function() -- failure
-					print("failure")
 					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
 					TriggerServerEvent('ps-drugprocessing:processFailUp')
 				end)

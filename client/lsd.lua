@@ -82,7 +82,6 @@ AddEventHandler('ps-drugprocessing:processingThiChlo', function()
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then
-					print('nice')
 					hasitem1 = true
 				else
 					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
@@ -91,7 +90,6 @@ AddEventHandler('ps-drugprocessing:processingThiChlo', function()
 			Citizen.Wait(1000) -- BUFFER
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result and hasitem1 then
-					print('nice')
 					Processthionylchloride()
 				else
 					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
