@@ -14,7 +14,7 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 				else
 					QBCore.Functions.Notify(Lang:t("error.no_sulfuric_acid"), 'error')
 				end
-			end, 'sulfuric_acid')
+			end, 'sulfuric_acid', Config.MethProcessing.SulfAcid)
 			Citizen.Wait(1000) -- BUFFER
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result and hasitem1 then
@@ -22,7 +22,7 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 				else
 					QBCore.Functions.Notify(Lang:t("error.hydrochloric_acid"), 'error')
 				end
-			end, 'hydrochloric_acid')
+			end, 'hydrochloric_acid', Config.MethProcessing.HydAcid)
 			Citizen.Wait(1000) -- BUFFER  
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result and hasitem2 then
@@ -32,7 +32,7 @@ AddEventHandler('ps-drugprocessing:ProcessChemicals', function()
 				else
 					QBCore.Functions.Notify(Lang:t("error.sodium_hydroxide"), 'error')
 				end
-			end, 'sodium_hydroxide')
+			end, 'sodium_hydroxide', Config.MethProcessing.SodHyd)
 		else
 			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 		end
@@ -254,8 +254,8 @@ RegisterNetEvent('ps-drugprocessing:EnterLab')
 AddEventHandler('ps-drugprocessing:EnterLab', function()
 	local ped = PlayerPedId()
 	local pos = GetEntityCoords(ped)
-    local dist = #(pos - vector3(Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z))
-    if dist < 2 then
+	local dist = #(pos - vector3(Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z))
+	if dist < 2 then
 		if not Methlab then
 			QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 				if result then

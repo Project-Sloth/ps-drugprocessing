@@ -30,7 +30,7 @@ AddEventHandler('ps-drugprocessing:ProcessPoppy', function()
 				else
 					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 				end
-			end, 'poppyresin')
+			end, 'poppyresin', Config.HeroinProcessing.Poppy)
 		end
 	end
 end)
@@ -77,7 +77,7 @@ AddEventHandler("ps-drugprocessing:processHeroin",function()
 		else
 			QBCore.Functions.Notify(Lang:t("error.no_poppy_resin"), 'error')
 		end
-	end,'poppyresin')
+	end, 'poppyresin', Config.HeroinProcessing.Poppy)
 end)
 
 

@@ -29,7 +29,7 @@ AddEventHandler('ps-drugprocessing:ProcessCocaFarm', function()
 				if result then
 					hasitem1 = true
 				end
-			end, 'coca_leaf')
+			end, 'coca_leaf', Config.CokeProcessing.CokeLeaf)
 			Citizen.Wait(1000) -- BUFFER
 			if hasitem1 then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
@@ -59,14 +59,14 @@ AddEventHandler('ps-drugprocessing:ProcessCocaPowder', function()
 				if result then
 					hasitem1 = true
 				end
-			end, 'coke', 10)
+			end, 'coke', Config.CokeProcessing.Coke)
 			Citizen.Wait(1000)
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
 					if result then
 						hasitem2 = true
 					end
-				end, 'bakingsoda', 5)
+				end, 'bakingsoda', Config.CokeProcessing.BakingSoda)
 				Citizen.Wait(1000) -- BUFFER
 				if hasitem2 == true then
 					QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
@@ -103,7 +103,7 @@ AddEventHandler('ps-drugprocessing:ProcessBricks', function()
 				if result then
 					hasitem1 = true
 				end
-			end, 'coke_small_brick', 4)
+			end, 'coke_small_brick', Config.CokeProcessing.SmallCokeBrick)
 			Citizen.Wait(1000)
 			if hasitem1 == true then
 				QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
