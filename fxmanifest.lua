@@ -1,18 +1,18 @@
 fx_version 'cerulean'
 
-games      { 'gta5' }
+games { 'gta5' }
 
 lua54 'yes'
 
 description 'QB Drug Trafficing by Project Sloth'
 
-this_is_a_map 'yes'
-
 version '1.0.0'
 
 shared_scripts {
-	'config.lua',
+	'@PolyZone/client.lua',
+    '@PolyZone/CircleZone.lua',
 	'@qb-core/shared/locale.lua',
+	'config.lua',
 	'locales/en.lua'
 }
 

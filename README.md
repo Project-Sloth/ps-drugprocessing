@@ -63,10 +63,11 @@ https://streamable.com/0pcjlt
 qb-inventory > html > images
 
 # Dependencies
-* qb-target - https://github.com/BerkieBb/qb-target
-* qb-menu - https://github.com/qbcore-framework/qb-menu
-* Meth Memory Game - https://github.com/Project-Sloth/memorygame
-* Meth Lab IPL - https://github.com/Bob74/bob74_ipl/tree/master/dlc_tuner
+* [PolyZone](https://github.com/mkafrin/PolyZone)
+* [qb-target](https://github.com/BerkieBb/qb-target)
+* [qb-menu](https://github.com/qbcore-framework/qb-menu)
+* [Meth Memory Game](https://github.com/Project-Sloth/memorygame)
+* [Meth Lab IPL](https://github.com/Bob74/bob74_ipl/tree/master/dlc_tuner)
 
 # Original Repo
 https://github.com/DoPeMan17/esx_drugs
