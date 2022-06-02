@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-Citizen.CreateThread(function()
+CreateThread(function()
     exports['qb-target']:SpawnPed({
         model = 'a_m_m_hillbilly_02',
         coords = vector4(-1187.73, -445.27, 43.91, 289.45), 
@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
     })
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     exports["qb-target"]:AddBoxZone("chemmenu", vector3(3535.66, 3661.69, 28.12), 1.65, 2.4, {
         name = "chemmenu",
         heading = 350.0,
@@ -292,7 +292,7 @@ Citizen.CreateThread(function()
 	})
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     exports['qb-target']:AddTargetModel("mw_coke_plant", {
         options = {
             {
