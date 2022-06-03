@@ -266,7 +266,7 @@ RegisterNetEvent('ps-drugprocessing:ProcessBricks', function()
 				else
 					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
 				end
-			end, {coke_small_brick = Config.CokeProcessing.SmallCokeBrick, finescale = 1})
+			end, {coke_small_brick = Config.CokeProcessing.SmallBrick, finescale = 1})
 		else
 			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 		end
