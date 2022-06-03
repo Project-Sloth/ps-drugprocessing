@@ -69,5 +69,8 @@ qb-inventory > html > images
 * [Meth Memory Game](https://github.com/Project-Sloth/memorygame)
 * [Meth Lab IPL](https://github.com/Bob74/bob74_ipl/tree/master/dlc_tuner)
 
+# DMCA Protection Certificate
+![image](https://user-images.githubusercontent.com/82112471/171916355-88bb669e-615d-4cd7-b3d5-50ed784ac77f.png)
+
 # Original Repo
 https://github.com/DoPeMan17/esx_drugs
