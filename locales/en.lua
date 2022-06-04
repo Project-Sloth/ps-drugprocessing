@@ -3,6 +3,7 @@ local Translations = {
         no_chemicals = "You are missing chemicals!",
         no_trimming_scissors = "You'll need trimming scissors for that!",
         no_coca_leaf = "You need cocaine leaves!",
+        no_process_coca = "You are missing trimming scissors!",
         no_bakingsoda_amount = "You will need %{value} baking soda!",
         no_bakingsoda = "You will need baking soda!",
         no_cokain_amount = "You will need %{value} cocaine!",
