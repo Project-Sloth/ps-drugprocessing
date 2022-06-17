@@ -256,7 +256,7 @@ CreateThread(function()
         },
     distance = 3.5
     })
-    exports['qb-target']:AddBoxZone("thychloride", vector3(-679.77, 5800.7, 17.33), 1, 1, {
+    exports['qb-target']:AddBoxZone("thychloride", vector3(Config.CircleZones.thionylchlorideProcessing.coords), 1.0, 2.2, {
 		name="thychloride",
 		heading=340.0,
 		debugPoly=false,
@@ -286,6 +286,23 @@ CreateThread(function()
 				event = "ps-drugprocessing:ProcessPoppy",
 				icon = "fas fa-leaf",
 				label = Lang:t("target.heroinproc"),
+			},
+			},
+	distance = 2.5
+	})
+    exports['qb-target']:AddBoxZone("heroinproc", vector3(Config.CircleZones.lsdProcessing.coords), 1.0, 2.2, {
+		name="heroinproc",
+		heading=0,
+		debugPoly=false,
+        minZ = 85.79,
+        maxZ = 92.99,
+	},{
+	    options = {
+			{
+				type = "client",
+				event = "ps-drugprocessing:processlsd",
+				icon = "fas fa-circle",
+				label = Lang:t("target.processlsd"),
 			},
 			},
 	distance = 2.5

@@ -62,10 +62,7 @@ local function SpawnPoppyPlants()
 	while spawnedPoppys < 15 do
 		Wait(0)
 		local heroinCoords = GenerateHeroinCoords()
-		RequestModel(`prop_plant_01b`)
-		while not HasModelLoaded(`prop_plant_01b`) do
-			Wait(100)
-		end
+		QBCore.Functions.LoadModel(`prop_plant_01b`)
 		local obj = CreateObject(`prop_plant_01b`, heroinCoords.x, heroinCoords.y, heroinCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)

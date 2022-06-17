@@ -62,10 +62,7 @@ local function SpawnSulfuricAcidBarrels()
 	while spawnedSulfuricAcidBarrels < 10 do
 		Wait(0)
 		local weedCoords = GenerateSulfuricAcidCoords()
-		RequestModel(`mw_sulfuric_barrel`)
-		while not HasModelLoaded(`mw_sulfuric_barrel`) do
-			Wait(100)
-		end
+		QBCore.Functions.LoadModel(`mw_sulfuric_barrel`)
 		local obj = CreateObject(`mw_sulfuric_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
