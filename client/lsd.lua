@@ -105,8 +105,8 @@ local function createTTable()
 	QBCore.Functions.LoadModel(`v_ret_ml_tablea`)
 	local tableTpos = Config.CircleZones.thionylchlorideProcessing.coords
 	ClearAreaOfObjects(tableTpos.x, tableTpos.y,tableTpos.z, 2.0,0)
-	LsdTable = CreateObject(`v_ret_ml_tablea`, tableTpos.x, tableTpos.y,tableTpos.z - 1, true, true)
-	SetEntityHeading(LsdTable, Config.CircleZones.thionylchlorideProcessing.heading)
+	TTable = CreateObject(`v_ret_ml_tablea`, tableTpos.x, tableTpos.y,tableTpos.z - 1, true, true)
+	SetEntityHeading(TTable, Config.CircleZones.thionylchlorideProcessing.heading)
 	tableSpawned = true
 end
 
@@ -137,7 +137,7 @@ CreateThread(function()
 			end
 		else
 			tableSpawned = false
-			DeleteObject(LsdTable)
+			DeleteObject(TTable)
 		end
 	end)
 end)
