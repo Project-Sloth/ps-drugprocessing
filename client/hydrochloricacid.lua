@@ -63,10 +63,7 @@ local function SpawnHydrochloricAcidBarrels()
 	while spawnedHydrochloricAcidBarrels < 5 do
 		Wait(0)
 		local weedCoords = GenerateHydrochloricAcidCoords()
-		RequestModel(`mw_hydro_barrel`)
-		while not HasModelLoaded(`mw_hydro_barrel`) do
-			Wait(100)
-		end
+		QBCore.Functions.LoadModel(`mw_hydro_barrel`)
 		local obj = CreateObject(`mw_hydro_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)

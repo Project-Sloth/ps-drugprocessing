@@ -32,9 +32,9 @@ Config.CircleZones = {
 	HeroinField = {coords = vector3(-2339.15, -54.32, 95.05), name = ('Heroin'), radius = 100.0},
 	HeroinProcessing = {coords = vector3(1413.37, -2041.74, 52.0), name = ('Heroin Process'), radius = 100.0},
 
-	lsdProcessing = {coords = vector3(2503.84, -428.11, 92.99), name = ('LSD process'), radius = 100.0},
+	lsdProcessing = {coords = vector3(2503.84, -428.11, 92.99), heading = 178.54, name = ('LSD process'), radius = 100.0},
 
-	thionylchlorideProcessing = {coords = vector3(-679.59, 5800.46, 17.33), name = ('Thi Clo Process'), radius = 100.0},
+	thionylchlorideProcessing = {coords = vector3(-679.75, 5800.16, 17.33), heading = 158.75, name = ('Thi Clo Process'), radius = 100.0},
 }
 
 

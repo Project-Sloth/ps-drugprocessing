@@ -138,10 +138,7 @@ local function SpawnCocaPlants()
 	while spawnedCocaLeaf < 15 do
 		Wait(0)
 		local weedCoords = GenerateCocaLeafCoords()
-		RequestModel(`mw_coke_plant`)
-		while not HasModelLoaded(`mw_coke_plant`) do
-			Wait(100)
-		end
+		QBCore.Functions.LoadModel(`mw_coke_plant`)
 		local obj = CreateObject(`mw_coke_plant`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
