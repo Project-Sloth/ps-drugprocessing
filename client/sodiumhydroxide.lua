@@ -62,7 +62,10 @@ local function SpawnSodiumHydroxideBarrels()
 	while spawnedSodiumHydroxideBarrels < 10 do
 		Wait(0)
 		local weedCoords2 = GenerateSodiumHydroxideCoords()
-		QBCore.Functions.LoadModel(`mw_sodium_barrel`)
+		RequestModel(`mw_sodium_barrel`)
+		while not HasModelLoaded(`mw_sodium_barrel`) do
+			Wait(100)
+		end
 		local obj = CreateObject(`mw_sodium_barrel`, weedCoords2.x, weedCoords2.y, weedCoords2.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)

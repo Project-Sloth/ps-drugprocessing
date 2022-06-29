@@ -62,7 +62,10 @@ local function SpawnWeedPlants()
 	while spawnedWeeds < 15 do
 		Wait(0)
 		local weedCoords = GenerateWeedCoords()
-		QBCore.Functions.LoadModel(`mw_weed_plant`)
+		RequestModel(`mw_weed_plant`)
+		while not HasModelLoaded(`mw_weed_plant`) do
+			Wait(100)
+		end
 		local obj = CreateObject(`mw_weed_plant`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)

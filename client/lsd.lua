@@ -64,14 +64,30 @@ local function Processthionylchloride()
 	end)
 end
 
-RegisterNetEvent("ps-drugprocessing:processlsd", function ()
-	QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-		if result then
-			Processlsd()
-		else
-			QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
-		end
-	end, {lsa = 1, thionyl_chloride = 1})
+CreateThread(function()
+    while true do
+        Wait(0)
+        local playerPed = PlayerPedId()
+        local coords = GetEntityCoords(playerPed)
+
+        if #(coords-Config.CircleZones.lsdProcessing.coords) < 2 then
+            if not isProcessing then
+                local pos = GetEntityCoords(PlayerPedId())
+                QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, Lang:t("drawtext.process_lsd"))
+            end
+            if IsControlJustReleased(0, 38) and not isProcessing then
+				QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+					if result then
+                        Processlsd()
+					else
+						QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					end
+				end, {lsa = 1, thionyl_chloride = 1})
+            end
+        else
+            Wait(500)
+        end
+    end
 end)
 
 RegisterNetEvent('ps-drugprocessing:processingThiChlo', function()
@@ -88,56 +104,4 @@ RegisterNetEvent('ps-drugprocessing:processingThiChlo', function()
 			end, {lsa = 1, chemicals = 1})
 		end
 	end
-end)
-
-local tableSpawned = false
-
-local function createLsdTable()
-	QBCore.Functions.LoadModel(`v_ret_ml_tablea`)
-	local tablepos = Config.CircleZones.lsdProcessing.coords
-	ClearAreaOfObjects(tablepos.x, tablepos.y,tablepos.z, 2.0,0)
-	LsdTable = CreateObject(`v_ret_ml_tablea`, tablepos.x, tablepos.y,tablepos.z - 1, true, true)
-	SetEntityHeading(LsdTable, Config.CircleZones.lsdProcessing.heading)
-	tableSpawned = true
-end
-
-local function createTTable()
-	QBCore.Functions.LoadModel(`v_ret_ml_tablea`)
-	local tableTpos = Config.CircleZones.thionylchlorideProcessing.coords
-	ClearAreaOfObjects(tableTpos.x, tableTpos.y,tableTpos.z, 2.0,0)
-	TTable = CreateObject(`v_ret_ml_tablea`, tableTpos.x, tableTpos.y,tableTpos.z - 1, true, true)
-	SetEntityHeading(TTable, Config.CircleZones.thionylchlorideProcessing.heading)
-	tableSpawned = true
-end
-
-CreateThread(function()
-	local LsdZone = CircleZone:Create(Config.CircleZones.lsdProcessing.coords, 50.0, {
-		name = "ps-lsd",
-		debugPoly = false
-	})
-	LsdZone:onPlayerInOut(function(isPointInside)
-		if isPointInside then
-			if not tableSpawned then
-				createLsdTable()
-			end
-		else
-			tableSpawned = false
-			DeleteObject(LsdTable)
-		end
-	end)
-
-	local TZone = CircleZone:Create(Config.CircleZones.thionylchlorideProcessing.coords, 50.0, {
-		name = "ps-T",
-		debugPoly = false
-	})
-	TZone:onPlayerInOut(function(isPointInside)
-		if isPointInside then
-			if not tableSpawned then
-				createTTable()
-			end
-		else
-			tableSpawned = false
-			DeleteObject(TTable)
-		end
-	end)
 end)

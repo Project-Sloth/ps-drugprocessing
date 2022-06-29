@@ -96,7 +96,6 @@ local Translations = {
         pickSulfuric = "Pick up sulfur barrel",
         pickChemicals = "Pick up chemical drum",
         hydrochloricacid = "Pick up hydrochloric acid drum",
-        processlsd = "Process Lsd"
     },
     drawtext = {
         process_lsd = "~g~E~w~ - Process LSD",
