@@ -109,7 +109,10 @@ local function SpawnChemicals()
 	while SpawnedChemicals < 10 do
 		Wait(0)
 		local chemicalsCoords = GeneratechemicalsCoords()
-		QBCore.Functions.LoadModel(`mw_chemical_barrel`)
+		RequestModel(`mw_chemical_barrel`)
+		while not HasModelLoaded(`mw_chemical_barrel`) do
+			Wait(100)
+		end
 		local obj = CreateObject(`mw_chemical_barrel`, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, true, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
