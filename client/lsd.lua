@@ -77,10 +77,10 @@ CreateThread(function()
             end
             if IsControlJustReleased(0, 38) and not isProcessing then
 				QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-					if result then
+					if result.ret then
                         Processlsd()
 					else
-						QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+						QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 					end
 				end, {lsa = 1, thionyl_chloride = 1})
             end
@@ -96,10 +96,10 @@ RegisterNetEvent('ps-drugprocessing:processingThiChlo', function()
 	if #(coords-coordsConfig.CircleZones.thionylchlorideProcessing.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					Processthionylchloride()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {lsa = 1, chemicals = 1})
 		end

@@ -130,10 +130,10 @@ end
 
 RegisterNetEvent("ps-drugprocessing:processWeed",function()
 	QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-		if result then
+		if result.ret then
 			ProcessWeed()
 		else
-			QBCore.Functions.Notify(Lang:t("error.no_cannabis"), 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
 	end,{cannabis = 1})
 end)
@@ -185,10 +185,10 @@ end)
 
 RegisterNetEvent('ps-drugprocessing:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-		if result then
+		if result.ret then
 			RollJoint()
 		else
-			QBCore.Functions.Notify(Lang:t("error.no_marijuhana"), 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
 	end, {marijuana = 1})
 end)
