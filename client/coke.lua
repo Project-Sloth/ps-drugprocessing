@@ -219,10 +219,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessCocaFarm', function()
 	if #(coords-Config.CircleZones.CokeProcessing.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					ProcessCoke()
 				else
-					QBCore.Functions.Notify(Lang:t("error.no_coca_leaf"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {coca_leaf = Config.CokeProcessing.CokeLeaf, trimming_scissors = 1})
 		end
@@ -242,10 +242,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessCocaPowder', function()
 				finescale = 1
 			}
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					CutCokePowder()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, check)
 		else
@@ -261,10 +261,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessBricks', function()
 	if #(coords-Config.CircleZones.CokeBrick.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					ProcessBricks()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {coke_small_brick = Config.CokeProcessing.SmallBrick, finescale = 1})
 		else
@@ -279,10 +279,10 @@ RegisterNetEvent('ps-drugprocessing:EnterCWarehouse', function()
     local dist = #(pos - vector3(Config.CokeLab["enter"].coords.x, Config.CokeLab["enter"].coords.y, Config.CokeLab["enter"].coords.z))
     if dist < 2 then
 		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result then
+			if result.ret then
 				EnterCWarehouse()
 			else
-				QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 			end
 		end, {cocainekey=1})
 	end

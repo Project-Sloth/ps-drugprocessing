@@ -111,10 +111,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessPoppy', function()
 	if #(coords-Config.CircleZones.HeroinProcessing.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					ProcessHeroin()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {poppyresin = Config.HeroinProcessing.Poppy})
 		end
@@ -123,10 +123,10 @@ end)
 
 RegisterNetEvent("ps-drugprocessing:processHeroin",function()
 	QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-		if result then
+		if result.ret then
 			ProcessHeroin()
 		else
-			QBCore.Functions.Notify(Lang:t("error.no_poppy_resin"), 'error')
+			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
 	end, {poppyresin = Config.HeroinProcessing.Poppy})
 end)
