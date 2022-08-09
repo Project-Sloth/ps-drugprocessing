@@ -67,7 +67,7 @@ local function SpawnHydrochloricAcidBarrels()
 		while not HasModelLoaded(`mw_hydro_barrel`) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_hydro_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
+		local obj = CreateObject(`mw_hydro_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
 		table.insert(HydrochloricAcidBarrels, obj)
