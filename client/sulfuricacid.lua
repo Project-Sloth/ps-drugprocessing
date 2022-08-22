@@ -66,7 +66,7 @@ local function SpawnSulfuricAcidBarrels()
 		while not HasModelLoaded(`mw_sulfuric_barrel`) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_sulfuric_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, true, true, false)
+		local obj = CreateObject(`mw_sulfuric_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
 		table.insert(SulfuricAcidBarrels, obj)

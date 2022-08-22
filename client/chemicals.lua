@@ -113,7 +113,7 @@ local function SpawnChemicals()
 		while not HasModelLoaded(`mw_chemical_barrel`) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_chemical_barrel`, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, true, true, false)
+		local obj = CreateObject(`mw_chemical_barrel`, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
 		table.insert(Chemicals, obj)
