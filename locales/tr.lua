@@ -1,5 +1,6 @@
 local Translations = {
     error = {
+        no_item = 'Kaçırıyorsun %{item}!',
         no_chemicals = "Kimyasallar eksik!",
         no_trimming_scissors = "Bunun için kesme makasına ihtiyacınız var!",
         no_coca_leaf = "Kokain yaprağına ihtiyacın var!",
