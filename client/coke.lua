@@ -357,7 +357,7 @@ RegisterCommand('propfix', function()
 end)
 
 CreateThread(function()
-	local cokeZone = CircleZone:Create(Config.CircleZones.CokeField.coords, 50.0, {
+	local cokeZone = CircleZone:Create(Config.CircleZones.CokeField.coords, 10.0, {
 		name = "ps-cokezone",
 		debugPoly = false
 	})
