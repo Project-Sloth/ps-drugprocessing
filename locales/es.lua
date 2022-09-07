@@ -1,5 +1,6 @@
 local Translations = {
     error = {
+        no_item = 'Estás perdido %{item}!',
         no_chemicals = "Te faltan productos químicos",
         no_trimming_scissors = "Necesitaras unas tijeras para cortar eso",
         no_coca_leaf = "Necesitas hojas de cocaína",

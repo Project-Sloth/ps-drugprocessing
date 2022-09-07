@@ -182,10 +182,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessChemicals', function()
 	if #(coords-Config.CircleZones.MethProcessing.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					ProcessChemicals()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {sulfuric_acid = Config.MethProcessing.SulfAcid, hydrochloric_acid = Config.MethProcessing.HydAcid, sodium_hydroxide = Config.MethProcessing.SodHyd})
 		else
@@ -197,7 +197,7 @@ end)
 RegisterNetEvent('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
 		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result then
+			if result.ret then
 				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,function() -- success
 					QBCore.Functions.Notify(Lang:t("success.temp_up"), 'success')
 					ProcessTempUp()
@@ -206,7 +206,7 @@ RegisterNetEvent('ps-drugprocessing:ChangeTemp', function()
 					TriggerServerEvent('ps-drugprocessing:processFailUp')
 				end)
 			else
-				QBCore.Functions.Notify(Lang:t("error.no_liquidmix"), 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 			end
 		end, {liquidmix = 1})
 	else
@@ -217,7 +217,7 @@ end)
 RegisterNetEvent('ps-drugprocessing:ChangeTemp2', function()
 	if not isTempChangeD then
 		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result then
+			if result.ret then
 				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,function() -- success
 					QBCore.Functions.Notify(Lang:t("success.temp_down"), 'success')
 					ProcessTempDown()
@@ -226,7 +226,7 @@ RegisterNetEvent('ps-drugprocessing:ChangeTemp2', function()
 					TriggerServerEvent('ps-drugprocessing:processFailDown')
 				end)
 			else
-				QBCore.Functions.Notify(Lang:t("error.no_chemicalvapor"), 'error')
+				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 			end
 		end, {chemicalvapor = 1})
 	else
@@ -241,10 +241,10 @@ RegisterNetEvent('ps-drugprocessing:ProcessProduct', function()
 	if #(coords-Config.CircleZones.MethBag.coords) < 5 then
 		if not isBagging then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					ProcessProduct()
 				else
-					QBCore.Functions.Notify(Lang:t("error.no_methtray"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {methtray=1})
 		else
@@ -260,10 +260,10 @@ RegisterNetEvent('ps-drugprocessing:EnterLab', function()
 	if dist < 2 then
 		if not Methlab then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result then
+				if result.ret then
 					EnterMethlab()
 				else
-					QBCore.Functions.Notify(Lang:t("error.not_all_items"), 'error')
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {methkey = 1})
 		end

@@ -1,5 +1,6 @@
 local Translations = {
     error = {
+        no_item = 'Je bent vermist %{item}!',
         no_chemicals = "Je mist chemicaliën!",
         no_trimming_scissors = "Je hebt een trimschaar daarvoor nodig!",
         no_coca_leaf = "Je hebt cocaïnebladeren nodig!",
