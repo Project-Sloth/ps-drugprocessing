@@ -293,7 +293,7 @@ CreateThread(function()
 end)
 
 CreateThread(function()
-    exports['qb-target']:AddTargetModel("mw_coke_plant", {
+    exports['qb-target']:AddTargetModel("prop_plant_01a", {
         options = {
             {
                 type = "client",
