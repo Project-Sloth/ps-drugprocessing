@@ -138,11 +138,11 @@ local function SpawnCocaPlants()
 	while spawnedCocaLeaf < 15 do
 		Wait(0)
 		local weedCoords = GenerateCocaLeafCoords()
-		RequestModel(`mw_coke_plant`)
-		while not HasModelLoaded(`mw_coke_plant`) do
+		RequestModel(`prop_plant_01a`)
+		while not HasModelLoaded(`prop_plant_01a`) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_coke_plant`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+		local obj = CreateObject(`prop_plant_01a`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
 		table.insert(CocaPlants, obj)
