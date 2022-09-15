@@ -135,19 +135,19 @@ local function GenerateCocaLeafCoords()
 end
 
 local function SpawnCocaPlants()
-	while spawnedCocaLeaf < 15 do
-		Wait(0)
-		local weedCoords = GenerateCocaLeafCoords()
-		RequestModel(`mw_coke_plant`)
-		while not HasModelLoaded(`mw_coke_plant`) do
-			Wait(100)
-		end
-		local obj = CreateObject(`mw_coke_plant`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
-		PlaceObjectOnGroundProperly(obj)
-		FreezeEntityPosition(obj, true)
-		table.insert(CocaPlants, obj)
-		spawnedCocaLeaf += 1
-	end
+    while spawnedCocaLeaf < 15 do
+        Wait(0)
+        local weedCoords = GenerateCocaLeafCoords()
+        RequestModel(`h4_prop_bush_cocaplant_01`)
+        while not HasModelLoaded(`h4_prop_bush_cocaplant_01`) do
+            Wait(100)
+        end
+        local obj = CreateObject(`h4_prop_bush_cocaplant_01`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+        PlaceObjectOnGroundProperly(obj)
+        FreezeEntityPosition(obj, true)
+        table.insert(CocaPlants, obj)
+        spawnedCocaLeaf += 1
+    end
 end
 
 
