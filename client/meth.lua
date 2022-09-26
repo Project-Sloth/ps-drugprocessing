@@ -198,13 +198,15 @@ RegisterNetEvent('ps-drugprocessing:ChangeTemp', function()
 	if not isTempChangeU then
 		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
 			if result.ret then
-				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,function() -- success
-					QBCore.Functions.Notify(Lang:t("success.temp_up"), 'success')
-					ProcessTempUp()
-				end,function() -- failure
-					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-					TriggerServerEvent('ps-drugprocessing:processFailUp')
-				end)
+				exports['ps-ui']:Thermite(function(success)
+					if success then
+						QBCore.Functions.Notify(Lang:t("success.temp_up"), 'success')
+						ProcessTempUp()
+					else
+						TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+						TriggerServerEvent('ps-drugprocessing:processFailUp')
+					end
+				end, 10, 5, 3)
 			else
 				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 			end
@@ -218,13 +220,15 @@ RegisterNetEvent('ps-drugprocessing:ChangeTemp2', function()
 	if not isTempChangeD then
 		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
 			if result.ret then
-				exports["memorygame"]:thermiteminigame(6, 3, 5, 10,function() -- success
-					QBCore.Functions.Notify(Lang:t("success.temp_down"), 'success')
-					ProcessTempDown()
-				end,function() -- failure
-					TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-					TriggerServerEvent('ps-drugprocessing:processFailDown')
-				end)
+				exports['ps-ui']:Thermite(function(success)
+					if success then
+						QBCore.Functions.Notify(Lang:t("success.temp_down"), 'success')
+						ProcessTempDown()
+					else
+						TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+						TriggerServerEvent('ps-drugprocessing:processFailDown')
+					end
+				end, 10, 5, 3)
 			else
 				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 			end

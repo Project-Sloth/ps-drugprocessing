@@ -66,7 +66,7 @@ qb-inventory > html > images
 * [PolyZone](https://github.com/mkafrin/PolyZone)
 * [qb-target](https://github.com/BerkieBb/qb-target)
 * [qb-menu](https://github.com/qbcore-framework/qb-menu)
-* [Meth Memory Game](https://github.com/Project-Sloth/memorygame)
+* [ps-ui](https://github.com/Project-Sloth/ps-ui)
 * [Meth Lab IPL](https://github.com/Bob74/bob74_ipl/tree/master/dlc_tuner)
 
 # DMCA Protection Certificate
