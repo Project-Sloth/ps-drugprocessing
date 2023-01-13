@@ -340,7 +340,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(CocaPlants) do
+		for _, v in pairs(CocaPlants) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end
@@ -348,7 +348,7 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 RegisterCommand('propfix', function()
-    for k, v in pairs(GetGamePool('CObject')) do
+    for _, v in pairs(GetGamePool('CObject')) do
         if IsEntityAttachedToEntity(PlayerPedId(), v) then
             SetEntityAsMissionEntity(v, true, true)
             DeleteObject(v)

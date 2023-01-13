@@ -54,7 +54,7 @@ RegisterNetEvent('ps-drugprocessing:chemicalmenu', createChemicalMenu)
 local function ValidatechemicalsCoord(plantCoord)
 	local validate = true
 	if SpawnedChemicals > 0 then
-		for k, v in pairs(Chemicals) do
+		for _, v in pairs(Chemicals) do
 			if #(plantCoord-GetEntityCoords(v)) < 5 then
 				validate = false
 			end

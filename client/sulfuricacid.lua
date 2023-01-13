@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateSulfuricAcidCoord(plantCoord)
 	local validate = true
 	if spawnedSulfuricAcidBarrels > 0 then
-		for k, v in pairs(SulfuricAcidBarrels) do
+		for _, v in pairs(SulfuricAcidBarrels) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end

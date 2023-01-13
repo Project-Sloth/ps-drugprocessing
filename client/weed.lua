@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateWeedCoord(plantCoord)
 	local validate = true
 	if spawnedWeeds > 0 then
-		for k, v in pairs(weedPlants) do
+		for _, v in pairs(weedPlants) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end
@@ -178,7 +178,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(weedPlants) do
+		for _, v in pairs(weedPlants) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

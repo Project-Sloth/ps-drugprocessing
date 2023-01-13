@@ -173,7 +173,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(PoppyPlants) do
+		for _, v in pairs(PoppyPlants) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end
