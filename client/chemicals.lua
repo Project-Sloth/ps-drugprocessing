@@ -106,19 +106,21 @@ local function GeneratechemicalsCoords()
 end
 
 local function SpawnChemicals()
+	local model = `mw_chemical_barrel`
 	while SpawnedChemicals < 10 do
 		Wait(0)
 		local chemicalsCoords = GeneratechemicalsCoords()
-		RequestModel(`mw_chemical_barrel`)
-		while not HasModelLoaded(`mw_chemical_barrel`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_chemical_barrel`, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, false, true, false)
+		local obj = CreateObject(model, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(Chemicals, obj)
+		Chemicals[#Chemicals+1] = obj
 		SpawnedChemicals += 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 local function process_hydrochloric_acid()
@@ -316,7 +318,7 @@ RegisterNetEvent("ps-drugprocessing:pickChemicals", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			table.remove(Chemicals, nearbyID)
+			Chemicals[nearbyID] = nil
 			SpawnedChemicals -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpChemicals')

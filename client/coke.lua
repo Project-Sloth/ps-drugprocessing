@@ -135,19 +135,21 @@ local function GenerateCocaLeafCoords()
 end
 
 local function SpawnCocaPlants()
+	local model = `h4_prop_bush_cocaplant_01`
     while spawnedCocaLeaf < 15 do
         Wait(0)
         local weedCoords = GenerateCocaLeafCoords()
-        RequestModel(`h4_prop_bush_cocaplant_01`)
-        while not HasModelLoaded(`h4_prop_bush_cocaplant_01`) do
+        RequestModel(model)
+        while not HasModelLoaded(model) do
             Wait(100)
         end
-        local obj = CreateObject(`h4_prop_bush_cocaplant_01`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+        local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
         PlaceObjectOnGroundProperly(obj)
         FreezeEntityPosition(obj, true)
-        table.insert(CocaPlants, obj)
+		CocaPlants[#CocaPlants+1] = obj
         spawnedCocaLeaf += 1
     end
+	SetModelAsNoLongerNeeded(model)
 end
 
 
@@ -303,7 +305,7 @@ RegisterNetEvent('ps-drugprocessing:pickCocaLeaves', function()
 	local nearbyObject, nearbyID
 
 	for i=1, #CocaPlants, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(CocaPlants[i]), false) < 2 then
+		if #(coords - GetEntityCoords(CocaPlants[i])) < 2 then
 			nearbyObject, nearbyID = CocaPlants[i], i
 		end
 	end
@@ -312,7 +314,6 @@ RegisterNetEvent('ps-drugprocessing:pickCocaLeaves', function()
 		if not isPickingUp then
 			isPickingUp = true
 			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-
 			QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
 				disableMovement = true,
 				disableCarMovement = true,
@@ -323,7 +324,7 @@ RegisterNetEvent('ps-drugprocessing:pickCocaLeaves', function()
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
 
-				table.remove(CocaPlants, nearbyID)
+				CocaPlants[nearbyID] = nil
 				spawnedCocaLeaf = spawnedCocaLeaf - 1
 
 				TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf')

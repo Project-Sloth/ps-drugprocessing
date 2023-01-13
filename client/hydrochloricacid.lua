@@ -60,19 +60,21 @@ local function GenerateHydrochloricAcidCoords()
 end
 
 local function SpawnHydrochloricAcidBarrels()
+	local model = `mw_hydro_barrel`
 	while spawnedHydrochloricAcidBarrels < 5 do
 		Wait(0)
 		local weedCoords = GenerateHydrochloricAcidCoords()
-		RequestModel(`mw_hydro_barrel`)
-		while not HasModelLoaded(`mw_hydro_barrel`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_hydro_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(HydrochloricAcidBarrels, obj)
+		HydrochloricAcidBarrels[#HydrochloricAcidBarrels+1] = obj
 		spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels + 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 RegisterNetEvent("ps-drugprocessing:client:hydrochloricacid", function()
@@ -99,7 +101,7 @@ RegisterNetEvent("ps-drugprocessing:client:hydrochloricacid", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			table.remove(HydrochloricAcidBarrels, nearbyID)
+			HydrochloricAcidBarrels[nearbyID] = nil
 			spawnedHydrochloricAcidBarrels -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpHydrochloricAcid')
