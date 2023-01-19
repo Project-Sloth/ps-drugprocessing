@@ -7,7 +7,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateHydrochloricAcidCoord(plantCoord)
 	local validate = true
 	if spawnedHydrochloricAcidBarrels > 0 then
-		for k, v in pairs(HydrochloricAcidBarrels) do
+		for _, v in pairs(HydrochloricAcidBarrels) do
 			if #(plantCoord-GetEntityCoords(v)) < 5 then
 				validate = false
 			end
@@ -115,7 +115,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(HydrochloricAcidBarrels) do
+		for _, v in pairs(HydrochloricAcidBarrels) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

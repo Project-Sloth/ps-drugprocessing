@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateHeroinCoord(plantCoord)
 	local validate = true
 	if spawnedPoppys > 0 then
-		for k, v in pairs(PoppyPlants) do
+		for _, v in pairs(PoppyPlants) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end

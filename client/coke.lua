@@ -82,7 +82,7 @@ end
 local function ValidateCocaLeafCoord(plantCoord)
 	local validate = true
 	if spawnedCocaLeaf > 0 then
-		for k, v in pairs(CocaPlants) do
+		for _, v in pairs(CocaPlants) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end

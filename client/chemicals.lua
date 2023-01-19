@@ -246,7 +246,7 @@ end
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(Chemicals) do
+		for _, v in pairs(Chemicals) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

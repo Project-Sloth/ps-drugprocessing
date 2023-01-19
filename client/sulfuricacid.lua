@@ -83,7 +83,7 @@ RegisterNetEvent("ps-drugprocessing:pickSulfuric", function()
 	local nearbyObject, nearbyID
 
 	for i=1, #SulfuricAcidBarrels, 1 do
-		if #(coords - GetEntityCoords(SulfuricAcidBarrels[i])) < 2
+		if #(coords - GetEntityCoords(SulfuricAcidBarrels[i])) < 2 then
 			nearbyObject, nearbyID = SulfuricAcidBarrels[i], i
 		end
 	end
@@ -115,7 +115,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(SulfuricAcidBarrels) do
+		for _, v in pairs(SulfuricAcidBarrels) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end
