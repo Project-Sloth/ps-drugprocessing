@@ -276,24 +276,7 @@ CreateThread(function()
         },
     distance = 3.5
     })
-    exports["qb-target"]:AddBoxZone("weedproces", vector3(2328.53, 2570.99, 46.61), 2.5, 2.5, {
-        name = "weedproces",
-        heading = 331.74,
-        debugPoly = false,
-        minZ = 45.99,
-        maxZ = 47.59,
-    }, {
-        options = {
-            {
-                type = "client",
-                event = "ps-drugprocessing:processWeed",
-                icon = "fas fa-envira",
-                label = Lang:t("target.weedproces"),
-            },
-        },
-    distance = 3.5
-    })
-	exports["qb-target"]:AddBoxZone("heroinproces", vector3(1384.9, -2080.61, 52.21), 2.5, 2.5, {
+    exports["qb-target"]:AddBoxZone("heroinproces", vector3(1384.9, -2080.61, 52.21), 2.5, 2.5, {
         name = "heroinproces",
         heading = 223.98,
         debugPoly = false,
