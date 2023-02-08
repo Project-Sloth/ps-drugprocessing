@@ -3,6 +3,49 @@ local weedPlants = {}
 local isPickingUp, isProcessing, inWeedField = false, false, false
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local function LoadAnimationDict(dict)
+    RequestAnimDict(dict)
+    while not HasAnimDictLoaded(dict) do
+        RequestAnimDict(dict)
+        Wait(1)
+    end
+end
+
+local function OpenDoorAnimation()
+    local ped = PlayerPedId()
+    LoadAnimationDict("anim@heists@keycard@") 
+    TaskPlayAnim(ped, "anim@heists@keycard@", "exit", 5.0, 1.0, -1, 16, 0, 0, 0, 0)
+    Wait(400)
+    ClearPedTasks(ped)
+end
+
+local function EnterWWarehouse()
+    local ped = PlayerPedId()
+    OpenDoorAnimation()
+    CWarehouse = true
+    Wait(500)
+    DoScreenFadeOut(250)
+    Wait(250)
+    SetEntityCoords(ped, Config.WeedLab["exit"].coords.x, Config.WeedLab["exit"].coords.y, Config.WeedLab["exit"].coords.z - 0.98)
+    SetEntityHeading(ped, Config.WeedLab["exit"].coords.w)
+    Wait(1000)
+    DoScreenFadeIn(250)
+end
+
+local function ExitWWarehouse()
+    local ped = PlayerPedId()
+    OpenDoorAnimation()
+    CWarehouse = true
+    Wait(500)
+    DoScreenFadeOut(250)
+    Wait(250)
+    SetEntityCoords(ped, Config.WeedLab["enter"].coords.x, Config.WeedLab["enter"].coords.y, Config.WeedLab["enter"].coords.z - 0.98)
+    SetEntityHeading(ped, Config.WeedLab["enter"].coords.w)
+    Wait(1000)
+    DoScreenFadeIn(250)
+	CWarehouse = false
+end
+
 local function ValidateWeedCoord(plantCoord)
 	local validate = true
 	if spawnedWeeds > 0 then
@@ -136,6 +179,30 @@ RegisterNetEvent("ps-drugprocessing:processWeed",function()
 			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
 	end,{cannabis = 1})
+end)
+
+RegisterNetEvent('ps-drugprocessing:EnterWWarehouse', function()
+	local ped = PlayerPedId()
+	local pos = GetEntityCoords(ped)
+    local dist = #(pos - vector3(Config.WeedLab["enter"].coords.x, Config.WeedLab["enter"].coords.y, Config.WeedLab["enter"].coords.z))
+    if dist < 2 then
+		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+			if result.ret then
+				EnterWWarehouse()
+			else
+				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+			end
+		end, {weedkey=1})
+	end
+end)
+
+RegisterNetEvent('ps-drugprocessing:ExitWWarehouse', function()
+	local ped = PlayerPedId()
+	local pos = GetEntityCoords(ped)
+    local dist = #(pos - vector3(Config.WeedLab["exit"].coords.x, Config.WeedLab["exit"].coords.y, Config.WeedLab["exit"].coords.z))
+    if dist < 2 then
+		ExitWWarehouse()
+	end
 end)
 
 RegisterNetEvent("ps-drugprocessing:pickWeed", function()
