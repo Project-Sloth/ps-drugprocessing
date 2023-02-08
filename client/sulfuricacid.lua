@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateSulfuricAcidCoord(plantCoord)
 	local validate = true
 	if spawnedSulfuricAcidBarrels > 0 then
-		for k, v in pairs(SulfuricAcidBarrels) do
+		for _, v in pairs(SulfuricAcidBarrels) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end
@@ -59,19 +59,21 @@ local function GenerateSulfuricAcidCoords()
 end
 
 local function SpawnSulfuricAcidBarrels()
+	local model = `mw_sulfuric_barrel`
 	while spawnedSulfuricAcidBarrels < 10 do
 		Wait(0)
 		local weedCoords = GenerateSulfuricAcidCoords()
-		RequestModel(`mw_sulfuric_barrel`)
-		while not HasModelLoaded(`mw_sulfuric_barrel`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_sulfuric_barrel`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(SulfuricAcidBarrels, obj)
+		SulfuricAcidBarrels[#SulfuricAcidBarrels+1] = obj
 		spawnedSulfuricAcidBarrels += 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 
@@ -81,7 +83,7 @@ RegisterNetEvent("ps-drugprocessing:pickSulfuric", function()
 	local nearbyObject, nearbyID
 
 	for i=1, #SulfuricAcidBarrels, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(SulfuricAcidBarrels[i]), false) < 2 then
+		if #(coords - GetEntityCoords(SulfuricAcidBarrels[i])) < 2 then
 			nearbyObject, nearbyID = SulfuricAcidBarrels[i], i
 		end
 	end
@@ -99,7 +101,7 @@ RegisterNetEvent("ps-drugprocessing:pickSulfuric", function()
 				ClearPedTasks(PlayerPedId())
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
-				table.remove(SulfuricAcidBarrels, nearbyID)
+				SulfuricAcidBarrels[nearbyID] = nil
 				spawnedSulfuricAcidBarrels -= 1
 				TriggerServerEvent('ps-drugprocessing:pickedUpSulfuricAcid')
 				isPickingUp = false
@@ -113,7 +115,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(SulfuricAcidBarrels) do
+		for _, v in pairs(SulfuricAcidBarrels) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

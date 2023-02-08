@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateSodiumHydroxideCoord(plantCoord)
 	local validate2 = true
 	if spawnedSodiumHydroxideBarrels > 0 then
-		for k, v in pairs(SodiumHydroxideBarrels) do
+		for _, v in pairs(SodiumHydroxideBarrels) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate2 = false
 			end
@@ -59,19 +59,21 @@ local function GenerateSodiumHydroxideCoords()
 end
 
 local function SpawnSodiumHydroxideBarrels()
+	local model = `mw_sodium_barrel`
 	while spawnedSodiumHydroxideBarrels < 10 do
 		Wait(0)
 		local weedCoords2 = GenerateSodiumHydroxideCoords()
-		RequestModel(`mw_sodium_barrel`)
-		while not HasModelLoaded(`mw_sodium_barrel`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_sodium_barrel`, weedCoords2.x, weedCoords2.y, weedCoords2.z, false, true, false)
+		local obj = CreateObject(model, weedCoords2.x, weedCoords2.y, weedCoords2.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(SodiumHydroxideBarrels, obj)
+		SodiumHydroxideBarrels[#SodiumHydroxideBarrels+1] = obj
 		spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels + 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 
@@ -81,7 +83,7 @@ RegisterNetEvent("ps-drugprocessing:pickSodium", function()
 	local nearbyObject3, nearbyID3
 
 	for i=1, #SodiumHydroxideBarrels, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(SodiumHydroxideBarrels[i]), false) < 2 then
+		if #(coords - GetEntityCoords(SodiumHydroxideBarrels[i])) < 2 then
 			nearbyObject3, nearbyID3 = SodiumHydroxideBarrels[i], i
 		end
 	end
@@ -100,7 +102,7 @@ RegisterNetEvent("ps-drugprocessing:pickSodium", function()
 				SetEntityAsMissionEntity(nearbyObject3, false, true)
 				DeleteObject(nearbyObject3)
 
-				table.remove(SodiumHydroxideBarrels, nearbyID3)
+				SodiumHydroxideBarrels[nearbyID3] = nil
 				spawnedSodiumHydroxideBarrels -= 1
 
 				TriggerServerEvent('ps-drugprocessing:pickedUpSodiumHydroxide')
@@ -115,7 +117,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(SodiumHydroxideBarrels) do
+		for _, v in pairs(SodiumHydroxideBarrels) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

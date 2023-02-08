@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateHeroinCoord(plantCoord)
 	local validate = true
 	if spawnedPoppys > 0 then
-		for k, v in pairs(PoppyPlants) do
+		for _, v in pairs(PoppyPlants) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end
@@ -59,19 +59,21 @@ local function GenerateHeroinCoords()
 end
 
 local function SpawnPoppyPlants()
+	local model = `prop_plant_01b`
 	while spawnedPoppys < 15 do
 		Wait(0)
 		local heroinCoords = GenerateHeroinCoords()
-		RequestModel(`prop_plant_01b`)
-		while not HasModelLoaded(`prop_plant_01b`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`prop_plant_01b`, heroinCoords.x, heroinCoords.y, heroinCoords.z, false, true, false)
+		local obj = CreateObject(model, heroinCoords.x, heroinCoords.y, heroinCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(PoppyPlants, obj)
+		PoppyPlants[#PoppyPlants+1] = obj
 		spawnedPoppys += 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 local function ProcessHeroin()
@@ -138,7 +140,7 @@ RegisterNetEvent("ps-drugprocessing:pickHeroin", function()
 	local nearbyObject, nearbyID
 
 	for i=1, #PoppyPlants, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(PoppyPlants[i]), false) < 2 then
+		if #(coords - GetEntityCoords(PoppyPlants[i])) < 2 then
 			nearbyObject, nearbyID = PoppyPlants[i], i
 		end
 	end
@@ -156,7 +158,7 @@ RegisterNetEvent("ps-drugprocessing:pickHeroin", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			table.remove(PoppyPlants, nearbyID)
+			PoppyPlants[nearbyID] = nil
 			spawnedPoppys -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpPoppy')
@@ -171,7 +173,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(PoppyPlants) do
+		for _, v in pairs(PoppyPlants) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end

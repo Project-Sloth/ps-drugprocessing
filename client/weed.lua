@@ -6,7 +6,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local function ValidateWeedCoord(plantCoord)
 	local validate = true
 	if spawnedWeeds > 0 then
-		for k, v in pairs(weedPlants) do
+		for _, v in pairs(weedPlants) do
 			if #(plantCoord - GetEntityCoords(v)) < 5 then
 				validate = false
 			end
@@ -59,19 +59,21 @@ local function GenerateWeedCoords()
 end
 
 local function SpawnWeedPlants()
+	local model = `mw_weed_plant`
 	while spawnedWeeds < 15 do
 		Wait(0)
 		local weedCoords = GenerateWeedCoords()
-		RequestModel(`mw_weed_plant`)
-		while not HasModelLoaded(`mw_weed_plant`) do
+		RequestModel(model)
+		while not HasModelLoaded(model) do
 			Wait(100)
 		end
-		local obj = CreateObject(`mw_weed_plant`, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
+		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		table.insert(weedPlants, obj)
+		weedPlants[#weedPlants+1] = obj
 		spawnedWeeds += 1
 	end
+	SetModelAsNoLongerNeeded(model)
 end
 
 local function RollJoint()
@@ -144,7 +146,7 @@ RegisterNetEvent("ps-drugprocessing:pickWeed", function()
 	local nearbyObject, nearbyID
 
 	for i=1, #weedPlants, 1 do
-		if GetDistanceBetweenCoords(coords, GetEntityCoords(weedPlants[i]), false) < 2 then
+		if #(coords - GetEntityCoords(weedPlants[i])) < 2 then
 			nearbyObject, nearbyID = weedPlants[i], i
 		end
 	end
@@ -162,7 +164,7 @@ RegisterNetEvent("ps-drugprocessing:pickWeed", function()
 				ClearPedTasks(PlayerPedId())
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
-				table.remove(weedPlants, nearbyID)
+				weedPlants[nearbyID] = nil
 				spawnedWeeds -= 1
 				TriggerServerEvent('ps-drugprocessing:pickedUpCannabis')
 				isPickingUp = false
@@ -176,7 +178,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for k, v in pairs(weedPlants) do
+		for _, v in pairs(weedPlants) do
 			SetEntityAsMissionEntity(v, false, true)
 			DeleteObject(v)
 		end
