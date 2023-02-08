@@ -241,6 +241,41 @@ CreateThread(function()
         },
     distance = 3.5
     })
+    exports["qb-target"]:AddBoxZone("weedproces", vector3(1038.37, -3206.06, -38.17), 2.6, 1.0, {
+        name = "weedproces",
+        heading = 0,
+        debugPoly = false,
+        minZ = -38.37,
+        maxZ = -37.57,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:processWeed",
+                icon = "fas fa-envira",
+                label = Lang:t("target.weedproces"),
+            },
+        },
+    distance = 3.5
+    })
+    exports["qb-target"]:AddBoxZone("weedkeypad", vector3(1066.51, -3183.44, -39.16), 1.6, 0.4, {
+        name = "weedkeypad",
+        heading = 0,
+        debugPoly = false,
+        minZ = -40.16,
+        maxZ = -37.76,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:ExitWWarehouse",
+                icon = "fas fa-lock",
+                label = Lang:t("target.keypad"),
+                --job = "weedcutter", -- Remove this line if you do not want a job check.
+            },
+        },
+    distance = 3.5
+    })
     exports["qb-target"]:AddBoxZone("weedproces", vector3(2328.53, 2570.99, 46.61), 2.5, 2.5, {
         name = "weedproces",
         heading = 331.74,
