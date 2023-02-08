@@ -47,6 +47,7 @@ local Translations = {
         cannabis = "Successfully collected cannabis!",
         marijuana = "Successfully produced marijuana!",
         joint = "You have successfully rolled a joint!",
+        baggy = "You have successfully bagged up some skunk!",
     },
     info = {
 
@@ -59,6 +60,7 @@ local Translations = {
         temp_up = "Raise temperature",
         temp_down = "Lower temperature",
         rolling_joint = "Rolling Joint",
+        bagging_skunk = "Bagging Skunk",
     },
     items = {
         hydrochloric_acid = "Hydrochloric acid",
