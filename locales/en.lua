@@ -78,6 +78,7 @@ local Translations = {
         process_thionyl_chloride = "Process thionyl chloride",
         talk_to_walter = "Talk to Walter",
         talk_to_draco = "Talk to Draco",
+        talk_to_charlotte = "Talk to Charlotte",
         chemmenu = "Chemical compounds",
         methprocess = "Cook something wonderful and blue",
         methtempup = "Raise temperature",
