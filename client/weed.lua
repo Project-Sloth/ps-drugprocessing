@@ -142,6 +142,31 @@ local function RollJoint()
 	end)
 end
 
+local function BagSkunk()
+	isProcessing = true
+	local playerPed = PlayerPedId()
+
+	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.bagging_skunk"), 15000, false, true, {
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function()
+		TriggerServerEvent('ps-drugprocessing:bagskunk')
+		local timeLeft = Config.Delays.WeedProcessing / 1000
+		while timeLeft > 0 do
+			Wait(1000)
+			timeLeft -= 1
+		end
+		ClearPedTasks(PlayerPedId())
+		isProcessing = false
+	end, function()
+		ClearPedTasks(PlayerPedId())
+		isProcessing = false
+	end)
+end
+
 local function ProcessWeed()
 	isProcessing = true
 	local playerPed = PlayerPedId()
@@ -254,6 +279,16 @@ RegisterNetEvent('ps-drugprocessing:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
 		if result.ret then
 			RollJoint()
+		else
+			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+		end
+	end, {marijuana = 1})
+end)
+
+RegisterNetEvent('ps-drugprocessing:client:bagskunk', function()
+    QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+		if result.ret then
+			BagSkunk()
 		else
 			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
