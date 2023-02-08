@@ -39,6 +39,25 @@ CreateThread(function()
           distance = 2.5,
         },
     })
+    exports['qb-target']:SpawnPed({
+        model = 'mp_f_weed_01',
+        coords = vector4(102.07, 175.08, 104.59, 159.91),
+        minusOne = true, 
+        freeze = true, 
+        invincible = true, 
+        blockevents = true,
+        target = { 
+            options = {
+                {
+					type = "client",
+					event = "ps-drugprocessing:EnterWWarehouse",
+					icon = "fas fa-key",
+					label = Lang:t("target.talk_to_charlotte"),
+                }
+            },
+          distance = 2.5,
+        },
+    })
 end)
 
 CreateThread(function()
