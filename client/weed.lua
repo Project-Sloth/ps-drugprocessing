@@ -22,7 +22,7 @@ end
 local function EnterWWarehouse()
     local ped = PlayerPedId()
     OpenDoorAnimation()
-    CWarehouse = true
+    WWarehouse = true
     Wait(500)
     DoScreenFadeOut(250)
     Wait(250)
@@ -35,7 +35,7 @@ end
 local function ExitWWarehouse()
     local ped = PlayerPedId()
     OpenDoorAnimation()
-    CWarehouse = true
+    WWarehouse = true
     Wait(500)
     DoScreenFadeOut(250)
     Wait(250)
@@ -43,7 +43,7 @@ local function ExitWWarehouse()
     SetEntityHeading(ped, Config.WeedLab["enter"].coords.w)
     Wait(1000)
     DoScreenFadeIn(250)
-	CWarehouse = false
+	WWarehouse = false
 end
 
 local function ValidateWeedCoord(plantCoord)
