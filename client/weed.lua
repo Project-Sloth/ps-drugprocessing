@@ -3,6 +3,49 @@ local weedPlants = {}
 local isPickingUp, isProcessing, inWeedField = false, false, false
 local QBCore = exports['qb-core']:GetCoreObject()
 
+local function LoadAnimationDict(dict)
+    RequestAnimDict(dict)
+    while not HasAnimDictLoaded(dict) do
+        RequestAnimDict(dict)
+        Wait(1)
+    end
+end
+
+local function OpenDoorAnimation()
+    local ped = PlayerPedId()
+    LoadAnimationDict("anim@heists@keycard@") 
+    TaskPlayAnim(ped, "anim@heists@keycard@", "exit", 5.0, 1.0, -1, 16, 0, 0, 0, 0)
+    Wait(400)
+    ClearPedTasks(ped)
+end
+
+local function EnterWWarehouse()
+    local ped = PlayerPedId()
+    OpenDoorAnimation()
+    WWarehouse = true
+    Wait(500)
+    DoScreenFadeOut(250)
+    Wait(250)
+    SetEntityCoords(ped, Config.WeedLab["exit"].coords.x, Config.WeedLab["exit"].coords.y, Config.WeedLab["exit"].coords.z - 0.98)
+    SetEntityHeading(ped, Config.WeedLab["exit"].coords.w)
+    Wait(1000)
+    DoScreenFadeIn(250)
+end
+
+local function ExitWWarehouse()
+    local ped = PlayerPedId()
+    OpenDoorAnimation()
+    WWarehouse = true
+    Wait(500)
+    DoScreenFadeOut(250)
+    Wait(250)
+    SetEntityCoords(ped, Config.WeedLab["enter"].coords.x, Config.WeedLab["enter"].coords.y, Config.WeedLab["enter"].coords.z - 0.98)
+    SetEntityHeading(ped, Config.WeedLab["enter"].coords.w)
+    Wait(1000)
+    DoScreenFadeIn(250)
+	WWarehouse = false
+end
+
 local function ValidateWeedCoord(plantCoord)
 	local validate = true
 	if spawnedWeeds > 0 then
@@ -101,6 +144,31 @@ local function RollJoint()
 	end)
 end
 
+local function BagSkunk()
+	isProcessing = true
+	local playerPed = PlayerPedId()
+
+	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
+	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.bagging_skunk"), 15000, false, true, {
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function()
+		TriggerServerEvent('ps-drugprocessing:bagskunk')
+		local timeLeft = Config.Delays.WeedProcessing / 1000
+		while timeLeft > 0 do
+			Wait(1000)
+			timeLeft -= 1
+		end
+		ClearPedTasks(PlayerPedId())
+		isProcessing = false
+	end, function()
+		ClearPedTasks(PlayerPedId())
+		isProcessing = false
+	end)
+end
+
 local function ProcessWeed()
 	isProcessing = true
 	local playerPed = PlayerPedId()
@@ -138,6 +206,30 @@ RegisterNetEvent("ps-drugprocessing:processWeed",function()
 			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
 	end,{cannabis = 1})
+end)
+
+RegisterNetEvent('ps-drugprocessing:EnterWWarehouse', function()
+	local ped = PlayerPedId()
+	local pos = GetEntityCoords(ped)
+    local dist = #(pos - vector3(Config.WeedLab["enter"].coords.x, Config.WeedLab["enter"].coords.y, Config.WeedLab["enter"].coords.z))
+    if dist < 2 then
+		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+			if result.ret then
+				EnterWWarehouse()
+			else
+				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+			end
+		end, {weedkey=1})
+	end
+end)
+
+RegisterNetEvent('ps-drugprocessing:ExitWWarehouse', function()
+	local ped = PlayerPedId()
+	local pos = GetEntityCoords(ped)
+    local dist = #(pos - vector3(Config.WeedLab["exit"].coords.x, Config.WeedLab["exit"].coords.y, Config.WeedLab["exit"].coords.z))
+    if dist < 2 then
+		ExitWWarehouse()
+	end
 end)
 
 RegisterNetEvent("ps-drugprocessing:pickWeed", function()
@@ -189,6 +281,16 @@ RegisterNetEvent('ps-drugprocessing:client:rollJoint', function()
     QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
 		if result.ret then
 			RollJoint()
+		else
+			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+		end
+	end, {marijuana = 1})
+end)
+
+RegisterNetEvent('ps-drugprocessing:client:bagskunk', function()
+    QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+		if result.ret then
+			BagSkunk()
 		else
 			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 		end
