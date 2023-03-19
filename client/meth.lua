@@ -263,13 +263,17 @@ RegisterNetEvent('ps-drugprocessing:EnterLab', function()
 	local dist = #(pos - vector3(Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z))
 	if dist < 2 then
 		if not Methlab then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					EnterMethlab()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {methkey = 1})
+			if Config.KeyRequired then
+				QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+					if result.ret then
+						EnterMethlab()
+					else
+						QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+					end
+				end, { methkey = 1 } )
+			else
+				EnterMethlab()
+			end
 		end
 	end
 end)
