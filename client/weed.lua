@@ -213,13 +213,17 @@ RegisterNetEvent('ps-drugprocessing:EnterWWarehouse', function()
 	local pos = GetEntityCoords(ped)
     local dist = #(pos - vector3(Config.WeedLab["enter"].coords.x, Config.WeedLab["enter"].coords.y, Config.WeedLab["enter"].coords.z))
     if dist < 2 then
-		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result.ret then
-				EnterWWarehouse()
-			else
-				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-			end
-		end, {weedkey=1})
+		if Config.KeyRequired then
+			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+				if result.ret then
+					EnterWWarehouse()
+				else
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+				end
+			end, {weedkey=1})
+		else
+			EnterWWarehouse()
+		end
 	end
 end)
 
