@@ -25,6 +25,7 @@ server_scripts {
 	'server/chemicals.lua',
 	'server/lisenceshop.lua',
 	'server/moneywash.lua',
+	'server/versioncheck.lua'
 }
 
 client_scripts {
