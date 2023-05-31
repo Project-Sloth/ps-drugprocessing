@@ -70,7 +70,7 @@ local function SpawnSodiumHydroxideBarrels()
 		local obj = CreateObject(model, weedCoords2.x, weedCoords2.y, weedCoords2.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		SodiumHydroxideBarrels[#SodiumHydroxideBarrels+1] = obj
+		table.insert(SodiumHydroxideBarrels, obj)
 		spawnedSodiumHydroxideBarrels = spawnedSodiumHydroxideBarrels + 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -102,7 +102,7 @@ RegisterNetEvent("ps-drugprocessing:pickSodium", function()
 				SetEntityAsMissionEntity(nearbyObject3, false, true)
 				DeleteObject(nearbyObject3)
 
-				SodiumHydroxideBarrels[nearbyID3] = nil
+				table.remove(SodiumHydroxideBarrels, nearbyID3)
 				spawnedSodiumHydroxideBarrels -= 1
 
 				TriggerServerEvent('ps-drugprocessing:pickedUpSodiumHydroxide')

@@ -146,7 +146,7 @@ local function SpawnCocaPlants()
         local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
         PlaceObjectOnGroundProperly(obj)
         FreezeEntityPosition(obj, true)
-		CocaPlants[#CocaPlants+1] = obj
+		table.insert(CocaPlants, obj)
         spawnedCocaLeaf += 1
     end
 	SetModelAsNoLongerNeeded(model)
@@ -328,7 +328,7 @@ RegisterNetEvent('ps-drugprocessing:pickCocaLeaves', function()
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
 
-				CocaPlants[nearbyID] = nil
+				table.remove(CocaPlants, nearbyID)
 				spawnedCocaLeaf = spawnedCocaLeaf - 1
 
 				TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf')
