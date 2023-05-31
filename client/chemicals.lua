@@ -117,7 +117,7 @@ local function SpawnChemicals()
 		local obj = CreateObject(model, chemicalsCoords.x, chemicalsCoords.y, chemicalsCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		Chemicals[#Chemicals+1] = obj
+		table.insert(Chemicals, obj)
 		SpawnedChemicals += 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -318,7 +318,7 @@ RegisterNetEvent("ps-drugprocessing:pickChemicals", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			Chemicals[nearbyID] = nil
+			table.remove(Chemicals, nearbyID)
 			SpawnedChemicals -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpChemicals')
