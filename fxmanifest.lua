@@ -23,8 +23,6 @@ server_scripts {
 	'server/weed.lua',
 	'server/heroin.lua',
 	'server/chemicals.lua',
-	'server/lisenceshop.lua',
-	'server/moneywash.lua',
 	'server/versioncheck.lua'
 }
 
