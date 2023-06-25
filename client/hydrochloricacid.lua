@@ -71,7 +71,7 @@ local function SpawnHydrochloricAcidBarrels()
 		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		HydrochloricAcidBarrels[#HydrochloricAcidBarrels+1] = obj
+		table.insert(HydrochloricAcidBarrels, obj)
 		spawnedHydrochloricAcidBarrels = spawnedHydrochloricAcidBarrels + 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -101,7 +101,7 @@ RegisterNetEvent("ps-drugprocessing:client:hydrochloricacid", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			HydrochloricAcidBarrels[nearbyID] = nil
+			table.remove(HydrochloricAcidBarrels, nearbyID)
 			spawnedHydrochloricAcidBarrels -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpHydrochloricAcid')

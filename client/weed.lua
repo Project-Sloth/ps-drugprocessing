@@ -113,7 +113,7 @@ local function SpawnWeedPlants()
 		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		weedPlants[#weedPlants+1] = obj
+		table.insert(weedPlants, obj)
 		spawnedWeeds += 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -260,7 +260,7 @@ RegisterNetEvent("ps-drugprocessing:pickWeed", function()
 				ClearPedTasks(PlayerPedId())
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
-				weedPlants[nearbyID] = nil
+				table.remove(weedPlants, nearbyID)
 				spawnedWeeds -= 1
 				TriggerServerEvent('ps-drugprocessing:pickedUpCannabis')
 				isPickingUp = false

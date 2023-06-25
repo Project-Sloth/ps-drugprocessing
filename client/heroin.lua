@@ -70,7 +70,7 @@ local function SpawnPoppyPlants()
 		local obj = CreateObject(model, heroinCoords.x, heroinCoords.y, heroinCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		PoppyPlants[#PoppyPlants+1] = obj
+		table.insert(PoppyPlants, obj)
 		spawnedPoppys += 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -158,7 +158,7 @@ RegisterNetEvent("ps-drugprocessing:pickHeroin", function()
 			SetEntityAsMissionEntity(nearbyObject, false, true)
 			DeleteObject(nearbyObject)
 
-			PoppyPlants[nearbyID] = nil
+			table.remove(PoppyPlants, nearbyID)
 			spawnedPoppys -= 1
 
 			TriggerServerEvent('ps-drugprocessing:pickedUpPoppy')

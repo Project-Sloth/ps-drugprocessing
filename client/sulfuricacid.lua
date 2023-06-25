@@ -70,7 +70,7 @@ local function SpawnSulfuricAcidBarrels()
 		local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
 		PlaceObjectOnGroundProperly(obj)
 		FreezeEntityPosition(obj, true)
-		SulfuricAcidBarrels[#SulfuricAcidBarrels+1] = obj
+		table.insert(SulfuricAcidBarrels, obj)
 		spawnedSulfuricAcidBarrels += 1
 	end
 	SetModelAsNoLongerNeeded(model)
@@ -101,7 +101,7 @@ RegisterNetEvent("ps-drugprocessing:pickSulfuric", function()
 				ClearPedTasks(PlayerPedId())
 				SetEntityAsMissionEntity(nearbyObject, false, true)
 				DeleteObject(nearbyObject)
-				SulfuricAcidBarrels[nearbyID] = nil
+				table.remove(SulfuricAcidBarrels, nearbyID)
 				spawnedSulfuricAcidBarrels -= 1
 				TriggerServerEvent('ps-drugprocessing:pickedUpSulfuricAcid')
 				isPickingUp = false
