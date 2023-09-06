@@ -78,6 +78,7 @@ local Translations = {
     },
     target = {
         process_thionyl_chloride = "Process thionyl chloride",
+        process_lsdpro = "Process LSD",
         talk_to_walter = "Talk to Walter",
         talk_to_draco = "Talk to Draco",
         talk_to_charlotte = "Talk to Charlotte",
@@ -99,9 +100,6 @@ local Translations = {
         pickSulfuric = "Pick up sulfur barrel",
         pickChemicals = "Pick up chemical drum",
         hydrochloricacid = "Pick up hydrochloric acid drum",
-    },
-    drawtext = {
-        process_lsd = "~g~E~w~ - Process LSD",
     },
 }
 

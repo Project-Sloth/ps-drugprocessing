@@ -64,35 +64,25 @@ local function Processthionylchloride()
 	end)
 end
 
-CreateThread(function()
-    while true do
-        Wait(0)
-        local playerPed = PlayerPedId()
-        local coords = GetEntityCoords(playerPed)
+RegisterNetEvent('ps-drugprocessing:processingLSD', function()
+	local coords = GetEntityCoords(PlayerPedId(source))
 
-        if #(coords-Config.CircleZones.lsdProcessing.coords) < 2 then
-            if not isProcessing then
-                local pos = GetEntityCoords(PlayerPedId())
-                QBCore.Functions.DrawText3D(pos.x, pos.y, pos.z, Lang:t("drawtext.process_lsd"))
-            end
-            if IsControlJustReleased(0, 38) and not isProcessing then
-				QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-					if result.ret then
-                        Processlsd()
-					else
-						QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-					end
-				end, {lsa = 1, thionyl_chloride = 1})
-            end
-        else
-            Wait(500)
-        end
-    end
+	if #(coords-Config.CircleZones.lsdProcessing.coords) < 2 then
+		if not isProcessing then
+			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+				if result.ret then
+					Processlsd()
+				else
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+				end
+			end, {lsa = 1, thionyl_chloride = 1})
+		end
+	end
 end)
 
 RegisterNetEvent('ps-drugprocessing:processingThiChlo', function()
 	local coords = GetEntityCoords(PlayerPedId(source))
-	
+
 	if #(coords-Config.CircleZones.thionylchlorideProcessing.coords) < 5 then
 		if not isProcessing then
 			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)

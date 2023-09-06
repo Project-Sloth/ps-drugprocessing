@@ -310,6 +310,23 @@ CreateThread(function()
 		},
 	distance = 2.5
 	})
+    exports['qb-target']:AddBoxZone("lsdpro", vector3(1394.62, 3600.84, 38.94), 1, 1, {
+		name="lsdpro",
+		heading= 200.56,
+		debugPoly=false,
+		minZ = 34.94,
+		maxZ = 42.94,
+	},{
+	   options = {
+			{
+				type = "client",
+				event = "ps-drugprocessing:processingLSD",
+				icon = "fas fa-biohazard",
+				label = Lang:t("target.process_lsdpro"),
+			},
+		},
+	distance = 2.5
+	})
     exports['qb-target']:AddBoxZone("heroinproc", vector3(1413.7, -2041.77, 52.0), 1, 1, {
 		name="heroinproc",
 		heading=352.15,
