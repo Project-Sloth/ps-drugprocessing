@@ -1,63 +1,70 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 CreateThread(function()
-    exports['qb-target']:SpawnPed({
-        model = 'a_m_m_hillbilly_02',
-        coords = vector4(-1187.73, -445.27, 43.91, 289.45), 
-        minusOne = true, 
-        freeze = true, 
-        invincible = true, 
-        blockevents = true,
-        target = { 
-            options = {
-                {
-					type = "client",
-					event = "ps-drugprocessing:EnterLab",
-					icon = "fas fa-atom",
-					label = Lang:t("target.talk_to_walter"),
-                }
-            },
-          distance = 2.5,
-        },
-    })
-    exports['qb-target']:SpawnPed({
-        model = 'a_m_m_mlcrisis_01',
-        coords = vector4(812.49, -2399.59, 23.66, 223.1), 
-        minusOne = true, 
-        freeze = true, 
-        invincible = true, 
-        blockevents = true,
-        target = { 
-            options = {
-                {
-					type = "client",
-					event = "ps-drugprocessing:EnterCWarehouse",
-					icon = "fas fa-key",
-					label = Lang:t("target.talk_to_draco"),
-                }
-            },
-          distance = 2.5,
-        },
-    })
-    exports['qb-target']:SpawnPed({
-        model = 'mp_f_weed_01',
-        coords = vector4(102.07, 175.08, 104.59, 159.91),
-        minusOne = true, 
-        freeze = true, 
-        invincible = true, 
-        blockevents = true,
-        target = { 
-            options = {
-                {
-					type = "client",
-					event = "ps-drugprocessing:EnterWWarehouse",
-					icon = "fas fa-key",
-					label = Lang:t("target.talk_to_charlotte"),
-                }
-            },
-          distance = 2.5,
-        },
-    })
+    local peds = {'a_m_m_hillbilly_02','a_m_m_mlcrisis_01','mp_f_weed_01',}
+    for k, v in pairs ( peds) do 
+        RequestModel(v)
+        while not HasModelLoaded(v) do
+            Wait(100)
+        end
+    end
+    local walterloc = vector4(-1187.73, -445.27, 43.91-1, 289.45)
+    local walter = CreatePed(0, 'a_m_m_hillbilly_02',walterloc.x, walterloc.y, walterloc.z, walterloc.w, false, false)
+    FreezeEntityPosition(walter, true)
+    SetEntityInvincible(walter, true)
+    SetBlockingOfNonTemporaryEvents(walter, true)
+    local options = {
+        {
+			type = "client",
+			event = "ps-drugprocessing:EnterLab",
+			icon = "fas fa-atom",
+            distance = 2.0,
+			label = Lang:t("target.talk_to_walter"),
+        }
+    }
+    if Config.OxTarget then
+        exports.ox_target:addLocalEntity(walter, options)
+    else
+	    exports['qb-target']:AddTargetEntity(walter, { options = options, distance = 2.0})
+    end   
+    local dracoloc = vector4(812.49, -2399.59, 23.66-1, 223.1)
+    local draco = CreatePed(0, 'a_m_m_mlcrisis_01',dracoloc.x, dracoloc.y, dracoloc.z, dracoloc.w, false, false)
+    FreezeEntityPosition(draco, true)
+    SetEntityInvincible(draco, true)
+    SetBlockingOfNonTemporaryEvents(draco, true)
+    local options2 = {
+        {
+            type = "client",
+            event = "ps-drugprocessing:EnterCWarehouse",
+            icon = "fas fa-key",
+            label = Lang:t("target.talk_to_draco"),
+            distance = 2.0,
+        }
+    }
+    if Config.OxTarget then
+        exports.ox_target:addLocalEntity(draco, options2)
+    else
+	    exports['qb-target']:AddTargetEntity(draco, { options = options2, distance = 2.0})
+    end  
+    local charlotteloc = vector4(102.07, 175.08, 104.59-1, 159.91)
+    local charlotte = CreatePed(0, 'mp_f_weed_01',charlotteloc.x, charlotteloc.y, charlotteloc.z, charlotteloc.w, false, false)
+    FreezeEntityPosition(charlotte, true)
+    SetEntityInvincible(charlotte, true)
+    SetBlockingOfNonTemporaryEvents(charlotte, true)
+    local options3 = {
+        {
+            type = "client",
+            event = "ps-drugprocessing:EnterWWarehouse",
+            icon = "fas fa-key",
+            label = Lang:t("target.talk_to_charlotte"),
+            distance = 2.0,
+        }
+    }
+    if Config.OxTarget then
+        exports.ox_target:addLocalEntity(charlotte, options3)
+    else
+	    exports['qb-target']:AddTargetEntity(charlotte, { options = options3, distance = 2.0})
+    end
 end)
 
 CreateThread(function()
