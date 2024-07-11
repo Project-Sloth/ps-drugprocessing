@@ -1,7 +1,7 @@
 Config = {}
 
 Config.KeyRequired = true
-
+Config.OxTarget = false
 Config.Delays = {
 	WeedProcessing = 1000 * 10,
 	MethProcessing = 1000 * 10,
