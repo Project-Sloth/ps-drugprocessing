@@ -1,27 +1,10 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-local spawnedCocaLeaf = 0
+
 local CocaPlants = {}
-local isPickingUp, isProcessing, inCokeField = false, false, false
 
-local function LoadAnimationDict(dict)
-    RequestAnimDict(dict)
-    while not HasAnimDictLoaded(dict) do
-        RequestAnimDict(dict)
-        Wait(1)
-    end
-end
-
-local function OpenDoorAnimation()
-    local ped = PlayerPedId()
-    LoadAnimationDict("anim@heists@keycard@") 
-    TaskPlayAnim(ped, "anim@heists@keycard@", "exit", 5.0, 1.0, -1, 16, 0, 0, 0, 0)
-    Wait(400)
-    ClearPedTasks(ped)
-end
 
 local function EnterCWarehouse()
     local ped = PlayerPedId()
-    OpenDoorAnimation()
+    ps.playEmote('openDoor')
     CWarehouse = true
     Wait(500)
     DoScreenFadeOut(250)
@@ -34,7 +17,7 @@ end
 
 local function ExitCWarehouse()
     local ped = PlayerPedId()
-    OpenDoorAnimation()
+    ps.playEmote('openDoor')
     CWarehouse = true
     Wait(500)
     DoScreenFadeOut(250)
@@ -46,300 +29,134 @@ local function ExitCWarehouse()
 	CWarehouse = false
 end
 
-local function ProcessCoke()
-	isProcessing = true
-	local playerPed = PlayerPedId()
-	
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processCocaLeaf')
-
-		local timeLeft = Config.Delays.CokeProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.CokeProcessing.coords) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end)
+-- Target Stuff
+local function spawnTargets()
+	local model = GetHashKey('a_m_m_mlcrisis_01')
+	ps.requestModel(model)
+	local ped = CreatePed(0, model, vector4(812.49, -2399.59, 23.66-1, 223.1), false, true)
+	SetEntityInvincible(ped, true)
+	SetBlockingOfNonTemporaryEvents(ped, true)
+	FreezeEntityPosition(ped, true)
+	ps.entityTarget(ped, {
+		{
+			icon = "fas fa-lock",
+			label = Lang:t("target.coke_lab"),
+			action = function()
+				EnterCWarehouse()
+			end,
+		},
+	})
+	ps.boxTarget("cokeexit", vector3(1088.56, -3187.02, -38.67), {
+		length = 1.0,
+		width = 1.0,
+		height = 1.0,
+		rotation = 223.1,
+	}, {
+		{
+			icon = "fas fa-lock",
+            label = Lang:t("target.keypad"),
+			action = function()
+				ExitCWarehouse()
+			end,
+		},
+	})
+	ps.boxTarget('cokeleafproc', vector3(1086.2, -3194.9, -38.99), {
+		length = 1.0,
+		width = 1.0,
+		height = 1.0,
+		rotation = 223.1,
+	}, {
+		{
+			icon = "fas fa-leaf",
+			label = Lang:t("target.coke_leaf_processing"),
+			action = function()
+				if not ps.progressbar('Processing Coca Leaf', 5000, 'uncuff') then return end
+				TriggerServerEvent('ps-drugprocessing:ProcessCocaFarm')
+			end,
+		},
+	})
+	ps.boxTarget('cokepowderproc', vector3(1092.89, -3195.78, -38.99), {
+		length = 1.0,
+		width = 1.0,
+		height = 1.0,
+		rotation = 223.1,
+	}, {
+		{
+			icon = "fas fa-weight-scale",
+			label = Lang:t("target.cokepowdercut"),
+			action = function()
+				if not ps.progressbar('Processing Coca Powder', 5000, 'uncuff') then return end
+				TriggerServerEvent('ps-drugprocessing:ProcessCocaPowder')
+			end,
+		},
+	})
+	ps.boxTarget('cokebricksproc', vector3(1100.51, -3199.46, -38.93), {
+		length = 1.0,
+		width = 1.0,
+		height = 1.0,
+		rotation = 223.1,
+	}, {
+		{
+			icon = "fas fa-weight-scale",
+			label = Lang:t("target.bagging"),
+			action = function()
+				if not ps.progressbar('Processing Bricks', 5000, 'uncuff') then return end
+				TriggerServerEvent('ps-drugprocessing:processCocaBrick')
+			end,
+		},
+	})
 end
+spawnTargets()
 
+--- Plant Stuff
 
-local function ValidateCocaLeafCoord(plantCoord)
-	local validate = true
-	if spawnedCocaLeaf > 0 then
-		for _, v in pairs(CocaPlants) do
-			if #(plantCoord - GetEntityCoords(v)) < 5 then
-				validate = false
-			end
-		end
-		if not inCokeField then
-			validate = false
-		end
-	end
-	return validate
-end
-
-local function GetCoordZCoke(x, y)
-	local groundCheckHeights = { 1.0, 25.0, 50.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0, 80.0 }
-
-	for i, height in ipairs(groundCheckHeights) do
-		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
-
-		if foundGround then
-			return z
-		end
-	end
-
-	return 77
-end
-
-local function GenerateCocaLeafCoords()
-	while true do
-		Wait(1)
-
-		local weedCoordX, weedCoordY
-
-		math.randomseed(GetGameTimer())
-		local modX = math.random(-35, 35)
-
-		Wait(100)
-
-		math.randomseed(GetGameTimer())
-		local modY = math.random(-35, 35)
-
-		weedCoordX = Config.CircleZones.CokeField.coords.x + modX
-		weedCoordY = Config.CircleZones.CokeField.coords.y + modY
-
-		local coordZ = GetCoordZCoke(weedCoordX, weedCoordY)
-		local coord = vector3(weedCoordX, weedCoordY, coordZ)
-
-		if ValidateCocaLeafCoord(coord) then
-			return coord
-		end
-	end
-end
-
-local function SpawnCocaPlants()
-	local model = `h4_prop_bush_cocaplant_01`
-    while spawnedCocaLeaf < 15 do
-        Wait(0)
-        local weedCoords = GenerateCocaLeafCoords()
-        RequestModel(model)
-        while not HasModelLoaded(model) do
-            Wait(100)
-        end
-        local obj = CreateObject(model, weedCoords.x, weedCoords.y, weedCoords.z, false, true, false)
-        PlaceObjectOnGroundProperly(obj)
-        FreezeEntityPosition(obj, true)
-		table.insert(CocaPlants, obj)
-        spawnedCocaLeaf += 1
-    end
-	SetModelAsNoLongerNeeded(model)
-end
-
-
-local function CutCokePowder()
-	isProcessing = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processCocaPowder')
-
-		local timeLeft = Config.Delays.CokeProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.CokeProcessing.coords) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end)
-end
-
-local function ProcessBricks()
-	isProcessing = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.packing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processCocaBrick')
-
-		local timeLeft = Config.Delays.CokeProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.CokeBrick.coords) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end)
-end
-
-RegisterNetEvent('ps-drugprocessing:ProcessCocaFarm', function()
-	local coords = GetEntityCoords(PlayerPedId())
-
-	if #(coords-Config.CircleZones.CokeProcessing.coords) < 5 then
-		if not isProcessing then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					ProcessCoke()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {coca_leaf = Config.CokeProcessing.CokeLeaf, trimming_scissors = 1})
+CreateThread(function()
+	for k,v in pairs (GlobalState.psCoke) do
+		if not v.taken then 
+			local model = GetHashKey(v.model)
+			ps.requestModel(model)
+			CocaPlants[k] = CreateObject(model, v.loc.x, v.loc.y, v.loc.z, false, true, false)
+			PlaceObjectOnGroundProperly(CocaPlants[k])
+			FreezeEntityPosition(CocaPlants[k], true)
+			SetEntityAsMissionEntity(CocaPlants[k], true, true)
+			ps.entityTarget(CocaPlants[k], {
+				{
+					icon = "fas fa-seedling",
+					label = Lang:t("coke.pick_coca_leaf"),
+					action = function()
+						if not ps.progressbar('Picking Coca Leaf', 5000, 'uncuff') then return end
+						TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf', k)
+					end,
+				},
+			})
 		end
 	end
 end)
 
-RegisterNetEvent('ps-drugprocessing:ProcessCocaPowder', function()
-	local coords = GetEntityCoords(PlayerPedId())
-	local amount = 10
-	local amount2 = 5
-	
-	if #(coords-Config.CircleZones.CokePowder.coords) < 5 then
-		if not isProcessing then
-			local check = {
-				coke = Config.CokeProcessing.Coke,
-				bakingsoda = Config.CokeProcessing.BakingSoda,
-				finescale = 1
-			}
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					CutCokePowder()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, check)
-		else
-			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
-		end
+RegisterNetEvent('ps-drugprocessing:removeCocaLeaf', function(location)
+	if CocaPlants[location] then
+		SetEntityAsMissionEntity(CocaPlants[location], false, true)
+		DeleteObject(CocaPlants[location])
 	end
 end)
 
-RegisterNetEvent('ps-drugprocessing:ProcessBricks', function()
-	local coords = GetEntityCoords(PlayerPedId(source))
-	local amount = 4
-	
-	if #(coords-Config.CircleZones.CokeBrick.coords) < 5 then
-		if not isProcessing then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					ProcessBricks()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {coke_small_brick = Config.CokeProcessing.SmallBrick, finescale = 1})
-		else
-			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
-		end
-	end
-end)
-
-RegisterNetEvent('ps-drugprocessing:EnterCWarehouse', function()
-	local ped = PlayerPedId()
-	local pos = GetEntityCoords(ped)
-    local dist = #(pos - vector3(Config.CokeLab["enter"].coords.x, Config.CokeLab["enter"].coords.y, Config.CokeLab["enter"].coords.z))
-    if dist < 2 then
-		if Config.KeyRequired then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					EnterCWarehouse()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, { cocainekey = 1 } )
-		else
-			EnterCWarehouse()
-		end
-	end
-end)
-
-RegisterNetEvent('ps-drugprocessing:ExitCWarehouse', function()
-	local ped = PlayerPedId()
-	local pos = GetEntityCoords(ped)
-    local dist = #(pos - vector3(Config.CokeLab["exit"].coords.x, Config.CokeLab["exit"].coords.y, Config.CokeLab["exit"].coords.z))
-    if dist < 2 then
-		ExitCWarehouse()
-	end
-end)
-
-RegisterNetEvent('ps-drugprocessing:pickCocaLeaves', function()
-	local playerPed = PlayerPedId()
-	local coords = GetEntityCoords(playerPed)
-	local nearbyObject, nearbyID
-
-	for i=1, #CocaPlants, 1 do
-		if #(coords - GetEntityCoords(CocaPlants[i])) < 2 then
-			nearbyObject, nearbyID = CocaPlants[i], i
-		end
-	end
-
-	if nearbyObject and IsPedOnFoot(playerPed) then
-		if not isPickingUp then
-			isPickingUp = true
-			TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-			QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
-				disableMovement = true,
-				disableCarMovement = true,
-				disableMouse = false,
-				disableCombat = true,
-			}, {}, {}, {}, function() -- Done
-				ClearPedTasks(playerPed)
-				SetEntityAsMissionEntity(nearbyObject, false, true)
-				DeleteObject(nearbyObject)
-
-				table.remove(CocaPlants, nearbyID)
-				spawnedCocaLeaf = spawnedCocaLeaf - 1
-
-				TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf')
-				isPickingUp = false
-			end, function()
-				ClearPedTasks(playerPed)
-				isPickingUp = false
-			end)
-		end
-	end
-
+RegisterNetEvent('ps-drugprocessing:addCocaLeaf', function(location)
+	local model = GetHashKey(GlobalState.psCoke[location].model)
+	ps.requestModel(model)
+	CocaPlants[location] = CreateObject(model, GlobalState.psCoke[location].loc.x, GlobalState.psCoke[location].loc.y, GlobalState.psCoke[location].loc.z, false, true, false)
+	PlaceObjectOnGroundProperly(CocaPlants[location])
+	FreezeEntityPosition(CocaPlants[location], true)
+	SetEntityAsMissionEntity(CocaPlants[location], true, true)
+	ps.entityTarget(CocaPlants[location], {
+		{
+			icon = "fas fa-seedling",
+			label = Lang:t("coke.pick_coca_leaf"),
+			action = function()
+				if not ps.progressbar('Picking Coca Leaf', 5000, 'uncuff') then return end
+				TriggerServerEvent('ps-drugprocessing:pickedUpCocaLeaf', location)
+			end,
+		},
+	})
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -349,29 +166,4 @@ AddEventHandler('onResourceStop', function(resource)
 			DeleteObject(v)
 		end
 	end
-end)
-
-RegisterCommand('propfix', function()
-    for _, v in pairs(GetGamePool('CObject')) do
-        if IsEntityAttachedToEntity(PlayerPedId(), v) then
-            SetEntityAsMissionEntity(v, true, true)
-            DeleteObject(v)
-            DeleteEntity(v)
-        end
-    end
-end)
-
-CreateThread(function()
-	local cokeZone = CircleZone:Create(Config.CircleZones.CokeField.coords, 10.0, {
-		name = "ps-cokezone",
-		debugPoly = false
-	})
-	cokeZone:onPlayerInOut(function(isPointInside, point, zone)
-        if isPointInside then
-            inCokeField = true
-            SpawnCocaPlants()
-        else
-            inCokeField = false
-        end
-    end)
 end)

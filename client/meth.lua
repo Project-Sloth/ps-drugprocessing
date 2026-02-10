@@ -1,150 +1,7 @@
-local  isProcessing, isTempChangeU, isTempChangeD, isBagging = false, false, false, false
-local Methlab = false
-local QBCore = exports['qb-core']:GetCoreObject()
-
-local function ProcessChemicals()
-	isProcessing = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processChemicals')
-
-		local timeLeft = Config.Delays.MethProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.MethProcessing.coords) > 2 then
-				QBCore.Functions.Notify(Lang:t("error.too_far"), "error")
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end)
-end
-
-local function ProcessTempUp()
-	isTempChangeU = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.temp_up"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processTempUp')
-
-		local timeLeft = Config.Delays.MethProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.MethTemp.coords) > 2 then
-				QBCore.Functions.Notify(Lang:t("error.too_far"), "error")
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isTempChangeU = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isTempChangeU = false
-	end)
-end
-
-local function ProcessTempDown()
-	isTempChangeD = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.temp_down"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processTempDown')
-
-		local timeLeft = Config.Delays.MethProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.MethTemp.coords) > 2 then
-				QBCore.Functions.Notify(Lang:t("error.too_far"), "error")
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isTempChangeD = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isTempChangeD = false
-	end)
-end
-
-local function ProcessProduct()
-	isBagging = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.packing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processMeth')
-
-		local timeLeft = Config.Delays.MethProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.MethBag.coords) > 2 then
-				QBCore.Functions.Notify(Lang:t("error.too_far"), "error")
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isBagging = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isBagging = false
-	end)
-end
-
-local function LoadAnimationDict(dict)
-    RequestAnimDict(dict)
-    while not HasAnimDictLoaded(dict) do
-        RequestAnimDict(dict)
-        Wait(1)
-    end
-end
-
-local function OpenDoorAnimation()
-    local ped = PlayerPedId()
-    LoadAnimationDict("anim@heists@keycard@") 
-    TaskPlayAnim(ped, "anim@heists@keycard@", "exit", 5.0, 1.0, -1, 16, 0, 0, 0, 0)
-    Wait(400)
-    ClearPedTasks(ped)
-end
 
 local function EnterMethlab()
     local ped = PlayerPedId()
-    OpenDoorAnimation()
+    ps.playEmote('openDoor')
     Methlab = true
     Wait(500)
     DoScreenFadeOut(250)
@@ -157,16 +14,8 @@ end
 
 local function ExitMethlab()
     local ped = PlayerPedId()
-    local dict = "mp_heists@keypad@"
-    local keypad = {coords = {x = 969.04, y = -146.17, z = -46.4, h = 94.5, r = 1.0}}
-    SetEntityCoords(ped, keypad.coords.x, keypad.coords.y, keypad.coords.z - 0.98)
-    SetEntityHeading(ped, keypad.coords.h)
-	Methlab = true
-    LoadAnimationDict(dict) 
-    TaskPlayAnim(ped, "mp_heists@keypad@", "idle_a", 8.0, 8.0, -1, 0, 0, false, false, false)
-    Wait(2500)
-    TaskPlayAnim(ped, "mp_heists@keypad@", "exit", 2.0, 2.0, -1, 0, 0, false, false, false)
-    Wait(1000)
+	ps.playEmote('openDoor')
+    Wait(500)
     DoScreenFadeOut(250)
     Wait(250)
     SetEntityCoords(ped, Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z - 0.98)
@@ -176,113 +25,113 @@ local function ExitMethlab()
     DoScreenFadeIn(250)
 end
 
-RegisterNetEvent('ps-drugprocessing:ProcessChemicals', function()
-	local coords = GetEntityCoords(PlayerPedId(source))
-	
-	if #(coords-Config.CircleZones.MethProcessing.coords) < 5 then
-		if not isProcessing then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					ProcessChemicals()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {sulfuric_acid = Config.MethProcessing.SulfAcid, hydrochloric_acid = Config.MethProcessing.HydAcid, sodium_hydroxide = Config.MethProcessing.SodHyd})
-		else
-			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
-		end
-	end
-end)
+ps.boxTarget('processChemicals', vector3(978.22, -147.1, -48.53), {
+	length = 1.2,
+	width = 0.5,
+	height = 0.5,
+	rotation = 354.0,
+}, {
+	{
+		icon = "fas fa-temperature-full",
+		label = Lang:t("target.methtempup"),
+		action = function()
+			if not ps.progressbar(Lang:t("progressbar.mixing"), 15000, 'uncuff') then return end
+			TriggerEvent('ps-drugprocessing:processChemicals')
+		end,
+	},
+})
 
-RegisterNetEvent('ps-drugprocessing:ChangeTemp', function()
-	if not isTempChangeU then
-		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result.ret then
-				exports['ps-ui']:Thermite(function(success)
-					if success then
-						QBCore.Functions.Notify(Lang:t("success.temp_up"), 'success')
-						ProcessTempUp()
-					else
-						TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-						TriggerServerEvent('ps-drugprocessing:processFailUp')
-					end
-				end, 10, 5, 3)
-			else
-				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+ps.boxTarget('ChangeTempUp', vector3(982.56, -145.59, -49.0), {
+	length = 1.2,
+	width = 0.5,
+	height = 0.5,
+	rotation = 354.0,
+}, {
+	{
+		icon = "fas fa-temperature-full",
+		label = Lang:t("target.methtempup"),
+		action = function()
+			if not ps.minigame('ps-circle', {amount = 2, speed = 4}) then 
+				TriggerServerEvent('ps-drugprocessing:processFailUp')
+				return
 			end
-		end, {liquidmix = 1})
-	else
-		QBCore.Functions.Notify(Lang:t("error.enough_temp"), 'error')
-	end
-end)
-
-RegisterNetEvent('ps-drugprocessing:ChangeTemp2', function()
-	if not isTempChangeD then
-		QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-			if result.ret then
-				exports['ps-ui']:Thermite(function(success)
-					if success then
-						QBCore.Functions.Notify(Lang:t("success.temp_down"), 'success')
-						ProcessTempDown()
-					else
-						TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-						TriggerServerEvent('ps-drugprocessing:processFailDown')
-					end
-				end, 10, 5, 3)
-			else
-				QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+			if not ps.progressbar(Lang:t("progressbar.temp_up"), 15000, 'uncuff') then return end
+			TriggerEvent('ps-drugprocessing:processTempUp')
+		end,
+	},
+})
+ps.boxTarget('ChangeTempDown', vector3(979.59, -144.14, -49.0), {
+	length = 1.2,
+	width = 0.5,
+	height = 0.5,
+	rotation = 354.0,
+}, {
+	{
+		icon = "fas fa-temperature-empty",
+		label = Lang:t("target.methtempdown"),
+		action = function()
+			if not ps.minigame('ps-circle', {amount = 2, speed = 4}) then
+				TriggerServerEvent('ps-drugprocessing:processFailDown')
+				return
 			end
-		end, {chemicalvapor = 1})
-	else
-		QBCore.Functions.Notify(Lang:t("error.enough_temp"), 'error')
-	end
-end)
+			if not ps.progressbar(Lang:t("progressbar.temp_down"), 15000, 'uncuff') then return end
+			TriggerEvent('ps-drugprocessing:processTempDown')
+		end,
+	},
+})
 
+ps.boxTarget('methProcess', vector3(987.44, -140.5, -49.0), {
+	length = 1.0,
+	width = 1.0,
+	height = 1.0,
+	rotation = 180.0,
+}, {
+	{
+		icon = "fas fa-envira",
+		label = Lang:t("target.methprocess"),
+		action = function()
+			if not ps.progressbar(Lang:t("progressbar.packing"), 15000, 'uncuff') then return end
+			TriggerEvent('ps-drugprocessing:ProcessProduct')
+		end,
+	},
+})
 
-RegisterNetEvent('ps-drugprocessing:ProcessProduct', function()
-	local coords = GetEntityCoords(PlayerPedId(source))
-	
-	if #(coords-Config.CircleZones.MethBag.coords) < 5 then
-		if not isBagging then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					ProcessProduct()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {methtray=1})
-		else
-			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
-		end
-	end
-end)
+ps.boxTarget('exitMeth', vector3(969.04, -146.17, -46.4), {
+	length = 1.0,
+	width = 1.0,
+	height = 1.0,
+	rotation = 180.0,
+}, {
+	{
+		icon = "fas fa-box",
+		label = Lang:t("target.heroinprocess"),
+		action = function()
+			ExitMethlab()
+		end,
+	},
+})
 
-RegisterNetEvent('ps-drugprocessing:EnterLab', function()
-	local ped = PlayerPedId()
-	local pos = GetEntityCoords(ped)
-	local dist = #(pos - vector3(Config.MethLab["enter"].coords.x, Config.MethLab["enter"].coords.y, Config.MethLab["enter"].coords.z))
-	if dist < 2 then
-		if not Methlab then
-			if Config.KeyRequired then
-				QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-					if result.ret then
-						EnterMethlab()
-					else
-						QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-					end
-				end, { methkey = 1 } )
-			else
+CreateThread(function()
+	local model = 'a_m_m_hillbilly_02'
+	ps.requestModel(model)
+	local ped = CreatePed(0, model, vector4(-1187.73, -445.27, 43.91, 289.45), false, true)
+	SetBlockingOfNonTemporaryEvents(ped, true)
+	SetEntityInvincible(ped, true)
+	FreezeEntityPosition(ped, true)
+	ps.entityTarget(ped, {
+		{
+			icon = "fas fa-atom",
+			label = Lang:t("target.talk_to_walter"),
+			action = function()
 				EnterMethlab()
-			end
-		end
-	end
-end)
-
-RegisterNetEvent('ps-drugprocessing:ExitLab', function()
-	local ped = PlayerPedId()
-	local pos = GetEntityCoords(ped)
-    local dist = #(pos - vector3(Config.MethLab["exit"].coords.x, Config.MethLab["exit"].coords.y, Config.MethLab["exit"].coords.z))
-    if dist < 2 then
-		ExitMethlab()
-	end
+			end,
+			canInteract = function()
+				if Config.KeyRequired then
+					return ps.hasKey('methkey')
+				else
+					return true
+				end
+			end,
+		}
+	})
 end)

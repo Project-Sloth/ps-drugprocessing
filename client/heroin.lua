@@ -1,174 +1,69 @@
-local spawnedPoppys = 0
+
 local PoppyPlants = {}
-local isPickingUp, isProcessing, inHeroinField = false, false, false
-local QBCore = exports['qb-core']:GetCoreObject()
 
-local function ValidateHeroinCoord(plantCoord)
-	local validate = true
-	if spawnedPoppys > 0 then
-		for _, v in pairs(PoppyPlants) do
-			if #(plantCoord - GetEntityCoords(v)) < 5 then
-				validate = false
-			end
-		end
-		if not inHeroinField then
-			validate = false
-		end
-	end
-	return validate
-end
+-- targets
+ps.boxTarget("poppyProccess", vector3(1384.9, -2080.61, 52.21), {
+	length = 1.0,
+	width = 1.0,
+	height = 1.0,
+	rotation = 180.0,
+}, {
+	{
+		icon = "fas fa-envira",
+		label = Lang:t("target.heroinprocess"),
+		action = function()
+			if not ps.progressbar('Processing Poppies', 5000, 'uncuff') then return end
+			TriggerServerEvent('ps-drugprocessing:processPoppyResin')
+		end,
+	},
+})
+-- plant spawning
 
-local function GetCoordZHeroin(x, y)
-	local groundCheckHeights = { 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 50.0, 75.0, 100.0, 110.0, 125.0 }
-
-	for i, height in ipairs(groundCheckHeights) do
-		local foundGround, z = GetGroundZFor_3dCoord(x, y, height)
-
-		if foundGround then
-			return z
-		end
-	end
-
-	return 12.64
-end
-
-local function GenerateHeroinCoords()
-	while true do
-		Wait(1)
-
-		local heroinCoordX, heroinCoordY
-
-		math.randomseed(GetGameTimer())
-		local modX = math.random(-60, 60)
-
-		Wait(100)
-
-		math.randomseed(GetGameTimer())
-		local modY = math.random(-60, 60)
-
-		heroinCoordX = Config.CircleZones.HeroinField.coords.x + modX
-		heroinCoordY = Config.CircleZones.HeroinField.coords.y + modY
-
-		local coordZ = GetCoordZHeroin(heroinCoordX, heroinCoordY)
-		local coord = vector3(heroinCoordX, heroinCoordY, coordZ)
-
-		if ValidateHeroinCoord(coord) then
-			return coord
-		end
-	end
-end
-
-local function SpawnPoppyPlants()
-	local model = `prop_plant_01b`
-	while spawnedPoppys < 15 do
-		Wait(0)
-		local heroinCoords = GenerateHeroinCoords()
-		RequestModel(model)
-		while not HasModelLoaded(model) do
-			Wait(100)
-		end
-		local obj = CreateObject(model, heroinCoords.x, heroinCoords.y, heroinCoords.z, false, true, false)
-		PlaceObjectOnGroundProperly(obj)
-		FreezeEntityPosition(obj, true)
-		table.insert(PoppyPlants, obj)
-		spawnedPoppys += 1
-	end
-	SetModelAsNoLongerNeeded(model)
-end
-
-local function ProcessHeroin()
-	isProcessing = true
-	local playerPed = PlayerPedId()
-
-	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
-	QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.processing"), 15000, false, true, {
-		disableMovement = true,
-		disableCarMovement = true,
-		disableMouse = false,
-		disableCombat = true,
-	}, {}, {}, {}, function()
-		TriggerServerEvent('ps-drugprocessing:processPoppyResin')
-
-		local timeLeft = Config.Delays.HeroinProcessing / 1000
-		while timeLeft > 0 do
-			Wait(1000)
-			timeLeft -= 1
-
-			if #(GetEntityCoords(playerPed)-Config.CircleZones.HeroinProcessing.coords) > 4 then
-				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
-				break
-			end
-		end
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end, function()
-		ClearPedTasks(playerPed)
-		isProcessing = false
-	end)
-end
-
-RegisterNetEvent('ps-drugprocessing:ProcessPoppy', function()
-	local coords = GetEntityCoords(PlayerPedId(source))
-	
-	if #(coords-Config.CircleZones.HeroinProcessing.coords) < 5 then
-		if not isProcessing then
-			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-				if result.ret then
-					ProcessHeroin()
-				else
-					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-				end
-			end, {poppyresin = Config.HeroinProcessing.Poppy})
+CreateThread(function()
+	for k, v in pairs (GlobalState.psHeroin) do
+		if not v.taken then 
+			local model = GetHashKey(v.model)
+			ps.requestModel(model)
+			PoppyPlants[k] = CreateObject(model, v.loc.x, v.loc.y, v.loc.z, false, true, false)
+			PlaceObjectOnGroundProperly(PoppyPlants[k])
+			FreezeEntityPosition(PoppyPlants[k], true)
+			ps.entityTarget(PoppyPlants[k], {
+				{
+					icon = "fas fa-seedling",
+					label = Lang:t("heroin.pick_poppy"),
+					action = function()
+						if not ps.progressbar('Picking Poppy', 5000, 'uncuff') then return end
+						TriggerServerEvent('ps-drugprocessing:pickedUpPoppy', k)
+					end,
+				},
+			})
 		end
 	end
 end)
 
-RegisterNetEvent("ps-drugprocessing:processHeroin",function()
-	QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
-		if result.ret then
-			ProcessHeroin()
-		else
-			QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
-		end
-	end, {poppyresin = Config.HeroinProcessing.Poppy})
+RegisterNetEvent('ps-drugprocessing:removePoppy', function(location)
+	if PoppyPlants[location] then
+		SetEntityAsMissionEntity(PoppyPlants[location], false, true)
+		DeleteObject(PoppyPlants[location])
+	end
 end)
 
-
-RegisterNetEvent("ps-drugprocessing:pickHeroin", function()
-	local playerPed = PlayerPedId()
-	local coords = GetEntityCoords(playerPed)
-	local nearbyObject, nearbyID
-
-	for i=1, #PoppyPlants, 1 do
-		if #(coords - GetEntityCoords(PoppyPlants[i])) < 2 then
-			nearbyObject, nearbyID = PoppyPlants[i], i
-		end
-	end
-
-	if nearbyObject and IsPedOnFoot(playerPed) then
-		isPickingUp = true
-		TaskStartScenarioInPlace(playerPed, 'world_human_gardener_plant', 0, false)
-		QBCore.Functions.Progressbar("search_register", Lang:t("progressbar.collecting"), 10000, false, true, {
-			disableMovement = true,
-			disableCarMovement = true,
-			disableMouse = false,
-			disableCombat = true,
-		}, {}, {}, {}, function() -- Done
-			ClearPedTasks(playerPed)
-			SetEntityAsMissionEntity(nearbyObject, false, true)
-			DeleteObject(nearbyObject)
-
-			table.remove(PoppyPlants, nearbyID)
-			spawnedPoppys -= 1
-
-			TriggerServerEvent('ps-drugprocessing:pickedUpPoppy')
-			isPickingUp = false
-
-		end, function()
-			ClearPedTasks(playerPed)
-			isPickingUp = false
-		end)
-	end
+RegisterNetEvent('ps-drugprocessing:addPoppy', function(location)
+	local model = GetHashKey(GlobalState.psHeroin[location].model)
+	ps.requestModel(model)
+	PoppyPlants[location] = CreateObject(model, GlobalState.psHeroin[location].loc.x, GlobalState.psHeroin[location].loc.y, GlobalState.psHeroin[location].loc.z, false, true, false)
+	PlaceObjectOnGroundProperly(PoppyPlants[location])
+	FreezeEntityPosition(PoppyPlants[location], true)
+	ps.entityTarget(PoppyPlants[location], {
+		{
+			icon = "fas fa-seedling",
+			label = Lang:t("heroin.pick_poppy"),
+			action = function()
+				if not ps.progressbar('Picking Poppy', 5000, 'uncuff') then return end
+				TriggerServerEvent('ps-drugprocessing:pickedUpPoppy', location)
+			end,
+		},
+	})
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -180,17 +75,3 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-CreateThread(function()
-	local heroinZone = CircleZone:Create(Config.CircleZones.HeroinField.coords, 50.0, {
-		name = "ps-heroinzone",
-		debugPoly = false
-	})
-	heroinZone:onPlayerInOut(function(isPointInside, point, zone)
-        if isPointInside then
-            inHeroinField = true
-            SpawnPoppyPlants()
-        else
-            inHeroinField = false
-        end
-    end)
-end)

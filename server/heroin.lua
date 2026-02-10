@@ -1,28 +1,47 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+GlobalState.psHeroin = Config.Drugs.heroin
 
-RegisterServerEvent('ps-drugprocessing:pickedUpPoppy', function()
+local function cooldownPoppy(location)
+	if Config.Drugs.heroin[location] then
+		Config.Drugs.heroin[location].taken = true
+		GlobalState.psHeroin = Config.Drugs.heroin
+		TriggerClientEvent('ps-drugprocessing:removePoppy', -1, location)
+		CreateThread(function()
+			Wait(1000 * 10)
+			Config.Drugs.heroin[location].taken = false
+			GlobalState.psHeroin = Config.Drugs.heroin
+			TriggerClientEvent('ps-drugprocessing:addPoppy', -1, location)
+		end)
+	end
+end
+RegisterServerEvent('ps-drugprocessing:pickedUpPoppy', function(location)
 	local src = source
-	local Player = QBCore.Functions.GetPlayer(src)
+	if not ps.checkDistance(src, Config.Drugs.heroin[location].loc, 2.0) then
+		ps.debug(src, Lang:t("error.not_in_range"), "error")
+		return
+	end
+	if Config.Drugs.heroin[location].taken then
+		ps.debug(ps.getPlayerName(src) .. " Tried to Get Poppy at " .. location .. ' but it was set to taken')
+		return
+	end
 
-	if Player.Functions.AddItem("poppyresin", 1) then
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["poppyresin"], "add")
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.poppyresin"), "success")
+	if ps.addItem(src, "poppyresin", 1) then
+		cooldownPoppy(location)
+		ps.notify(src, Lang:t("success.poppyresin"), "success")
 	end
 end)
 
 RegisterServerEvent('ps-drugprocessing:processPoppyResin', function()
 	local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
-	if Player.Functions.RemoveItem('poppyresin', Config.HeroinProcessing.Poppy) then
-		if Player.Functions.AddItem('heroin', 1) then
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['poppyresin'], "remove", Config.HeroinProcessing.Poppy)
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['heroin'], "add")
-			TriggerClientEvent('QBCore:Notify', src, Lang:t("success.heroin"), "success")
-		else
-			Player.Functions.AddItem('poppyresin', 1)
-		end
-	else
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_poppy_resin"), "error")
+	if not ps.checkDistance(src, vector3(1384.9, -2080.61, 52.21), 2.0) then
+		ps.notify(src, Lang:t("error.not_in_range"), "error")
+		return
 	end
+	ps.craftItem(src, {
+		take = {
+			poppyresin = Config.HeroinProcessing.Poppy,
+		},
+		give = {
+			heroin = 1,
+		}
+	})
 end)

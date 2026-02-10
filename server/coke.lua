@@ -1,69 +1,78 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+GlobalState.psCoke = Config.Drugs.coke
 
-RegisterServerEvent('ps-drugprocessing:pickedUpCocaLeaf', function()
+local function cooldownCoke(location)
+	if Config.Drugs.coke[location] then
+		Config.Drugs.coke[location].taken = true
+		GlobalState.psCoke = Config.Drugs.coke
+		TriggerClientEvent('ps-drugprocessing:removeCocaLeaf', -1, location)
+		CreateThread(function()
+			Wait(1000 * 10)
+			Config.Drugs.coke[location].taken = false
+			GlobalState.psCoke = Config.Drugs.coke
+			TriggerClientEvent('ps-drugprocessing:addCocaLeaf', -1, location)
+		end)
+	end
+end
+
+RegisterServerEvent('ps-drugprocessing:pickedUpCocaLeaf', function(location)
 	local src = source
-	local Player = QBCore.Functions.GetPlayer(src)
-
-	if Player.Functions.AddItem("coca_leaf", 1) then 
-		TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["coca_leaf"], "add")
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coca_leaf"), "success")
-	else
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_coca_leaf"), "error")
+	if Config.Drugs.coke[location].taken then
+		ps.debug(ps.getPlayerName(src) .. " Tried to Get coca leaf at " .. location .. ' but it was set to taken')
+		return
+	end
+	if not ps.checkDistance(src, Config.Drugs.coke[location].loc, 2.0) then
+		ps.notify(src, Lang:t("error.not_in_range"), "error")
+		return
+	end
+	if ps.addItem(src, "coca_leaf", 1) then
+		cooldownCoke(location)
+		ps.notify(src, Lang:t("success.coca_leaf"), "success")
 	end
 end)
 
 RegisterServerEvent('ps-drugprocessing:processCocaLeaf', function()
 	local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
-	if Player.Functions.RemoveItem('coca_leaf', Config.CokeProcessing.CokeLeaf) then
-		if Player.Functions.AddItem('coke', Config.CokeProcessing.ProcessCokeLeaf) then
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coca_leaf'], "remove", Config.CokeProcessing.CokeLeaf)
-			TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "add", Config.CokeProcessing.ProcessCokeLeaf)
-			TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke"), "success")
-		else
-			Player.Functions.AddItem('coca_leaf', Config.CokeProcessing.CokeLeaf)
-		end
-	else
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_coca_leaf"), "error")
+	if not ps.checkDistance(src, vector3(1086.2, -3194.9, -38.99), 2.0) then
+		return
 	end
+	ps.craftItem(src, {
+		take = {
+			coca_leaf = Config.CokeProcessing.CokeLeaf,
+		},
+		give = {
+			coke = Config.CokeProcessing.ProcessCokeLeaf,
+		}
+	})
 end)
 
 RegisterServerEvent('ps-drugprocessing:processCocaPowder', function()
 	local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
-	if Player.Functions.RemoveItem('coke', Config.CokeProcessing.Coke) then
-		if Player.Functions.RemoveItem('bakingsoda', Config.CokeProcessing.BakingSoda) then
-			if Player.Functions.AddItem('coke_small_brick', Config.CokeProcessing.SmallCokeBrick) then
-				TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke'], "remove", Config.CokeProcessing.Coke)
-				TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['bakingsoda'], "remove", Config.CokeProcessing.BakingSoda)
-				TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items['coke_small_brick'], "add", Config.CokeProcessing.SmallCokeBrick)
-				TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke_small_brick"), "success")
-			else
-				Player.Functions.AddItem('coke', Config.CokeProcessing.Coke)
-				Player.Functions.AddItem('bakingsoda', Config.CokeProcessing.BakingSoda)
-			end
-		else
-			Player.Functions.AddItem('coke', Config.CokeProcessing.Coke)
-			TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_bakingsoda"), "error")
-		end
-	else
-		TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_cokain"), "error")
+	if not ps.checkDistance(src, vector3(1092.89, -3195.78, -38.99), 2.0) then
+		return
 	end
+	ps.craftItem(src, {
+		take = {
+			coke = Config.CokeProcessing.Coke,
+			bakingsoda = Config.CokeProcessing.BakingSoda,
+		},
+		give = {
+			cokepowder = Config.CokeProcessing.CokePowder,
+		}
+	})
 end)
 
 RegisterServerEvent('ps-drugprocessing:processCocaBrick', function()
 	local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-
-	if Player.Functions.RemoveItem('coke_small_brick', Config.CokeProcessing.SmallBrick) then
-		if Player.Functions.AddItem('coke_brick', Config.CokeProcessing.LargeBrick) then
-			TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['coke_small_brick'], "remove", Config.CokeProcessing.SmallBrick)
-			TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['coke_brick'], "add", Config.CokeProcessing.LargeBrick)
-			TriggerClientEvent('QBCore:Notify', src, Lang:t("success.coke_brick"), "success")
-		else
-			Player.Functions.AddItem('coke_small_brick', Config.CokeProcessing.SmallBrick)
-		end
+    if not ps.checkDistance(src, vector3(1100.51, -3199.46, -38.93), 2.0) then
+		return
 	end
+	ps.craftItem(src, {
+		take = {
+			coke_small_brick = Config.CokeProcessing.SmallBrick,
+		},
+		give = {
+			coke_brick = Config.CokeProcessing.LargeBrick,
+		}
+	})
 end)
